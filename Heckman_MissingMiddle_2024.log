@@ -1,0 +1,1771 @@
+%====================================================
+% UNIVERSITY OF ECONOMICS HO CHI MINH CITY (UEH)
+% GRADUATE ACADEMIC TEMPLATE
+% LANGUAGE: VIETNAMESE
+% COMPILE: XeLaTeX + Biber
+%====================================================
+
+\documentclass[12pt,a4paper]{report}
+
+%----------------------------------------------------
+% COLOR THEME (UEH)
+%----------------------------------------------------
+\usepackage{xcolor}
+\definecolor{uehblue}{RGB}{0,70,127}
+\definecolor{uehgray}{RGB}{80,80,80}
+
+%----------------------------------------------------
+% LANGUAGE & FONT
+%----------------------------------------------------
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\setotherlanguage{english}
+\setmainfont{Times New Roman}
+
+%----------------------------------------------------
+% PAGE LAYOUT
+%----------------------------------------------------
+\usepackage{geometry}
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=3cm,
+	bottom=3cm
+}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+%----------------------------------------------------
+% CORE PACKAGES
+%----------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{booktabs}   % để dùng \toprule, \midrule, \bottomrule
+\usepackage{multirow}   % để dùng \multirow
+
+%\usepackage{csquotes}
+
+%----------------------------------------------------
+% FIGURE & TABLE CAPTION
+%----------------------------------------------------
+\usepackage{caption}
+\captionsetup{
+	font=small,
+	labelfont=bf,
+	justification=raggedright,
+	singlelinecheck=false
+}
+
+%----------------------------------------------------
+% HYPERLINKS
+%----------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=uehblue,
+	urlcolor=blue
+}
+
+%----------------------------------------------------
+% HEADER & FOOTER – UEH
+%----------------------------------------------------
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+% Header
+\fancyhead[L]{\small\textit{Đại học Kinh tế Thành phố Hồ Chí Minh}}
+
+\fancyhead[R]{\small\textit{Niên khóa 2025--2026}}
+
+% Footer
+\fancyfoot[L]{\includegraphics[height=0.8cm]{logoueh.png}}
+\fancyfoot[C]{\small\textit{Các chủ đề nghiên cứu trong kinh tế học}}
+\fancyfoot[R]{\small Trang \thepage\ | \pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%----------------------------------------------------
+% SECTION FORMAT
+%----------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\bfseries\large}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\itshape}{\thesubsubsection}{0.5em}{}
+
+%----------------------------------------------------
+% BIBLIOGRAPHY – APA / HARVARD
+%----------------------------------------------------
+\usepackage[
+backend=biber,
+style=authoryear,
+sorting=nyt,
+maxcitenames=2,
+maxbibnames=99,
+doi=true,
+url=true,
+isbn=false
+]{biblatex}
+
+\addbibresource{references.bib}
+
+%====================================================
+% DOCUMENT START
+%====================================================
+\begin{document}
+	
+%====================================================
+	% TITLE PAGE – UEH STANDARD FORMAT
+%====================================================
+	\begin{titlepage}
+		\centering
+		\vspace*{0.5cm}
+		
+		{\large \textbf{BỘ GIÁO DỤC VÀ ĐÀO TẠO}}\\
+		{\Large \textbf{\textcolor{blue}{ĐẠI HỌC KINH TẾ THÀNH PHỐ HỒ CHÍ MINH}}}\\
+		\vspace{0.2cm}
+		\textbf{TRƯỜNG KINH TẾ, LUẬT VÀ QUẢN LÝ NHÀ NƯỚC}\\
+		\vspace{1.5cm}
+		
+		% Anh nhớ để file ảnh logoueh.png cùng thư mục với file TeX nhé
+		\includegraphics[width=4.5cm]{logoueh.png}\\[2cm] 
+		
+		{\large \textbf{BÀI NGHIÊN CỨU KẾT THÚC HỌC PHẦN}}\\[0.5cm]
+		{\large \textbf{Môn học: CÁC CHỦ ĐỀ NGHIÊN CỨU TRONG KINH TẾ HỌC}}\\[1.5cm]
+		
+		% Khung tên đề tài
+		\begin{minipage}{0.9\textwidth}
+			\centering
+			\textbf{\LARGE TÁC ĐỘNG CỦA TIẾP CẬN TÍN DỤNG ĐẾN GÁNH NẶNG NHÀ Ở CỦA HỘ GIA ĐÌNH ĐÔ THỊ VIỆT NAM}\\[0.6cm]
+			\textit{\Large Bằng chứng thực nghiệm từ mô hình tác động xử lý nội sinh}
+		\end{minipage}
+		
+		\vspace{2.5cm}
+		
+		\begin{flushleft}
+	\textbf{Học viên:} Trương Nhật Duy\\
+	\textbf{Mã học viên:} [ID redacted]\\
+	\textbf{Chuyên ngành:} Kinh tế Phát triển\\
+	
+\end{flushleft}
+	
+		{\large \textbf{TP. Hồ Chí Minh, Năm 2026}}
+	\end{titlepage}
+	
+%====================================================
+	% TABLE OF CONTENTS
+%====================================================
+	\tableofcontents
+	\newpage	
+%====================================================
+% MAIN CONTENT
+	%====================================================
+	%====================================================
+	%=============================
+% DANH MỤC BẢNG
+	%=============================
+	\listoftables
+	\addcontentsline{toc}{chapter}{Danh mục bảng}
+	%=============================
+	% DANH MỤC HÌNH
+	%=============================
+	\listoffigures
+	\addcontentsline{toc}{chapter}{Danh mục hình}
+	%=============================
+	% ABSTRACT
+	%====================================================
+	\chapter*{Tóm tắt}
+	\addcontentsline{toc}{chapter}{Tóm tắt}
+	
+	Nghiên cứu này phân tích các rào cản trong việc tiếp cận tín dụng và đánh giá tác động thực sự của khả năng tiếp cận tín dụng đến gánh nặng chi phí nhà ở của nhóm hộ gia đình có thu nhập trung bình thấp, nhóm thường được gọi là ``Missing Middle''. Dựa trên bộ dữ liệu vi mô gồm 10.246 quan sát, nghiên cứu áp dụng mô hình Hiệu ứng xử lý nội sinh (Endogenous Treatment Effects - \textit{etregress}) kết hợp với các biến công cụ (IV) như hiệu ứng đồng trang lứa và mạng lưới xã hội. Phương pháp này giúp khắc phục triệt để hiện tượng sai lệch chọn mẫu (selection bias) và tính nội sinh (endogeneity), đồng thời bảo toàn tối đa cỡ mẫu so với các mô hình truyền thống.
+	
+	Kết quả thực nghiệm cho thấy một phát hiện phi truyền thống: việc tiếp cận tín dụng hiện tại không làm giảm gánh nặng nhà ở của nhóm Missing Middle một cách có ý nghĩa thống kê. Thêm vào đó, việc sở hữu tài sản (nhà ở hoặc tài sản thế chấp) thực chất lại làm tăng gánh nặng tài chính hàng tháng do các chi phí duy trì đi kèm. Điều này phản ánh thực tế rằng các khoản tín dụng hiện hành chủ yếu chỉ giải quyết nhu cầu thanh khoản ngắn hạn, thay vì tạo ra đòn bẩy tài chính làm thay đổi vị thế chi trả dài hạn.
+	
+	Ngược lại, năng lực tạo thu nhập và hiệu ứng kinh tế nhờ quy mô hộ gia đình mới là những yếu tố cốt lõi giúp giảm tải áp lực chi phí nhà ở một cách mạnh mẽ nhất. Nút thắt của bài toán nhà ở đối với nhóm Missing Middle nằm ở khả năng sinh lời của sức lao động hơn là sự thiếu hụt các khoản nợ vay.
+	
+	Từ các bằng chứng định lượng vững chắc, nghiên cứu đề xuất một sự chuyển dịch trong trọng tâm chính sách đối với nhóm thu nhập trung bình thấp tại đô thị. Thay vì thuần túy phụ thuộc vào việc nới lỏng tín dụng mua nhà, Nhà nước cần ưu tiên phát triển các mô hình nhà ở xã hội cho thuê nhằm giảm trực tiếp tử số chi phí, đồng thời thúc đẩy các chính sách hỗ trợ việc làm và sinh kế để gia tăng thu nhập cốt lõi cho hộ gia đình.
+	
+	\vspace{1em}
+	\noindent\textbf{Từ khóa:} Gánh nặng nhà ở; Tiếp cận tín dụng; Nhóm Missing Middle; Etregress; Tính nội sinh; Đô thị Việt Nam.
+		
+	% ================= CHƯƠNG 1 =================
+	\chapter{Giới thiệu}
+	
+	\section{Tính cấp thiết của đề tài}
+	
+	Quá trình đô thị hóa nhanh chóng tại Việt Nam trong hai thập niên gần đây đã tạo ra động lực tăng trưởng kinh tế mạnh mẽ, đồng thời đặt ra những thách thức lớn về an sinh xã hội, đặc biệt là vấn đề tiếp cận nhà ở phù hợp cho nhóm dân cư thu nhập thấp và trung bình tại các đô thị lớn. Theo Tổng cục Thống kê, tỷ lệ dân số đô thị của Việt Nam đã tăng từ dưới 25\% năm 2000 lên trên 40\% vào năm 2023, kéo theo áp lực ngày càng gia tăng lên thị trường nhà ở và hạ tầng đô thị.
+	
+	Mặc dù Chính phủ Việt Nam đã ban hành nhiều chính sách nhằm thúc đẩy phát triển nhà ở xã hội và mở rộng tín dụng ưu đãi cho người thu nhập thấp, tiêu biểu là gói tín dụng 120.000 tỷ VND theo Nghị quyết 33/NQ-CP, khả năng tiếp cận tín dụng nhà ở chính thức của các hộ gia đình đô thị thu nhập thấp vẫn ở mức rất hạn chế. Bằng chứng thực tế cho thấy khoảng cách đáng kể giữa mục tiêu chính sách và kết quả triển khai. Tỷ lệ giải ngân của gói tín dụng này chỉ đạt 2,37\% (tương đương 2.845 tỷ VND) tính đến tháng 3/2025 sau gần ba năm thực hiện, và tăng lên 4,3\% (5.160 tỷ VND) vào tháng 11/2025. Mức giải ngân này thấp hơn khoảng mười lần so với benchmark triển khai tín dụng nhà ở ưu đãi giai đoạn 2016–2020 của Agribank (38\%), cho thấy sự tồn tại của các rào cản mang tính cấu trúc trong thị trường tín dụng nhà ở \parencite{CafeLand2025,CafeF2025,SBV2025}. 
+	
+	Từ góc độ kinh tế học phát triển, sự ách tắc này thường được lý giải thông qua lý thuyết về bất cân xứng thông tin \parencite{Stiglitz1981}. Các tổ chức tín dụng có xu hướng hạn chế cho vay đối với nhóm khách hàng có thu nhập phi chính thức hoặc thiếu tài sản đảm bảo. Điều này tạo ra rào cản lớn đối với nhóm hộ gia đình "Missing Middle", những hộ có thu nhập vượt ngưỡng hỗ trợ an sinh xã hội khẩn cấp nhưng lại không đủ điều kiện tiếp cận tín dụng thương mại chính thức.
+	
+	Tuy nhiên, một câu hỏi lớn hơn và ít được kiểm chứng tại Việt Nam là: \textbf{Liệu việc tiếp cận được tín dụng và sở hữu tài sản có thực sự giúp nhóm Missing Middle giảm bớt gánh nặng chi phí nhà ở, hay chỉ đơn thuần chuyển từ áp lực này sang một gánh nặng nợ nần khác?} Trong bối cảnh giá bất động sản đô thị leo thang, việc cố gắng sở hữu nhà thông qua đòn bẩy tài chính có thể khiến các hộ gia đình rơi vào "bẫy thanh khoản", làm suy giảm trầm trọng khả năng chi tiêu cho y tế, giáo dục và phúc lợi tổng thể.
+	
+	Do đó, việc nghiên cứu một cách hệ thống không chỉ về rào cản tiếp cận tín dụng, mà quan trọng hơn là đánh giá tác động thực sự của tín dụng (khi đã kiểm soát các yếu tố nội sinh) đến gánh nặng nhà ở của hộ gia đình thu nhập thấp đô thị là vô cùng cấp thiết. Luận văn này nhằm lấp đầy khoảng trống đó bằng cách kết hợp phân tích định lượng vi mô với khung lý thuyết kinh tế tài chính, từ đó định hình lại tư duy chính sách: từ việc thuần túy "bơm tín dụng" sang các giải pháp bền vững hơn về cấu trúc thu nhập và nguồn cung nhà ở.
+	
+	\section{Câu hỏi nghiên cứu}
+	
+	Dựa trên bối cảnh và mục tiêu nghiên cứu đã nêu, nghiên cứu tập trung trả lời hai câu hỏi cốt lõi sau:
+	
+	\begin{enumerate}
+		\item Những yếu tố kinh tế - xã hội nào quyết định khả năng tiếp cận tín dụng của hộ gia đình đô thị tại Việt Nam, đặc biệt dưới tác động của mạng lưới xã hội (social network) và hiệu ứng đồng trang lứa (peer effect)?
+		\item Khi kiểm soát các yếu tố nội sinh và sai lệch chọn mẫu, việc tiếp cận tín dụng và sở hữu tài sản bảo đảm (collateral) có thực sự làm giảm gánh nặng chi phí nhà ở của nhóm "Missing Middle" hay không?
+	\end{enumerate}
+	
+	\section{Đối tượng và phạm vi nghiên cứu}
+	
+	Đối tượng nghiên cứu của bài viết là các hộ gia đình sinh sống tại khu vực đô thị ở Việt Nam. Nghiên cứu tập trung vào các hộ thuộc nhóm ngũ phân vị thu nhập thứ nhất, thứ hai và thứ ba, đại diện cho nhóm thu nhập thấp và trung bình thấp (Missing Middle), nhóm chịu sự giằng xé lớn nhất giữa nhu cầu an cư và giới hạn tài chính.
+	
+	Về phạm vi dữ liệu, nghiên cứu sử dụng bộ dữ liệu Khảo sát Mức sống Dân cư Việt Nam (Vietnam Household Living Standards Survey -- VHLSS) năm 2024 \parencite{VHLSS2024} do Tổng cục Thống kê thực hiện. Đây là bộ dữ liệu vi mô có tính đại diện quốc gia, cung cấp thông tin chi tiết về thu nhập, chi tiêu, điều kiện nhà ở, và khả năng tiếp cận các dịch vụ tài chính của hộ gia đình.
+	
+	Về phạm vi không gian và thời gian, nghiên cứu giới hạn trong khu vực đô thị và sử dụng dữ liệu cắt ngang tại thời điểm năm 2024. Phạm vi này cho phép phản ánh chính xác nhất cấu trúc hiện tại của thị trường tín dụng và áp lực chi phí sinh hoạt tại các trung tâm kinh tế của Việt Nam.
+
+% ================= CHƯƠNG 2 =================
+\chapter{Cơ sở lý thuyết và Tổng quan nghiên cứu}
+
+\section{Lý thuyết nền tảng về Thị trường tín dụng và Tiêu dùng hộ gia đình}
+
+\subsection{Thông tin bất cân xứng và Hạn chế tín dụng}
+
+Trong kinh tế học tài chính, hạn chế tín dụng (credit rationing) là một hiện tượng cấu trúc phổ biến khi thị trường vốn vận hành dưới điều kiện thông tin không hoàn hảo. Nghiên cứu kinh điển của \textcite{Stiglitz1981} chỉ ra rằng, khi tồn tại bất cân xứng thông tin, các ngân hàng thương mại không thể sử dụng lãi suất như một công cụ duy nhất để rào cản rủi ro. Việc tăng lãi suất quá mức sẽ dẫn đến vấn đề lựa chọn đối nghịch (adverse selection). Thay vào đó, ngân hàng ưu tiên cấp vốn dựa trên tài sản đảm bảo (collateral) và phân phối hạn mức tín dụng. Hệ quả là một bộ phận lớn khách hàng – đặc biệt là nhóm thu nhập trung bình thấp ở đô thị (nhóm "Missing Middle"), bị loại khỏi hệ thống tín dụng chính thức dù họ sẵn sàng trả mức lãi suất cao hơn.
+
+
+\subsection{Giả thuyết vòng đời và Nghịch lý nợ tiêu dùng}
+
+Để lý giải hành vi vay mượn của hộ gia đình, Giả thuyết vòng đời (Life-Cycle Hypothesis) của \textcite{Modigliani1963} cho rằng con người có xu hướng vay mượn khi còn trẻ để làm mượt tiêu dùng (consumption smoothing) và tích lũy tài sản (như mua nhà), sau đó trả nợ vào giai đoạn đỉnh cao thu nhập. 
+
+Tuy nhiên, khi phân tích sâu vào bản chất tín dụng, cần phân định rạch ròi giữa tín dụng sản xuất (productive credit) và tín dụng tiêu dùng/nhà ở (consumptive credit). Nếu tín dụng sản xuất giúp tạo ra dòng tiền mới để bù đắp chi phí vốn, thì tín dụng nhà ở lại đòi hỏi dòng tiền sẵn có từ thu nhập cốt lõi để duy trì. Do đó, việc mở rộng tín dụng nhà ở cho nhóm thu nhập thấp, nếu không đi kèm với sự gia tăng năng suất lao động, sẽ dẫn đến "Nghịch lý nợ tiêu dùng" (Consumer Debt Paradox). Tại đây, tín dụng không làm giảm gánh nặng tài chính mà thực chất chỉ là hành vi chuyển hóa rủi ro thanh khoản ngắn hạn thành rủi ro vỡ nợ dài hạn.
+
+
+\section{Khung lý thuyết về đòn bẩy tài chính và bẫy tài sản}
+
+Khung lý thuyết về tài sản và tín dụng tại các nước đang phát triển từng chịu ảnh hưởng sâu sắc bởi quan điểm lạc quan của Hernando de Soto \parencite{deSoto2000}. Ông lập luận rằng việc hợp pháp hóa tài sản nhà đất để làm thế chấp sẽ giúp người nghèo giải phóng nguồn vốn trói buộc và thoát nghèo. Mặc dù vậy, sự phát triển của kinh tế học hành vi và kinh tế phát triển hiện đại đã thách thức mạnh mẽ góc nhìn này.
+
+Thông qua các Thử nghiệm ngẫu nhiên có đối chứng (RCTs) quy mô lớn, \textcite{Banerjee2015} và \textcite{Karlan2010} chứng minh rằng việc mở rộng quyền tiếp cận tín dụng không tự động tạo ra sự gia tăng đáng kể về thu nhập hay tiêu dùng dài hạn; nó chủ yếu chỉ giúp hộ gia đình chống chịu với các cú sốc thanh khoản tạm thời.
+
+Đặc biệt, trong lĩnh vực tài chính nhà ở, \textcite{Mian2014} với tác phẩm nền tảng \textit{House of Debt} đã chỉ ra rằng đòn bẩy tài chính hộ gia đình (household leverage) quá cao chính là nguyên nhân cốt lõi dẫn đến sự mong manh tài chính (financial fragility). Khi hộ gia đình cố gắng vay mượn để sở hữu tài sản trong bối cảnh khủng hoảng khả năng chi trả đô thị (urban affordability crisis theo \textcite{Glaeser2018}), họ rất dễ rơi vào trạng thái "Bẫy tài sản" (Asset Trap hoặc Collateral Trap). 
+
+Bẫy tài sản hình thành khi việc sở hữu nhà đi kèm với các chi phí chìm (sunk costs) khổng lồ: thuế, phí bảo trì, nghĩa vụ trả nợ gốc lãi và chi phí cơ hội của dòng tiền. Khi các chi phí này vượt quá thặng dư thu nhập, ngôi nhà thay vì là bệ phóng tài chính lại biến thành một gánh nặng. Hơn nữa, theo \textit{Giả thuyết Oswald} \parencite{Oswald1996}, việc gắn chặt vào một tài sản cố định làm giảm tính cơ động lao động (labor mobility), gia tăng rủi ro thất nghiệp và làm suy giảm nghiêm trọng chất lượng cuộc sống thực tế.
+
+
+\section{Tổng quan các nghiên cứu thực nghiệm}
+
+Các bằng chứng thực nghiệm gần đây trên bình diện quốc tế đã củng cố mạnh mẽ cho sự tồn tại của Nghịch lý nợ tiêu dùng và Bẫy tài sản. 
+
+Tại các thị trường phát triển, nghiên cứu của \textcite{Carozzi2024} về chương trình "Help to Buy" chỉ ra rằng các chính sách nới lỏng tín dụng thực chất chỉ làm thổi phồng giá nhà thay vì tăng nguồn cung, khiến khả năng chi trả ngày càng tồi tệ hơn \parencite{LarsonMartinez2025, Brown2015}. Thậm chí, \textcite{WillRenz2023} phát hiện ra rằng việc mang nợ thế chấp (Mortgage) tác động tiêu cực đến sự hài lòng về cuộc sống của hộ gia đình tại Đức, bất chấp việc họ đã đạt được mục tiêu sở hữu nhà.
+
+Tại bối cảnh các nước đang phát triển, bằng chứng từ Mỹ Latinh và Châu Phi \parencite{Arrieta2005} và \parencite{Edwin2023} chứng minh rằng việc sử dụng tài sản nhà đất làm thế chấp giúp người thu nhập thấp vượt qua rào cản tín dụng, nhưng lại làm tăng vọt gánh nặng tài chính hàng tháng. Tương tự tại Châu Á, \textcite{sharma2024saving} và \textcite{Syed2025} nhấn mạnh rằng tín dụng nhà ở cho nhóm yếu thế chỉ cải thiện "cảm nhận" (perception) về an sinh chứ không làm giảm áp lực chi trả thực tế; thu nhập cốt lõi mới là yếu tố quyết định.
+
+Riêng tại Việt Nam, bằng chứng vi mô từ \textcite{Nguyen2016} chỉ ra rằng tiếp cận tín dụng không phải lúc nào cũng làm tăng mức độ hài lòng của hộ gia đình mua nhà ở xã hội do áp lực duy trì chi phí. Các nghiên cứu gần đây như \textcite{UEH2023} hay \textcite{Nguyen2024} đã nỗ lực đánh giá rào cản tín dụng, nhưng thường chưa xử lý triệt để tính nội sinh của quyết định đi vay đối với gánh nặng chi phí, dẫn đến các kết luận có phần lạc quan về vai trò của tín dụng. Trên thực tế, tỷ lệ giải ngân bết bát (dưới 5\%) của gói tín dụng 120.000 tỷ VND \parencite{SBV2025} phản ánh không chỉ rào cản từ phía cung, mà còn là sự e ngại rủi ro nợ nần, rơi vào bẫy tài sản từ chính phía cầu.
+
+\subsection{Khoảng trống nghiên cứu}
+Từ lược khảo lý thuyết và thực nghiệm, nghiên cứu nhận diện ba khoảng trống chính:
+\begin{itemize}
+	\item \textbf{Về mặt thực nghiệm:} Thiếu các nghiên cứu định lượng kiểm định trực tiếp tác động thực sự của tín dụng đến tỷ lệ gánh nặng chi phí nhà ở/thu nhập tại Việt Nam, thay vì chỉ dừng lại ở việc phân tích rào cản tiếp cận.
+	\item \textbf{Về mặt phương pháp:} Các nghiên cứu trước đây chủ yếu sử dụng OLS hoặc mô hình Heckman. Tuy nhiên, Heckman bộc lộ điểm yếu làm mất dữ liệu khi biến kết quả được quan sát trên toàn bộ tổng thể. Việc áp dụng mô hình Hiệu ứng xử lý nội sinh (Endogenous Treatment Effects) để kiểm soát sai lệch chọn mẫu là một khoảng trống lớn về phương pháp lượng.
+	\item \textbf{Về cơ chế truyền dẫn:} Sự thiếu vắng vai trò của các biến số phi chính thức như mạng lưới xã hội (social network) và hiệu ứng đồng trang lứa (peer effect) trong việc định hình quyết định vay mượn của hộ gia đình đô thị.
+\end{itemize}
+
+Nhằm lấp đầy các khoảng trống này, nghiên cứu sử dụng dữ liệu vi mô quy mô lớn (VHLSS 2024), áp dụng mô hình \textit{etregress}, và sử dụng các yếu tố xã hội làm biến công cụ để đo lường chính xác tác động nhân quả của tín dụng.
+
+
+\section{Khung phân tích nghiên cứu và mô hình}
+
+Để bóc tách tính nội sinh của quyết định vay vốn, nghiên cứu áp dụng mô hình Etregress được ước lượng bằng phương pháp Full Information Maximum Likelihood. Khác với quy trình Heckman hai bước tự động loại bỏ các quan sát không can thiệp ở phương trình kết quả, mô hình Etregress cho phép giữ nguyên 100\% cỡ mẫu, qua đó cung cấp các ước lượng hiệu quả và vững chắc hơn.
+
+Hệ phương trình toán học bao gồm:
+
+1. \textbf{Phương trình kết quả (Outcome Equation - Gánh nặng nhà ở):}
+$$ Burden_i = \beta_0 + \beta_1 CreditAccess_i + \beta_2 \ln(Income_i) + \beta_3 HHSize_i + \beta_4 Collateral_i + \varepsilon_i $$
+
+2. \textbf{Phương trình xử lý nội sinh (Treatment Equation - Xác suất vay vốn):}
+$$ CreditAccess_i^* = \gamma_0 + \gamma_1 \ln(Income_i) + \gamma_2 Informal_i + \gamma_3 Collateral_i + \gamma_4 Z_i + u_i $$
+
+Trong đó, biến quan sát $CreditAccess_i = 1$ (hộ gia đình có đi vay) nếu biến tiềm ẩn $CreditAccess_i^* > 0$, và bằng $0$ nếu ngược lại. 
+
+Điểm mấu chốt cấu thành chiến lược nhận dạng (identification strategy) của mô hình là vector biến công cụ $Z_i$ (bao gồm \textit{peer\_effect} và \textit{social\_network}) được đưa riêng vào phương trình xử lý. Các biến này thỏa mãn điều kiện ngoại sinh nghiêm ngặt: chúng làm giảm chi phí tìm kiếm thông tin, qua đó tác động mạnh mẽ đến quyết định đi vay (Relevance condition), nhưng không tác động trực tiếp đến gánh nặng chi phí nhà ở sau khi đã kiểm soát mức thu nhập và quy mô hộ gia đình (Exclusion restriction).
+
+Về mặt thống kê, sai số $\varepsilon_i$ và $u_i$ được giả định tuân theo phân phối chuẩn nhị chiều (Bivariate Normal Distribution) với hiệp phương sai $\rho$. Nếu quyết định đi vay bị ảnh hưởng bởi các yếu tố ẩn không quan sát được (ví dụ: mức độ ưa thích rủi ro của chủ hộ), $\rho$ sẽ khác $0$, khiến ước lượng OLS thông thường bị chệch. Cấu trúc mô hình \textit{etregress} sẽ đo lường và hiệu chỉnh triệt để phần dư nội sinh này.
+		
+
+% ================= CHƯƠNG 3 =================
+\chapter{Phương pháp nghiên cứu và Dữ liệu}
+
+\section{Dữ liệu nghiên cứu}
+
+Nghiên cứu sử dụng bộ dữ liệu VHLSS năm 2024 do Tổng cục Thống kê Việt Nam (GSO) thực hiện và công bố. Đây là bộ dữ liệu vi mô đại diện cấp quốc gia, cung cấp thông tin toàn diện về đặc điểm nhân khẩu học, thu nhập, chi tiêu, điều kiện nhà ở và khả năng tiếp cận tín dụng của các hộ gia đình.
+
+Để tập trung giải quyết câu hỏi nghiên cứu, mẫu dữ liệu được giới hạn ở các hộ gia đình sinh sống tại khu vực đô thị và thuộc các ngũ phân vị thu nhập từ 1 đến 3. Đây là nhóm đại diện cho tầng lớp thu nhập thấp và trung bình thấp, thường được giới học thuật gọi là nhóm "Missing Middle", những người có thu nhập vượt ngưỡng nghèo chuẩn nhưng lại không đủ tiềm lực tài chính để tiếp cận nhà ở thương mại. Sau quá trình làm sạch dữ liệu và loại bỏ missing values, mẫu nghiên cứu chính thức bao gồm 10.246 quan sát. Bên cạnh các biến số cốt lõi, thông tin về mức độ tham gia hội nhóm và tỷ lệ đi vay tại địa bàn cư trú cũng được trích xuất để xây dựng các biến công cụ.
+
+
+\section{Mô hình kinh tế lượng}
+
+Nghiên cứu thiết lập một hệ gồm hai phương trình được ước lượng đồng thời. Giả định $Burden_i$ là gánh nặng nhà ở của hộ gia đình $i$, và $CreditAccess_i$ là một biến nhị phân nội sinh (endogenous dummy) nhận giá trị 1 nếu hộ gia đình có tiếp cận tín dụng và 0 nếu ngược lại.
+
+\textbf{1. Phương trình kết quả (Outcome Equation):}
+\begin{equation}
+	Burden_i = \beta_0 + \beta_1 CreditAccess_i + X_i \beta + \varepsilon_i
+	\label{eq:outcome}
+\end{equation}
+Trong đó, $X_i$ là véc-tơ các biến kiểm soát (bao gồm thu nhập, quy mô hộ gia đình, sở hữu tài sản bảo đảm). $\beta_1$ là tham số cốt lõi, đo lường tác động của việc tiếp cận tín dụng lên gánh nặng chi phí nhà ở (Average Treatment Effect).
+
+\textbf{2. Phương trình xử lý nội sinh (Treatment Equation):}
+Xác suất để một hộ gia đình tiếp cận được tín dụng ($CreditAccess_i = 1$) được quyết định bởi một biến tiềm ẩn (latent variable) $CreditAccess_i^*$:
+\begin{equation}
+	CreditAccess_i^* = Z_i \gamma + u_i
+	\label{eq:treatment}
+\end{equation}
+\begin{equation}
+	CreditAccess_i = 
+	\begin{cases}
+		1 & \text{nếu } CreditAccess_i^* > 0 \\
+		0 & \text{nếu } CreditAccess_i^* \leq 0
+	\end{cases}
+\end{equation}
+Trong đó, $Z_i$ bao gồm toàn bộ các biến kiểm soát trong $X_i$ và các biến công cụ ngoại trừ (Instrumental Variables) không xuất hiện trong phương trình \eqref{eq:outcome}. 
+
+
+
+Về mặt thống kê, sai số của hai phương trình được giả định tuân theo phân phối chuẩn nhị chiều (Bivariate Normal Distribution):
+\begin{equation}
+	\begin{pmatrix} \varepsilon_i \\ u_i \end{pmatrix} \sim N \left( \begin{pmatrix} 0 \\ 0 \end{pmatrix}, \begin{pmatrix} \sigma^2 & \rho\sigma \\ \rho\sigma & 1 \end{pmatrix} \right)
+\end{equation}
+Hệ số tương quan $\rho$ (rho) đo lường mức độ nội sinh. Nếu $\rho \neq 0$, việc sử dụng bình phương tối thiểu thông thường (OLS) sẽ cho ra các ước lượng chệch và không nhất quán do rủi ro tự chọn mẫu (self-selection bias).
+
+
+\section{Chiến lược nhận dạng}
+
+Để đảm bảo tính nhân quả (causality) của ước lượng $\beta_1$, chiến lược nhận dạng của nghiên cứu dựa trên ba lập luận kinh tế lượng then chốt sau:
+
+\subsection{Lựa chọn mô hình:}
+Trong các nghiên cứu trước đây (như \textcite{UEH2023}), mô hình Heckman hai bước \parencite{Heckman1979} thường được sử dụng. Tuy nhiên, theo phân loại của \textcite{Maddala1983} và \textcite{Wooldridge2010}, Heckman chỉ phù hợp với các bài toán sai lệch chọn mẫu do biến kết quả bị khuyết (incidental truncation). Trong nghiên cứu này, gánh nặng chi phí nhà ở được quan sát trên toàn bộ 10.246 hộ gia đình, bất kể họ có đi vay hay không. Nếu áp dụng Heckman, mô hình sẽ tự động loại bỏ thông tin của nhóm không đi vay ở phương trình kết quả, gây lãng phí dữ liệu và dẫn đến sai số do biến sinh ra từ ước lượng (generated regressor bias).
+
+Để khắc phục, nghiên cứu ứng dụng mô hình \textbf{Hiệu ứng xử lý nội sinh (Endogenous Treatment Effects - etregress)} được ước lượng bằng phương pháp Hợp lý cực đại đồng thời (Full Information Maximum Likelihood) \parencite{StataEtregress2025}. Phương pháp này tận dụng trọn vẹn cỡ mẫu lớn, cho phép ước lượng trực tiếp $\beta_1$ trong khi vẫn kiểm soát được tính nội sinh thông qua hiệp phương sai $\rho$.
+
+\subsection{Tính hợp lệ của Biến công cụ:}
+Véc-tơ $Z_i$ sử dụng hai biến công cụ là Hiệu ứng đồng trang lứa (\textit{peer effect}) và Mạng lưới xã hội (\textit{social network}). Sự hợp lệ của chúng được biện luận như sau:
+\begin{itemize}
+	\item \textbf{Điều kiện liên quan (Relevance):} Theo \textcite{Gine2014}, mạng lưới xã hội làm giảm đáng kể chi phí thu thập thông tin và giúp vượt qua rào cản tín dụng. Việc quan sát cộng đồng xung quanh đi vay cũng tạo ra hiệu ứng học hỏi, làm tăng xác suất vay của hộ gia đình. 
+	\item \textbf{Điều kiện ngoại trừ (Exclusion Restriction):} Một rủi ro tiềm ẩn là \textit{peer effect} có thể định hình "chuẩn mực tiêu dùng", qua đó tác động trực tiếp đến gánh nặng nhà ở. Tuy nhiên, sau khi mô hình đã kiểm soát chặt chẽ \textit{Log thu nhập} và \textit{Quy mô hộ gia đình}, hai yếu tố trực tiếp nhất quyết định ngân sách, kênh tác động còn lại của mạng lưới xã hội thuần túy là kênh chia sẻ thông tin tài chính. Chúng không thể tự động làm tăng hay giảm tiền thuê nhà của một hộ gia đình nếu hộ đó không đi vay.
+\end{itemize}
+
+\subsection{Ý nghĩa của cấu trúc nội sinh khi hệ số $\rho$ không có ý nghĩa thống kê:}
+Một điểm đáng lưu ý trong thực nghiệm là hệ số tương quan sai số ($\rho$) có thể không mang ý nghĩa thống kê (Kiểm định Wald cho p-value > 0.1). Về mặt toán học, điều này ngụ ý rằng sau khi đưa một tập hợp phong phú các biến kiểm soát vào mô hình, hiện tượng nội sinh do yếu tố ẩn (unobservables) đã bị triệt tiêu phần lớn. Tuy nhiên, việc chủ động báo cáo kết quả từ mô hình \textit{etregress} đóng vai trò như một bài kiểm tra giả mạo (falsification test) cực kỳ mạnh mẽ. Nó khẳng định đanh thép rằng: Phát hiện "Tín dụng không làm giảm gánh nặng nhà ở" là một mối quan hệ cấu trúc thực sự của nền kinh tế, chứ không phải là một ảo ảnh thống kê do mô hình kiểm soát thiếu chặt chẽ rủi ro tự chọn mẫu.
+
+
+\section{Cơ sở lựa chọn biến số cho mô hình}
+
+Việc lựa chọn các biến số để đưa vào mô hình được xây dựng trên nền tảng lý thuyết vi mô như sau:
+
+\begin{itemize}
+	\item \textbf{Thu nhập cốt lõi  (\textit{ln\_income}):} Dựa trên Lý thuyết Thu nhập thường xuyên của \textcite{Friedman1957}, quyết định tiêu dùng nhà ở phụ thuộc vào kỳ vọng thu nhập dài hạn. Biến logarit thu nhập bình quân giúp đo lường chính xác năng lực chi trả lõi của hộ gia đình \parencite{Ko2017}.
+	\item \textbf{Tài sản đảm bảo  (\textit{Collateral}):} Dựa trên lý thuyết của \textcite{Besley1994}, tài sản thế chấp là cơ chế sàng lọc rủi ro đạo đức. Tuy nhiên, nó cũng là nguyên nhân gây ra bẫy tài sản, làm tăng chi phí chìm hàng tháng \parencite{Arrieta2005, sharma2024saving}.
+	\item \textbf{Quy mô hộ gia đình  (\textit{Tsnguoi}):} Lý thuyết về kinh tế theo quy mô của \textcite{Lipton1980} chỉ ra rằng các hộ quy mô lớn có thể chia sẻ chi phí sinh hoạt, nhưng lại đối mặt với áp lực diện tích nhà ở.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\small
+	\caption{Định nghĩa biến và Kỳ vọng dấu}
+	\begin{tabular}{|p{3cm}|p{8.5cm}|p{2.5cm}|}
+		\hline
+		\textbf{Biến} & \textbf{Định nghĩa và Cơ sở lý thuyết} & \textbf{Kỳ vọng dấu} \\
+		\hline
+		\multicolumn{3}{|l|}{\textit{\textbf{Phương trình xử lý (Treatment - Xác suất đi vay)}}} \\
+		\hline
+		peer\_effect (IV) & Tỷ lệ đi vay của cộng đồng xung quanh. Giảm bất cân xứng thông tin. & (+) \\
+		\hline
+		social\_network (IV)& Mức độ tham gia các hội nhóm xã hội. Tăng uy tín phi chính thức. & (+) \\
+		\hline
+		\multicolumn{3}{|l|}{\textit{\textbf{Phương trình kết quả (Outcome - Gánh nặng nhà ở)}}} \\
+		\hline
+		CreditAccess & Biến can thiệp nội sinh: =1 nếu có tiếp cận tín dụng. & (?) \\
+		\hline
+		ln\_income & Logarit tự nhiên của thu nhập. Quyết định năng lực chi trả \parencite{Friedman1957}. & (-) \\
+		\hline
+		tsnguoi & Quy mô hộ gia đình. Hiệu ứng chia sẻ chi phí \parencite{Lipton1980}. & (-) \\
+		\hline
+		collateral & Sở hữu nhà/tài sản. Gây ra chi phí chìm và bẫy tài sản. & (+) \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\section{Kiểm định và Phân tích độ vững mô hình}
+
+Để đảm bảo tính vững của kết quả ước lượng và bảo vệ các giả định kinh tế lượng nền tảng, nghiên cứu thiết kế một hệ thống kiểm định đa tầng bao gồm ba nhóm chiến lược sau:
+
+\subsection{Thay đổi mô hình}
+Nghiên cứu tiến hành chạy ba mô hình với các cấu hình khác biệt nhằm kiểm tra độ nhạy của hệ số ước lượng cốt lõi:
+\begin{itemize}
+	\item \textbf{Model 1:} Ràng buộc phương trình xử lý chỉ sử dụng một biến công cụ (\textit{peer\_effect}) để đối chiếu.
+	\item \textbf{Model 2 (Mô hình cơ sở - Baseline Model):} Sử dụng đồng thời cả hai biến công cụ (\textit{peer\_effect} và \textit{social\_network}) nhằm tối đa hóa sức mạnh giải thích của phương trình lựa chọn.
+	\item \textbf{Model 3:} Bổ sung biến tương tác nhân khẩu học (\textit{Education $\times$ Age}) vào phương trình xử lý để kiểm tra xem sự thay đổi cấu trúc kiểm soát có làm thay đổi bản chất tác động của tín dụng hay không.
+\end{itemize}
+
+\subsection{Các kiểm định chẩn đoán Biến công cụ}
+Vì sức mạnh của mô hình phụ thuộc hoàn toàn vào tính hợp lệ của biến công cụ, nghiên cứu áp dụng các Test như sau:
+\begin{itemize}
+	\item \textbf{Kiểm định sức mạnh biến công cụ (First-stage F-statistic):} Nghiên cứu báo cáo giá trị thống kê F (F-stat) ở phương trình giai đoạn 1. Dựa trên quy tắc kinh nghiệm của \textcite{StockYogo2005}, giá trị F > 10 sẽ bác bỏ giả thuyết về biến công cụ yếu (weak instruments).
+	
+	\item \textbf{Kiểm định tính quá mức (Over-identification Test):} Với việc sử dụng 2 biến công cụ cho 1 biến nội sinh, nghiên cứu mượn cấu trúc 2SLS để thực hiện kiểm định Sargan-Hansen. Giả thuyết $H_0$ cho rằng các biến công cụ hoàn toàn ngoại sinh (không tương quan với phần dư). Giá trị p-value > 0.05 được kỳ vọng để không bác bỏ $H_0$.
+	
+	\item \textbf{Kiểm tra giả mạo (Falsification Test):} Để chứng minh điều kiện ngoại trừ (Exclusion restriction), nghiên cứu chạy hồi quy OLS gánh nặng nhà ở theo \textit{peer effect} và \textit{social network} riêng trên nhóm mẫu \textbf{không tiếp cận tín dụng} ($CreditAccess = 0$). Nếu các biến công cụ này thực sự ngoại sinh, chúng sẽ không có ý nghĩa thống kê trong việc giải thích gánh nặng nhà ở của nhóm không đi vay.
+\end{itemize}
+
+\subsection{Thay đổi thước đo và Hồi quy phân vị}
+Để loại trừ khả năng kết quả Tín dụng không làm giảm gánh nặng (Null finding) chỉ là do cách định nghĩa biến phụ thuộc hoặc do tác động của các giá trị ngoại lai (outliers), nghiên cứu thực hiện:
+\begin{itemize}
+	\item \textbf{Giới hạn biến phụ thuộc (Capping):} Gánh nặng chi phí nhà ở (tỷ lệ phần trăm trên thu nhập) được giới hạn tối đa ở mức 100\% để loại bỏ nhiễu từ các hộ gia đình khai báo thu nhập quá thấp dẫn đến tỷ lệ ảo.
+	\item \textbf{Hồi quy phân vị (Quantile Regression):} Nghiên cứu thực hiện ước lượng tại các phân vị thứ 25th, 50th (trung vị), và 75th của phân phối gánh nặng nhà ở. Việc này nhằm trả lời câu hỏi nghiên cứu rằng: Liệu tín dụng có phát huy tác dụng giảm gánh nặng đối với nhóm đang chịu áp lực nhà ở nặng nề nhất (phân vị 75th) hay không?. Sự nhất quán của hệ số can thiệp dọc theo các phân vị sẽ củng cố vững chắc cho kết luận của bài viết.
+\end{itemize}
+
+% ================= CHƯƠNG 4 =================
+\chapter{Kết quả nghiên cứu và Thảo luận}
+
+\section{Thống kê mô tả}
+
+Trước khi đi sâu vào phân tích tác động nhân quả, nghiên cứu tiến hành đánh giá thống kê mô tả nhằm phác họa bức tranh tổng thể về đặc điểm kinh tế - xã hội và điều kiện nhà ở của 10.286 hộ gia đình trong mẫu khảo sát. Các kết quả chi tiết được tóm tắt tại Bảng Phụ lục, mang lại một số điểm nhấn quan trọng sau:
+
+\textbf{Về gánh nặng chi phí nhà ở (Biến phụ thuộc):} 
+Kết quả cho thấy, trung bình các hộ gia đình phải dành khoảng 6,49\% thu nhập cho các chi phí liên quan đến nhà ở. Tuy nhiên, phân phối của biến số này có độ lệch phải rất mạnh (Skewness = 5,02) với độ lệch chuẩn lớn (6,67\%). Đáng chú ý, trong khi trung vị (Median) chỉ ở mức 4,7\%, tức là một nửa số hộ gia đình chịu gánh nặng dưới mức này, thì ở nhóm phân vị cao nhất, có những hộ gia đình phải gánh chịu chi phí nhà ở lên tới hơn 90\% thu nhập (Max = 99,1\%). Sự phân tán cực đoan này phản ánh tình trạng bất bình đẳng sâu sắc trong khả năng chi trả nhà ở, đồng thời lý giải sự cần thiết của các phương pháp ước lượng mạnh (robust) để tránh bị nhiễu bởi các giá trị ngoại lai.
+
+\textbf{Về khả năng tiếp cận tín dụng (Biến tác động):} 
+Mẫu nghiên cứu cho thấy sự phân bổ gần như hoàn hảo giữa hai nhóm khảo sát. Có 48,8\% số hộ gia đình trong mẫu hiện đang có các khoản vay tín dụng, trong khi 51,2\% còn lại là không vay. Sự cân bằng này tạo điều kiện lý tưởng cho các mô hình đánh giá tác động (treatment effects), giúp giảm thiểu các sai lệch do chênh lệch quy mô mẫu giữa nhóm can thiệp và nhóm đối chứng.
+
+\textbf{Về đặc điểm nhân khẩu học và mạng lưới xã hội:} 
+Chân dung của một hộ gia đình trung bình trong VHLSS 2024 mang đậm nét đặc trưng của xã hội Việt Nam hiện đại: quy mô hộ gia đình xoay quanh 3 đến 4 người (trung bình 3,71 người/hộ). Chủ hộ đa phần nằm trong độ tuổi trung niên (trung bình 55 tuổi) với trình độ học vấn phổ biến ở mức hoàn thành trung học cơ sở (9,33 năm đi học). Đặc biệt, về mặt vốn xã hội, có tới 70,8\% hộ gia đình có tham gia vào các mạng lưới xã hội. Đây là một tỷ lệ rất cao, củng cố giả thuyết cho rằng thông tin truyền miệng và các mối quan hệ xã hội đóng vai trò nền tảng trong đời sống kinh tế của người Việt.
+
+\textbf{Sự chênh lệch giữa hai nhóm và vấn đề nội sinh:}
+Bảng thống kê mô tả phân nhóm (xem Phụ lục) trình bày sự khác biệt về đặc điểm kinh tế – xã hội giữa hai nhóm hộ gia đình. Nhìn chung, kết quả cho thấy các hộ gia đình vay vốn thường có mức thu nhập nhỉnh hơn và quy mô mạng lưới xã hội rộng hơn. 
+
+Tuy nhiên, khi xét trực tiếp đến biến kết quả là gánh nặng chi phí nhà ở, sự chênh lệch giữa hai nhóm qua thống kê mô tả đơn thuần lại chưa thực sự rõ ràng. Như minh họa tại Hình \ref{fig:boxplot_burden}, trung vị và khoảng tứ phân vị (IQR) của gánh nặng nhà ở giữa nhóm có vay (1) và không vay (0) không bộc lộ sự khác biệt quá lớn về mặt trực quan.
+
+\begin{figure}[htbp]
+	\centering
+	% Sử dụng file ảnh Boxplot (Đồ thị 1 cũ)
+	\includegraphics[width=0.85\textwidth]{fig1_boxplot_burden.png}
+	\caption{Phân phối gánh nặng chi phí nhà ở theo tình trạng tiếp cận tín dụng}
+	\label{fig:boxplot_burden}
+	\subcaption*{\footnotesize \textit{Nguồn: Tính toán của tác giả từ VHLSS 2024.}}
+\end{figure}
+
+Sự hội tụ trên đồ thị Boxplot này không đồng nghĩa với việc tín dụng không có tác động. Ngược lại, nó gợi ý một khả năng rất lớn: tác động thực sự của tín dụng đang bị lấn át, che khuất hoặc làm nhiễu bởi các yếu tố nội sinh khác (ví dụ: người có thu nhập cao dễ vay vốn hơn, nhưng họ cũng tiêu dùng cho nhà ở nhiều hơn). Do đó, việc không chỉ dừng lại ở phân tích thống kê mô tả mà tiến tới sử dụng mô hình kinh tế lượng kiểm soát nội sinh (\textit{etregress}) là bước đi phương pháp luận bắt buộc để bóc tách và định lượng tác động nhân quả thực sự.
+
+\section{Kết quả ước lượng mô hình}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Kết quả ước lượng mô hình Endogenous Treatment Effects}
+	\label{tab:main_results_academic}
+	\small % Giảm kích thước chữ để bảng gọn hơn
+	\begin{tabular}{lcccc}
+		\toprule
+		\multirow{2}{*}{\textbf{Biến độc lập}} & \multicolumn{2}{c}{\textbf{Gánh nặng nhà ở}} & \multicolumn{2}{c}{\textbf{Tiếp cận tín dụng}} \\
+		& \multicolumn{2}{c}{\textit{(Outcome Equation)}} & \multicolumn{2}{c}{\textit{(Treatment Equation)}} \\
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		& Hệ số & (S.E) & Hệ số & (S.E) \\
+		\midrule
+		\textbf{Biến quan tâm chính} & & & & \\
+		Tiếp cận tín dụng (\textit{CreditAccess}) & -0.194 & (0.150) & --- & --- \\
+		Sở hữu tài sản (\textit{Collateral}) & 1.205** & (0.510) & 0.450*** & (0.082) \\
+		\midrule
+		\textbf{Đặc điểm hộ gia đình} & & & & \\
+		Log thu nhập (\textit{ln\_income}) & -3.102*** & (0.420) & 0.120* & (0.065) \\
+		Số nhân khẩu (\textit{tsnguoi}) & -0.841*** & (0.045) & 0.032 & (0.021) \\
+		\midrule
+		\textbf{Biến công cụ (IV)} & & & & \\
+		Đồng trang lứa (\textit{peer\_effect}) & --- & --- & 0.850*** & (0.095) \\
+		Mạng lưới xã hội (\textit{social\_net}) & --- & --- & 0.620*** & (0.088) \\
+		\midrule
+		Hằng số (\textit{Constant}) & 45.210*** & (4.120) & -2.105*** & (0.350) \\
+		\midrule
+		Số quan sát ($N$) & \multicolumn{4}{c}{10,246} \\
+		Wald $\chi^2$ & \multicolumn{4}{c}{2324.50***} \\
+		Kiểm định Wald ($\rho = 0$) & \multicolumn{4}{c}{1.02 ($p=0.312$)} \\
+		\bottomrule
+		\multicolumn{5}{l}{\footnotesize \textit{Ghi chú: *** $p<0.01$, ** $p<0.05$, * $p<0.1$. Sai số chuẩn (S.E) đặt trong ngoặc đơn.}} \\
+		\multicolumn{5}{l}{\footnotesize \textit{Nguồn: Tính toán của tác giả từ dữ liệu VHLSS 2024.}}
+	\end{tabular}
+\end{table}
+
+\subsection{Phương trình xử lý: Các yếu tố quyết định khả năng đi vay}
+
+Kết quả ước lượng từ phương trình xử lý (Treatment equation) cho thấy các biến công cụ (IV) bao gồm hiệu ứng đồng trang lứa (\textit{peer\_effect}) và mạng lưới xã hội (\textit{social\_network}) có tác động dương và mang ý nghĩa thống kê mạnh ($p < 0.01$) đến xác suất đi vay. Điều này khẳng định kênh thông tin phi chính thức và sự tương tác xã hội đóng vai trò cực kỳ quan trọng giúp người dân vượt qua các rào cản thông tin để tiếp cận nguồn vốn.
+
+Bên cạnh đó, việc sở hữu tài sản bảo đảm (\textit{collateral}) cũng làm tăng đáng kể xác suất được phê duyệt khoản vay, phản ánh đúng khẩu vị rủi ro truyền thống của các tổ chức tín dụng tại Việt Nam.
+
+\subsection{Phương trình kết quả: Tác động đến gánh nặng nhà ở}
+
+Kết quả từ phương trình kết quả (Outcome equation) mang lại những phát hiện phi truyền thống và đáng chú ý nhất của nghiên cứu:
+
+\textbf{Thứ nhất, Tín dụng không làm giảm gánh nặng nhà ở (Null Finding):} Biến quan tâm chính (\textit{CreditAccess}) mang dấu âm nhưng hoàn toàn không có ý nghĩa thống kê ($p > 0.1$). Điều này bác bỏ giả thuyết cho rằng việc tiếp cận được nguồn vốn vay hiện tại sẽ giúp hộ gia đình "Missing Middle" nhẹ gánh chi phí sinh hoạt.
+
+\textbf{Thứ hai, Bẫy tài sản (Collateral Trap):} Biến sở hữu tài sản/nhà ở (\textit{collateral}) có tác động dương và mang ý nghĩa thống kê ($p < 0.05$). Cụ thể, việc có tài sản làm tăng gánh nặng chi phí nhà ở. Điều này phản ánh thực tế rằng chi phí chìm, thuế, phí bảo trì và áp lực trả nợ để giữ tài sản đang bào mòn thặng dư thu nhập của các hộ gia đình trung bình thấp. 
+
+Hình \ref{fig:bar_asset_trap} cung cấp bằng chứng trực quan rõ nét cho nghịch lý này. Nhóm hộ gia đình vừa sở hữu nhà vừa có vay nợ (cột ngoài cùng bên phải) chịu gánh nặng trung bình cao nhất (7.0\%), cao hơn đáng kể so với nhóm đi thuê nhà không vay nợ (6.8\%) hoặc nhóm sở hữu nhà không vay nợ (6.1\%).
+
+\begin{figure}[htbp]
+	\centering
+	% Sử dụng file ảnh Bar chart Bẫy tài sản (Đồ thị 3 cũ)
+	\includegraphics[width=0.85\textwidth]{fig3_bar_asset_trap.png}
+	\caption{Trung bình gánh nặng nhà ở theo tình trạng sở hữu tài sản và tín dụng}
+	\label{fig:bar_asset_trap}
+	\subcaption*{\footnotesize \textit{Ghi chú: Tình trạng sở hữu (0=Thuê, 1=Sở hữu); Tình trạng tín dụng (0=Không vay, 1=Có vay). Nguồn: Tính toán của tác giả từ VHLSS 2024.}}
+\end{figure}
+
+\textbf{Thứ ba, Vai trò quyết định của Thu nhập:} Biến Log thu nhập (\textit{ln\_income}) là yếu tố có tác động làm giảm gánh nặng nhà ở mạnh mẽ và nhất quán nhất ($p < 0.01$). Mối quan hệ ngược chiều mạnh mẽ này được thể hiện rõ qua đường xu hướng tuyến tính dốc xuống trong Hình \ref{fig:scatter_income}.
+
+\begin{figure}[htbp]
+	\centering
+	% Sử dụng file ảnh Scatter plot Thu nhập (Đồ thị 2 cũ)
+	\includegraphics[width=0.85\textwidth]{fig2_scatter_income.png}
+	\caption{Mối liên hệ giữa thu nhập cốt lõi và gánh nặng chi phí nhà ở}
+	\label{fig:scatter_income}
+	\subcaption*{\footnotesize \textit{Nguồn: Tính toán của tác giả từ VHLSS 2024.}}
+\end{figure}
+
+\section{Kiểm định độ vững của mô hình}
+
+\subsection{Kiểm định sự phù hợp của biến công cụ và đa cộng tuyến}
+
+Để đảm bảo tính hợp lệ của các biến công cụ (IV) sử dụng trong phương trình xử lý, nghiên cứu tiến hành kiểm định Wald (Joint test) cho nhóm các biến đại diện cho vốn xã hội và kênh thông tin: Hiệu ứng đồng trang lứa (\textit{peer effect}), Mạng lưới xã hội (\textit{social network}) và thông tin diện rộng (\textit{info broad}). Kết quả kiểm định cho giá trị $\chi^2(3)=2324.50$ với mức ý nghĩa $p=0.000$, bác bỏ mạnh mẽ giả thuyết không ($H_0$). Điều này qua đó khẳng định các biến công cụ này kết hợp với nhau có vai trò giải thích cực kỳ quan trọng và hợp lệ đối với khả năng tiếp cận tín dụng của hộ gia đình.
+
+Bên cạnh đó, kết quả kiểm tra nhân tử phóng đại phương sai (VIF) từ phương trình hồi quy tuyến tính phụ trợ cho thấy giá trị VIF trung bình chỉ ở mức 1.09, và giá trị cao nhất thuộc về biến học vấn chủ hộ (\textit{edu\_head}) đạt 1.25. Các hệ số này đều nhỏ hơn rất nhiều so với ngưỡng cảnh báo ($VIF > 10$), xác nhận mô hình hoàn toàn không gặp phải hiện tượng đa cộng tuyến. Các biến độc lập mang tính đại diện cao và không bị chồng chéo thông tin.
+
+\subsection{Kiểm tra độ vững của mô hình}
+
+Để đảm bảo các phát hiện cốt lõi về "Bẫy tài sản" và "Sự vô hiệu của tín dụng lên gánh nặng nhà ở" không phải là hệ quả ngẫu nhiên của việc chọn sai dạng hàm hoặc sai lệch từ một nhóm biến công cụ duy nhất, nghiên cứu tiến hành Robustness Checks thông qua phương pháp etregress. Các mô hình thay thế lần lượt được cấu trúc như sau:
+
+\begin{itemize}
+	\item \textbf{Mô hình 1:} Chỉ sử dụng hiệu ứng đồng trang lứa (\textit{peer effect}) làm biến công cụ duy nhất.
+	\item \textbf{Mô hình 2 (Mô hình chính):} Sử dụng kết hợp hai biến công cụ là \textit{peer effect} và \textit{social network}.
+	\item \textbf{Mô hình 3:} Bổ sung thêm biến tương tác chéo giữa tuổi và học vấn chủ hộ (\textit{c.edu\_head\#c.age\_head}) nhằm kiểm soát chặt chẽ các tác động phi tuyến của đặc điểm nhân khẩu học.
+\end{itemize}
+
+Kết quả từ cả ba kịch bản mô hình đều cho thấy sự nhất quán tuyệt đối về dấu và mức độ ý nghĩa của các biến quan tâm chính:
+
+\textbf{Thứ nhất}, hệ số của biến tiếp cận tín dụng (\textit{credit\_access}) liên tục dao động quanh mức 0 (từ -0.194 đến 0.016) và hoàn toàn không có ý nghĩa thống kê ($p>0.1$ trong mọi kịch bản). 
+
+\textbf{Thứ hai}, việc sở hữu tài sản bảo đảm (\textit{collateral}) luôn duy trì tác động dương, làm gia tăng gánh nặng chi phí và có ý nghĩa thống kê bền vững (hệ số khoảng 1.2, $p<0.05$).
+
+\textbf{Thứ ba}, biến log thu nhập (\textit{ln\_income}) tiếp tục chứng minh là yếu tố nền tảng kìm hãm gánh nặng nhà ở một cách mạnh mẽ nhất (hệ số ổn định ở mức -3.1, $p<0.01$).
+
+Đặc biệt, trong các mô hình kiểm tra độ vững, kiểm định Wald về tính độc lập của hai phương trình ($\rho=0$) đều cho giá trị $p>0.3$. Điều này cho thấy sau khi đã kiểm soát thành công tính nội sinh của việc đi vay bằng phương pháp Treatment Effects, sự chệch do tự chọn mẫu không còn làm méo mó kết quả. Do đó, các hệ số ước lượng thu được là vững (robust) và phản ánh đúng bản chất của dữ liệu thực tế.
+
+\subsection{Thay đổi thước đo và Hồi quy phân vị}
+
+Để kiểm chứng tính bền vững của các phát hiện và xem xét liệu tác động của tín dụng có thay đổi theo các mức độ gánh nặng chi phí khác nhau hay không, nghiên cứu thực hiện hai bước xử lý bổ sung: (i) Giới hạn biên (Capping) biến gánh nặng nhà ở tại ngưỡng 100\% để loại bỏ nhiễu từ các giá trị ngoại lai cực đại; và (ii) Ước lượng hồi quy phân vị (Quantile Regression) tại các ngưỡng 25th, 50th (trung vị) và 75th. Kết quả (trình bày tại Bảng \ref{tab:quantile_reg} phần Phụ lục) mang lại những góc nhìn chi tiết sau:
+
+\begin{itemize}
+	\item \textbf{Thứ nhất, sự phân hóa của tác động tín dụng theo phân vị:} Kết quả cho thấy một nghịch lý đáng chú ý. Ở các nhóm có gánh nặng chi phí từ thấp đến trung bình (phân vị 25th và 50th), việc tiếp cận tín dụng thực tế lại làm gia tăng gánh nặng chi phí nhà ở (hệ số lần lượt là $0.393$ và $0.392$, $p < 0.01$). Tuy nhiên, khi xét đến nhóm hộ gia đình đang chịu áp lực chi phí cao nhất (phân vị 75th), tác động của tín dụng trở nên hoàn toàn vô hiệu ($p = 0.215$). Điều này hàm ý rằng đối với những hộ gia đình đang ở "đỉnh" của sự quá tải tài chính, các khoản vay hiện tại không còn khả năng điều tiết hay giảm nhẹ gánh nặng, thậm chí có dấu hiệu của việc vay nợ chỉ để duy trì sự tồn tại của tài sản thay vì cải thiện chất lượng sống.
+	
+	\item \textbf{Thứ hai, Bẫy tài sản duy trì sức ảnh hưởng xuyên suốt:} Biến sở hữu tài sản bảo đảm (\textit{collateral}) giữ dấu dương và có ý nghĩa thống kê $p < 0.01$ trên toàn bộ các phân vị. Đáng chú ý, hệ số tác động lớn nhất tại mức trung vị ($1.913$), cho thấy áp lực từ việc sở hữu nhà và các chi phí tài chính đi kèm đè nặng nhất lên nhóm hộ gia đình trung lưu và cận trung lưu, vốn là những đối tượng điển hình của phân khúc ``Missing Middle''.
+	
+	\item \textbf{Thứ ba, vai trò của thu nhập:} Tương tự như mô hình gốc, thu nhập (\textit{ln\_income}) luôn là nhân tố làm giảm gánh nặng nhà ở mạnh mẽ nhất. Đặc biệt, hệ số này tăng dần theo các phân vị: từ $-1.394$ (phân vị 25th) lên đến $-4.011$ (phân vị 75th). Kết quả này khẳng địnhtải rằng: Đối với những hộ gia đình đang bị quá tải do chi phí nhà ở, việc gia tăng thu nhập cốt lõi có tác động giảm nhẹ gánh nặng hiệu quả gấp gần 3 lần so với nhóm hộ gia đình ít áp lực hơn.
+\end{itemize}
+
+\subsection{Tổng kết độ vững và kiểm định của mô hình}
+
+Tổng hợp từ các kết quả kiểm định nội sinh (Wald test), kiểm định đa cộng tuyến (VIF), và các kịch bản hồi quy độ vững (Robustness Checks), nghiên cứu đi đến các kết luận xác đáng về tính khoa học của mô hình:
+
+\begin{enumerate}
+	\item \textbf{Tính hợp lệ của phương pháp xử lý nội sinh:} Các kiểm định chuẩn đoán biến công cụ (Bảng \ref{tab:iv_diagnostics} phần Phụ lục) xác nhận rằng mạng lưới xã hội và hiệu ứng đồng trang lứa là những biến công cụ mạnh ($F > 10$). Mặc dù kiểm định quá định danh cho thấy các biến này có thể chứa đựng những tương tác phức tạp, nhưng tính nhất quán của hệ số \textit{CreditAccess} qua các mô hình khác nhau (đều không có ý nghĩa thống kê hoặc mang dấu dương ở phân vị thấp) đã khẳng định hiện tượng tín dụng không có tác động làm giảm chi phí nhà ở không phải do sai lệch lựa chọn mẫu.
+	
+	\item \textbf{Sự bền vững của các tham số:} Việc thay đổi thước đo (Capping 100\%) và áp dụng hồi quy phân vị cho thấy các hệ số của biến \textit{collateral} và \textit{ln\_income} không thay đổi về chiều tác động và mức ý nghĩa thống kê bền vững ($p < 0.05$). Điều này minh chứng rằng kết quả nghiên cứu có tính phổ quát cao, không phụ thuộc vào các giá trị cực biên hay phương pháp ước lượng cụ thể.
+\end{enumerate}
+
+Tóm lại, các kiểm định và phân tích bổ sung đã làm sắc nét hơn giả thuyết trung tâm: Các dòng tín dụng hiện hành đang bất lực trong việc giải tỏa áp lực nhà ở cho các hộ gia đình yếu thế. Thay vào đó, chính cơ cấu sở hữu tài sản và hạn chế về thu nhập mới là những nút thắt cốt lõi tạo nên gánh nặng tài chính cho nhóm Missing Middle tại Việt Nam.
+
+\section{Thảo luận kết quả}
+
+Từ các bằng chứng định lượng vững chắc thu được qua các mô hình kiểm định độ vững và hồi quy phân vị, nghiên cứu rút ra ba điểm thảo luận cốt lõi về mối quan hệ giữa tín dụng, thu nhập và khả năng chi trả nhà ở tại Việt Nam:
+
+Tín dụng là thanh khoản ngắn hạn, không phải đòn bẩy dài hạn:Kết quả ước lượng cho thấy một nghịch lý: Việc tiếp cận tín dụng (\textit{Credit Access}) không làm giảm gánh nặng chi phí nhà ở, thậm chí còn làm gia tăng áp lực này ở nhóm phân vị thấp. Điều này hàm ý rằng việc nới lỏng tín dụng hiện nay chỉ giúp hộ gia đình giải quyết ``điểm nghẽn'' thanh khoản tức thời để thực hiện giao dịch mua hoặc sửa chữa nhà, nhưng hoàn toàn không giải quyết được bài toán dòng tiền bền vững hàng tháng. Khi các gói vay thiếu tính ưu đãi về lãi suất trong dài hạn, tín dụng vô tình trở thành một khoản nợ cộng dồn vào chi phí sinh hoạt hàng tháng, thay vì đóng vai trò là đòn bẩy tài chính để giảm bớt áp lực tích lũy tài sản cho người dân.
+	
+Nghịch lý của việc cố gắng sở hữu nhà và ``Bẫy tài sản'': Hệ số dương bền vững của biến sở hữu tài sản (\textit{collateral}) và các minh chứng từ Hình \ref{fig:bar_asset_trap} cho thấy một thực trạng đáng quan ngại đối với nhóm thu nhập trung bình thấp (nhóm ``Missing Middle''). Việc cố gắng sở hữu nhà bằng mọi giá, thường thông qua các khoản vay thế chấp dài hạn, đã đẩy các hộ gia đình vào một ``bẫy tài sản''. Tại đây, ngôi nhà thay vì đóng vai trò là bệ phóng an sinh lại trở thành gánh nặng tài chính lớn nhất, chiếm dụng phần lớn thu nhập khả dụng và làm suy yếu khả năng chống chịu trước các cú sốc kinh tế, vốn đầy bất ổn ở thời điểm bài nghiên cứu này hoàn thành. Điều này phản ánh sự lệch pha trầm trọng giữa giá bất động sản đô thị xu hướng tăng và năng lực tài chính thực tế của người lao động.
+	
+Lối thoát bền vững nằm ở năng suất lao động và thu nhập cốt lõi: Bằng chứng thực nghiệm mạnh mẽ nhất trong nghiên cứu này chính là tác động giảm nhẹ gánh nặng của biến thu nhập (\textit{ln\_income}), đặc biệt hiệu quả gấp gần 3 lần ở nhóm chịu áp lực cao nhất (phân vị 75th). Như minh họa tại Hình \ref{fig:scatter_income}, khả năng chi trả nhà ở thực chất là bài toán của thu nhập cốt lõi. Mọi giải pháp tài chính chỉ mang tính hỗ trợ tạm thời; chìa khóa thực sự nằm ở việc nâng cao năng suất lao động và cải thiện thu nhập thực tế. Khi tốc độ tăng thu nhập không bắt kịp tốc độ tăng giá nhà, các chính sách hỗ trợ tín dụng đơn thuần sẽ chỉ làm trầm trọng thêm tình trạng nợ nần mà không giúp người dân đạt được mục tiêu an cư bền vững.
+
+Tóm lại, kết quả nghiên cứu chỉ ra rằng chính sách nhà ở cần có sự chuyển dịch trọng tâm: từ việc chỉ tập trung vào hỗ trợ tài chính/tín dụng sang việc cải thiện khả năng chi trả thông qua thu nhập và đa dạng hóa các hình thức tiếp cận chỗ ở (nhà ở xã hội hoặc nhà cho thuê).
+
+% ================= CHƯƠNG 5 =================
+\chapter{Kết luận và Hàm ý chính sách}
+
+\section{Kết luận}
+
+Nghiên cứu này đã thực hiện một phân tích thực nghiệm sâu rộng bằng cách sử dụng mô hình Hiệu ứng xử lý nội sinh (\textit{Endogenous Treatment Effects}) và các phương pháp kiểm chứng độ vững trên bộ dữ liệu khảo sát mức sống dân cư VHLSS 2024. Mục tiêu cốt lõi là bóc tách tác động của việc tiếp cận tín dụng đối với gánh nặng chi phí nhà ở của nhóm hộ gia đình thu nhập trung bình thấp (``Missing Middle'') tại khu vực đô thị Việt Nam.
+
+Kết quả nghiên cứu dẫn đến ba kết luận quan trọng:
+\begin{enumerate}
+	\item \textbf{Sự vô hiệu của tín dụng trong việc giảm áp lực chi phí:} Trái với các kỳ vọng lý thuyết thông thường về vai trò đòn bẩy của tài chính, tiếp cận tín dụng không làm giảm gánh nặng nhà ở một cách có ý nghĩa thống kê ($p > 0.1$). Thậm chí, kết quả hồi quy phân vị cho thấy tại nhóm chịu áp lực cao nhất (75th quantile), tín dụng hoàn toàn mất khả năng điều tiết tài chính.
+	\item \textbf{Nghịch lý ``Bẫy tài sản'':} Việc nỗ lực sở hữu tài sản nhà ở thông qua đòn bẩy tài chính thế chấp (\textit{collateral}) thực tế lại làm gia tăng gánh nặng tài chính (hệ số $1.204, p < 0.05$). Điều này xác nhận rằng đối với nhóm Missing Middle, sở hữu nhà đang là một gánh nặng thay vì là một bệ phóng an sinh.
+	\item \textbf{Ưu thế tuyệt đối của thu nhập:} Khả năng chi trả nhà ở thực chất là bài toán của năng lực tạo thu nhập cốt lõi. Hệ số của biến \textit{ln\_income} luôn âm, có ý nghĩa thống kê mạnh mẽ nhất và tác động biên tăng dần theo mức độ rủi ro tài chính của hộ gia đình.
+\end{enumerate}
+
+\section{Hàm ý chính sách}
+
+Từ các bằng chứng thực nghiệm về sự ``vô hiệu'' của đòn bẩy tài chính đối với nhóm yếu thế, nghiên cứu đề xuất một khung chính sách đa tầng, chuyển dịch trọng tâm từ nới lỏng cung tín dụng sang quản trị rủi ro tài chính và đảm bảo an sinh nhà ở bền vững:
+
+\subsection{Chiến lược can thiệp phân hóa dựa trên mức độ phơi nhiễm rủi ro}
+
+Phân tích mật độ hạt nhân tại Hình \ref{fig:density_burden} cho thấy một đặc tính phân phối đáng quan ngại: sự hiện diện của phần ``đuôi dày'' (\textit{fat-tail distribution}) về phía bên phải. Hiện tượng này minh chứng cho một bộ phận không nhỏ hộ gia đình đô thị đang rơi vào tình trạng quá tải tài chính cực đoan (\textit{severe housing cost burden}), với chi phí nhà ở chiếm trên 50\% tổng thu nhập khả dụng. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig4_density_burden.png}
+	\caption{Phân phối mật độ gánh nặng chi phí nhà ở}
+	\label{fig:density_burden}
+\end{figure}
+
+\textbf{Hàm ý chính sách:} Đối với nhóm hộ gia đình nằm trong phân khúc rủi ro cao này, việc tiếp cận các gói tín dụng thương mại với lãi suất thả nổi không còn đóng vai trò là công cụ hỗ trợ, mà thực chất là một tác nhân gây mất ổn định tài chính hệ thống. Thay vì thúc đẩy quyền sở hữu nhà (\textit{home-ownership}) thông qua nợ vay cho nhóm đối tượng không đủ khả năng chống chịu, Chính phủ cần thực hiện bước chuyển chiến lược sang các công cụ tài chính công trực tiếp. 
+
+Cụ thể, ưu tiên hàng đầu nên là các chương trình \textbf{phiếu hỗ trợ nhà ở} (\textit{housing vouchers}) nhằm giảm áp lực chi trả tức thời, kết hợp với việc gia tăng nguồn cung \textbf{nhà ở xã hội cho thuê} (\textit{social rental housing}). Cách tiếp cận này giúp tạo ra một tầng đệm an sinh, ngăn chặn quá trình ``bần cùng hóa'' do nợ nần và bảo đảm quyền tiếp cận chỗ ở cơ bản mà không gây áp lực lên bảng cân đối kế toán của những hộ gia đình yếu thế.
+
+\subsection{Tái cấu trúc sản phẩm tài chính: Từ tiêu dùng hệ quả sang tín dụng sinh kế}
+
+Hình \ref{fig:bar_credit_type} cho thấy dư nợ của nhóm Missing Middle hiện nay chủ yếu phục vụ nhu cầu tiêu dùng và sửa chữa nhỏ lẻ, vốn không tạo ra dòng tiền mới.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig5_bar_credit_type.png}
+	\caption{Cơ cấu mục đích sử dụng vốn vay của nhóm Missing Middle}
+	\label{fig:bar_credit_type}
+\end{figure}
+
+Bằng chứng từ cơ cấu nợ vay cho thấy tín dụng hiện tại chủ yếu mang tính chất bù đắp thiếu hụt chi tiêu hơn là tạo ra giá trị thặng dư. Để tín dụng thực sự trở thành công cụ giảm gánh nặng nhà ở, cần có sự thay đổi trong triết lý thiết kế sản phẩm tài chính:
+
+\textbf{Tín dụng nhà ở gắn liền sinh kế:} Khuyến khích các mô hình cho vay cải tạo nhà ở kết hợp không gian sản xuất kinh doanh nhỏ tại gia. Khi ngôi nhà trở thành một đơn vị kinh tế tạo ra dòng tiền (\textit{cash-flow generating asset}), áp lực trả nợ sẽ được trung hòa bởi nguồn thu nhập mới.
+
+\textbf{Lãi suất cố định dài hạn:} Thiết lập các quỹ tái cấp vốn nhà ở xã hội với lãi suất cố định xuyên suốt kỳ hạn vay để bảo vệ nhóm \textit{Missing Middle} trước các cú sốc thắt chặt tiền tệ.
+
+\subsection{Vận hành vốn xã hội như một cơ chế bảo lãnh phi chính thức}
+
+Dựa trên kết quả ước lượng từ phương trình xử lý (\textit{Treatment Equation}), nghiên cứu xác nhận vai trò quyết định của vốn xã hội thông qua hai biến số: hiệu ứng đồng trang lứa (\textit{peer\_effect}) và mạng lưới xã hội (\textit{social\_network}) với mức ý nghĩa thống kê cao ($p < 0.01$). Điều này phản ánh đặc thù của thị trường tín dụng Việt Nam, nơi các rào cản về thông tin bất cân xứng thường được hóa giải thông qua các kênh phi chính thức.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig6_line_peer_effect.png}
+	\caption{Sự phân hóa hiệu ứng đồng trang lứa theo địa bàn}
+	\label{fig:line_peer_effect}
+\end{figure}
+
+
+
+\textbf{Hàm ý chính sách:} Thay vì chỉ dựa vào các tiêu chuẩn tài sản bảo đảm truyền thống vốn là rào cản đối với nhóm \textit{Missing Middle}, Chính phủ và các định chế tài chính cần chủ động tích hợp vốn xã hội vào quy trình cấp tín dụng nhà ở:
+
+\begin{itemize}
+	\item \textbf{Cơ chế bảo lãnh dựa trên tín nhiệm cộng đồng:} Thúc đẩy mô hình cho vay theo nhóm (\textit{group lending}) hoặc bảo lãnh liên đới thông qua các tổ chức chính trị - xã hội tại địa phương (như Hội Phụ nữ, Hội Nông dân). Việc tận dụng mạng lưới xã hội giúp chuyển hóa các mối quan hệ niềm tin thành ``tài sản đảm bảo phi hình thể'', giúp giảm thiểu đáng kể chi phí thẩm định và rủi ro đạo đức (\textit{moral hazard}) nhờ cơ chế giám sát chéo giữa các thành viên.
+	
+	\item \textbf{Phân hóa chính sách theo đặc thù địa bàn:} Hình \ref{fig:line_peer_effect} cho thấy hiệu ứng đồng trang lứa có sự biến thiên mạnh mẽ theo địa lý. Do đó, các chương trình tín dụng nhà ở xã hội không nên áp dụng một khung cứng nhắc, mà cần trao quyền chủ động cho các quỹ tài chính vi mô địa phương. Tại các khu vực có chỉ số gắn kết cộng đồng cao, việc áp dụng cơ chế tự sàng lọc (\textit{self-selection}) của cộng đồng sẽ hiệu quả hơn các rào cản hành chính trong việc nhận diện đối tượng thực sự có nhu cầu và năng lực trả nợ.
+\end{itemize}
+
+Việc vận hành vốn xã hội không chỉ giúp mở rộng khả năng tiếp cận tài chính cho nhóm yếu thế mà còn góp phần giảm bớt áp lực lên hệ thống thế chấp bằng tài sản hữu hình, vốn đang bị thắt chặt do sự biến động của thị trường bất động sản.
+
+\subsection{Chiến lược hỗ trợ mục tiêu dựa trên thu nhập}
+
+Kết quả phân tích từ Hình \ref{fig:bar_quintile_credit} cung cấp bằng chứng thực nghiệm quan trọng về tính dị biệt trong tác động của tín dụng đối với các tầng lớp thu nhập. Việc áp dụng một chính sách tài chính nhà ở đồng nhất không những không mang lại hiệu quả mà còn có nguy cơ làm trầm trọng thêm sự bất bình đẳng về không gian đô thị.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig7_bar_quintile_credit.png}
+	\caption{Gánh nặng nhà ở theo phân vị thu nhập và tình trạng tín dụng}
+	\label{fig:bar_quintile_credit}
+\end{figure}
+
+\textbf{Hàm ý chính sách:} Nghiên cứu đề xuất thiết lập mô hình \textbf{``Thang bậc hỗ trợ nhà ở''} (\textit{Housing Support Ladder}), trong đó các công cụ can thiệp của Nhà nước được tinh chỉnh tương ứng với năng lực tài chính và mức độ dễ bị tổn thương của từng phân vị thu nhập:
+
+\begin{itemize}
+	\item \textbf{Nhóm thu nhập thấp (Phân vị Q1-Q2): Chuyển dịch từ vốn vay sang an sinh trực tiếp.} Đối với nhóm này, gánh nặng nhà ở thường mang tính kinh niên. Chính sách cần ưu tiên các giải pháp phi tín dụng như phát triển quỹ nhà ở xã hội cho thuê và hỗ trợ trực tiếp từ ngân sách qua các gói trợ cấp thuê nhà. Việc khuyến khích nhóm này gia nhập thị trường nợ chỉ làm tăng rủi ro bần cùng hóa do nợ nần.
+	
+	\item \textbf{Nhóm trung bình thấp (Phân vị Q3 - \textit{Missing Middle}): Tín dụng ưu đãi và ổn định dòng tiền.} Đây là đối tượng trọng tâm của nghiên cứu, những người có thu nhập nhưng không đủ khả năng tiếp cận nhà ở thương mại. Hàm ý cốt lõi là thiết lập cơ chế tín dụng dài hạn với lãi suất cố định (\textit{fixed-rate mortgage}) hoặc lãi suất được bảo cấp từ quỹ phát triển nhà ở, nhằm triệt tiêu rủi ro biến động thị trường tiền tệ và bảo vệ khả năng chi trả bền vững.
+	
+	\item \textbf{Nhóm thu nhập trung bình khá (Phân vị Q4-Q5): Điều tiết thị trường và kiểm soát đầu cơ.} Với nhóm có năng lực tài chính, chính sách không nên tập trung vào ưu đãi vốn mà cần sử dụng các công cụ thuế (như thuế bất động sản thứ hai) để giảm áp lực cầu đầu cơ. Điều này giúp hạ nhiệt giá nhà trên thị trường thứ cấp, tạo điều kiện cho các tầng lớp thấp hơn có cơ hội tiếp cận nhà ở với mức giá thực tế hơn.
+\end{itemize}
+
+Việc thực hiện chiến lược hỗ trợ có mục tiêu không chỉ tối ưu hóa nguồn lực ngân sách hạn hẹp mà còn đảm bảo tính công bằng xã hội, giúp mỗi tầng lớp dân cư tìm thấy phân khúc nhà ở phù hợp với cấu trúc tài chính của hộ gia đình.
+
+\section{Hạn chế và Hướng nghiên cứu tiếp theo}
+
+Mặc dù đã áp dụng phương pháp \textit{etregress} để bóc tách tính nội sinh và cung cấp những bằng chứng thực nghiệm quan trọng, nghiên cứu này vẫn tồn tại một số hạn chế mở ra không gian cho các hướng đi tương lai:
+
+\textbf{Thứ nhất, về chiều thời gian:} Do sử dụng dữ liệu cắt ngang VHLSS 2024, nghiên cứu chưa quan sát được ``vòng đời'' của gánh nặng tài chính. Các nghiên cứu tiếp theo nên khai thác \textbf{dữ liệu mảng (Panel Data)} để phân tích xem liệu gánh nặng nhà ở là nhất thời hay mang tính kinh niên (chronic) đối với nhóm Missing Middle.
+
+\textbf{Thứ hai, về độ chi tiết của dữ liệu:} Nghiên cứu hiện tại chưa phân tách được rõ ràng giữa tín dụng chính thức và phi chính thức trong phương trình kết quả. Xu hướng tiếp cận \textbf{Dữ liệu lớn (Big Data)} và hồ sơ tín dụng hành chính sẽ giúp làm rõ hơn hành vi trả nợ thực tế của hộ gia đình kinh tế phi chính thức.
+
+\textbf{Thứ ba, về nhận diện biến công cụ:} Mặc dù các kiểm định sức mạnh IV đều đạt chuẩn, nguy cơ vi phạm ràng buộc loại trừ (\textit{exclusion restriction}) vẫn có thể tồn tại nếu vốn xã hội tác động trực tiếp đến phúc lợi qua nhiều kênh khác. Việc sử dụng các \textbf{thí nghiệm tự nhiên} hoặc thay đổi quy hoạch đô thị như một cú sốc ngoại sinh sẽ là hướng tiếp cận kỹ thuật sắc bén hơn.
+
+\textbf{Cuối cùng, về tính dị biệt không gian:} Áp lực tại các siêu đô thị như Hà Nội hay TP.HCM có cấu trúc rất khác biệt. Việc áp dụng các mô hình \textbf{Hồi quy trọng số không gian (GWR)} sẽ giúp làm rõ hơn sự tương tác giữa vị trí địa lý, giá nhà và hiệu quả của chính sách tín dụng.
+
+\section{Tổng kết và suy ngẫm chính sách}
+
+Nghiên cứu này vượt ra khỏi những đánh giá bề mặt để bóc tách bản chất thực sự của mối quan hệ giữa đòn bẩy tài chính và an sinh nhà ở tại khu vực đô thị Việt Nam. Bằng việc kiểm soát chặt chẽ tính nội sinh thông qua phương pháp \textit{etregress} trên bộ dữ liệu vi mô quy mô lớn, kết quả thực nghiệm đã phát đi một thông điệp mang tính cảnh tỉnh: \textbf{Tín dụng không phải là ``chiếc đũa thần'' để giải quyết bài toán an cư.} 
+
+Đối với nhóm \textit{Missing Middle}, những người không đủ nghèo để nhận trợ cấp nhưng chưa đủ giàu để tự tin bước vào thị trường nhà ở thương mại, việc dễ dàng tiếp cận các khoản vay không làm vơi đi gánh nặng chi phí, mà thực chất chỉ là sự trì hoãn rủi ro. Việc vay mượn vượt quá năng lực trả nợ cốt lõi đã biến ngôi nhà từ một ``tổ ấm an sinh'' thành một \textbf{``chiếc bẫy tài sản''} (Asset Trap). Ở đó, quyền sở hữu hình thức bị đánh đổi bằng sự khánh kiệt về dòng tiền, trói buộc hộ gia đình vào vòng xoáy nợ nần và bào mòn phúc lợi dài hạn của các thế hệ tương lai.
+
+Sự bất lực của tín dụng trong việc cải thiện vị thế chi trả đã phơi bày một sự thật kinh tế căn bản: Mọi nỗ lực hạ thấp ``tử số'' (chi phí nhà ở) bằng các gói tín dụng ưu đãi sẽ trở nên vô nghĩa, thậm chí gây tác dụng ngược, nếu ``mẫu số'' (thu nhập thực tế) không được cải thiện. Sự kìm hãm của năng suất lao động trước đà tăng phi mã của giá bất động sản đô thị mới là nút thắt chí mạng. Do đó, bài toán nhà ở không thể chỉ được giải quyết bằng các nghiệp vụ bơm vốn trên bảng cân đối kế toán của ngân hàng, mà phải được giải quyết từ gốc rễ của nền kinh tế thực, đó là năng lực tạo ra giá trị thặng dư và sinh kế bền vững của người lao động.
+
+Những phát hiện này đặt ra yêu cầu cấp thiết về một cuộc \textbf{chuyển dịch tư duy sâu sắc} đối với các nhà hoạch định chính sách. Đã đến lúc chúng ta cần tái định hình mục tiêu quốc gia: chuyển từ nỗi ám ảnh về Quyền sở hữu nhà ở (\textit{Home-ownership}) bằng mọi giá sang việc hiện thực hóa Quyền tiếp cận chỗ ở (\textit{Housing access}) an toàn và bền vững. Các gói tín dụng ưu đãi hàng chục, hàng nghìn tỷ đồng sẽ mãi rơi vào nghịch cảnh ``tiền chờ người'' hoặc sẽ làm bùng phát bong bóng bất động sản, nếu thiếu đi một hệ sinh thái an sinh đồng bộ. Hệ sinh thái ấy đòi hỏi sự dịch chuyển nguồn lực quốc gia sang phát triển mạnh mẽ phân khúc nhà ở xã hội cho thuê, sự ra đời của các sản phẩm tín dụng gắn liền với không gian sinh kế, và cơ chế phát huy ``vốn xã hội'' làm bệ đỡ tín nhiệm cộng đồng.
+
+Một đô thị phát triển bền vững không được đo lường bằng việc có bao nhiêu phần trăm người dân phải mang nợ để mua được nhà, mà bằng việc không có ai bị bỏ lại phía sau bởi gánh nặng chi phí lưu trú. Chính sách nhà ở, suy cho cùng, phải là bệ phóng giải phóng sức lao động và sự sáng tạo, chứ không thể là chiếc gông cùm tài chính đè nặng lên vai của tầng lớp lao động trung lưu của đất nước.
+%====================================================
+	% DANH MỤC CHỮ VIẾT TẮT & THUẬT NGỮ
+%===================================================
+	
+	\newpage
+	\section*{Danh mục chữ viết tắt và thuật ngữ}
+	\addcontentsline{toc}{chapter}{Danh mục chữ viết tắt và thuật ngữ}
+	
+	\subsection*{1. Danh mục chữ viết tắt}
+	
+	\begin{table}[htbp]
+		\centering
+		\renewcommand{\arraystretch}{1.4}
+		\begin{tabularx}{\textwidth}{l X}
+			\hline
+			\textbf{Chữ viết tắt} & \textbf{Nguyên nghĩa} \\
+			\hline
+			\textbf{ATE} & Tác động xử lý trung bình (Average Treatment Effect) \\
+			\textbf{GSO} & Tổng cục Thống kê (General Statistics Office) \\
+			\textbf{IV} & Biến công cụ (Instrumental Variable) \\
+			\textbf{NHNN} & Ngân hàng Nhà nước Việt Nam \\
+			\textbf{NHTM} & Ngân hàng Thương mại \\
+			\textbf{TCTD} & Tổ chức tín dụng \\
+			\textbf{VHLSS} & Khảo sát mức sống dân cư Việt Nam (Vietnam Household Living Standards Survey) \\
+			\textbf{WB} & Ngân hàng Thế giới (World Bank) \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	\vspace{1cm}
+	
+\subsection*{2. Danh mục thuật ngữ}
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.1}
+	\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.6cm} X}
+		\toprule
+		\textbf{Thuật ngữ} & \textbf{Định nghĩa} \\
+		\midrule
+		
+		\textbf{Missing Middle} 
+		(Nhóm trung lưu bị bỏ sót / Thu nhập trung bình thấp) 
+		& Hộ gia đình đô thị có thu nhập không đủ thấp để hưởng chính sách nhà ở xã hội bao cấp sâu nhưng cũng không đủ cao để tiếp cận tín dụng thế chấp thương mại theo cơ chế thị trường; đây là nhóm rơi vào khoảng trống chính sách nhà ở. \\
+		
+		\textbf{Housing Burden} 
+		(Gánh nặng chi phí nhà ở) 
+		& Tỷ lệ phần trăm thu nhập hộ gia đình chi cho nhà ở (thuê nhà, trả gốc và lãi vay, thuế, phí bảo trì). Ngưỡng 30\% thường được xem là mức bắt đầu chịu gánh nặng chi trả quá mức. \\
+		
+		\textbf{Collateral Trap} 
+		(Bẫy tài sản / thế chấp) 
+		& Trạng thái nghịch lý khi việc sở hữu nhà thông qua đòn bẩy tài chính làm suy giảm phúc lợi do chi phí chìm, lãi vay và nghĩa vụ duy trì tài sản làm bào mòn thặng dư thu nhập, khiến hộ gia đình dễ tổn thương hơn so với thuê nhà linh hoạt. \\
+		
+		\textbf{Peer Effect} 
+		(Hiệu ứng đồng trang lứa) 
+		& Ảnh hưởng từ hành vi, quyết định hoặc thông tin của những người xung quanh (hàng xóm, đồng nghiệp, cộng đồng) lên quyết định tài chính cá nhân; trong nghiên cứu này, đây là kênh lan truyền thông tin phi chính thức hỗ trợ tiếp cận tín dụng. \\
+		
+		\textbf{Housing Continuum} 
+		(Thang bậc hỗ trợ nhà ở) 
+		& Hệ thống giải pháp nhà ở liền mạch từ trú ẩn khẩn cấp, nhà ở xã hội cho thuê đến nhà ở thương mại giá rẻ; mỗi bậc gắn với công cụ tài chính phù hợp từng phân khúc thu nhập. \\
+		
+		\textbf{Endogenous Treatment Effects} 
+		(Tác động xử lý nội sinh) 
+		& Khung mô hình kinh tế lượng (triển khai qua lệnh \textit{etregress} trong Stata) ước lượng tác động nhân quả của một quyết định (vay vốn) lên kết quả (gánh nặng nhà ở) trong bối cảnh quyết định đó không phân bổ ngẫu nhiên mà chịu ảnh hưởng tự chọn. \\
+		
+		\textbf{Informal Economy} 
+		(Kinh tế phi chính thức) 
+		& Các hoạt động kinh tế và lao động không được bảo vệ đầy đủ bởi khung pháp lý nhà nước (không có hợp đồng dài hạn, bảng lương chuẩn hóa), gây khó khăn trong chứng minh năng lực tài chính với tổ chức tín dụng. \\
+		
+		\bottomrule
+	\end{tabularx}
+\end{table}
+%====================================================
+% APPENDIX
+%====================================================
+\newpage
+\clearpage
+\appendix
+\chapter*{Phụ lục}
+\addcontentsline{toc}{chapter}{Phụ lục} 
+
+\section*{Phụ lục A: Chi tiết dữ liệu và Thống kê mô tả}
+\addcontentsline{toc}{section}{Phụ lục A: Chi tiết dữ liệu và Thống kê mô tả}
+% Bảng A1: Định nghĩa các biến
+\begin{table}[htbp]
+	\centering
+	\caption{Định nghĩa và cách đo lường các biến trong mô hình}
+	\label{tab:app_var_def}
+	\renewcommand{\arraystretch}{1.3} % Giãn dòng cho dễ nhìn
+	\begin{tabular}{p{3cm} p{3cm} p{8.5cm}}
+		\toprule
+		\textbf{Tên biến (Stata)} & \textbf{Phân loại} & \textbf{Định nghĩa và Đo lường} \\
+		\midrule
+		\textit{housing\_burden} & Biến phụ thuộc & Gánh nặng chi phí nhà ở, tính bằng Tỷ lệ phần trăm (\%) chi phí nhà ở trên tổng thu nhập của hộ gia đình. \\
+		\textit{credit\_access} & Biến tác động chính & Khả năng tiếp cận tín dụng (Biến giả: 1 = Có khoản vay hiện tại; 0 = Không có). \\
+		\textit{ln\_income} & Biến kiểm soát & Logarit tự nhiên của thu nhập bình quân hộ gia đình. \\
+		\textit{tsnguoi} & Biến kiểm soát & Tổng số nhân khẩu thực tế đang sinh sống trong hộ gia đình (Người). \\
+		\textit{edu\_head} & Biến kiểm soát & Trình độ học vấn của chủ hộ, đo bằng số năm đi học (Năm). \\
+		\textit{age\_head} & Biến kiểm soát & Độ tuổi của chủ hộ (Năm). \\
+		\textit{social\_network} & Biến công cụ (IV) & Mạng lưới xã hội (Biến giả: 1 = Có tham gia các tổ chức/mạng lưới xã hội; 0 = Không tham gia). \\
+		\textit{peer\_effect} & Biến công cụ (IV) & Hiệu ứng đồng trang lứa/bạn bè (Tỷ lệ người đi vay trong cùng cụm dân cư/mạng lưới). \\
+		\textit{collateral} & Biến kiểm soát/IV & Sở hữu tài sản bảo đảm (Biến giả: 1 = Có sở hữu nhà/đất; 0 = Không sở hữu). \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\vspace{1cm}
+
+% Bảng A2: Thống kê mô tả chi tiết (Đã thu gọn để chống tràn lề)
+\begin{table}[htbp]
+	\centering
+	\small % Giảm kích thước chữ của bảng xuống 1 nấc
+	\caption{Thống kê mô tả chi tiết các biến định lượng và định tính}
+	\label{tab:app_summary_stats}
+	\renewcommand{\arraystretch}{1.2} % Giãn dòng 
+	\setlength{\tabcolsep}{6pt} % Thu hẹp khoảng cách giữa các cột (mặc định là 6pt, có thể giảm xuống 4pt nếu vẫn tràn)
+	\begin{tabular}{l c c c c c}
+		\toprule
+		\textbf{Biến số} & \textbf{N} & \textbf{Mean} & \textbf{SD} & \textbf{Min} & \textbf{Max} \\
+		\midrule
+		\textbf{\textit{Biến phụ thuộc}} & & & & & \\
+		Gánh nặng nhà ở (\%) & 10.246 & 6,488 & 6,675 & 0,000 & 99,098 \\
+		\midrule
+		\textbf{\textit{Biến tác động chính \& Công cụ}} & & & & & \\
+		Tiếp cận tín dụng (0/1) & 10.286 & 0,488 & 0,500 & 0 & 1 \\
+		Mạng lưới xã hội (0/1) & 10.286 & 0,708 & 0,455 & 0 & 1 \\
+		\midrule
+		\textbf{\textit{Đặc điểm hộ gia đình}} & & & & & \\
+		Log thu nhập & 10.286 & 10,746 & 0,459 & 6,916 & 11,332 \\
+		Số nhân khẩu (Người) & 10.286 & 3,712 & 1,634 & 1 & 16 \\
+		Tuổi chủ hộ (Năm) & 10.286 & 55,172 & 13,522 & 15 & 101 \\
+		Học vấn chủ hộ (Năm) & 10.286 & 9,336 & 4,387 & 0 & 21 \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.2cm} \\
+	\raggedright \footnotesize \textit{Nguồn: Tính toán của tác giả từ dữ liệu VHLSS 2024. Chú thích: Một số quan sát của biến gánh nặng nhà ở bị khuyết do số liệu thu nhập bằng 0 hoặc thiếu thông tin chi phí.}
+\end{table}
+
+\clearpage
+\section*{Phụ lục B: Ma trận tương quan Pearson và Kiểm định Đa cộng tuyến (VIF)}
+\addcontentsline{toc}{section}{Phụ lục B: Ma trận tương quan Pearson và Kiểm định Đa cộng tuyến (VIF)}
+% Bảng B1: Ma trận tương quan
+\begin{table}[htbp]
+	\centering
+	\small
+	\caption{Ma trận tương quan Pearson giữa các biến trong mô hình}
+	\label{tab:app_correlation}
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{4.5pt} % Thu hẹp cột để chứa đủ 9 biến
+	\begin{tabular}{l l ccccccccc}
+		\toprule
+		\textbf{STT} & \textbf{Biến số} & \textbf{(1)} & \textbf{(2)} & \textbf{(3)} & \textbf{(4)} & \textbf{(5)} & \textbf{(6)} & \textbf{(7)} & \textbf{(8)} & \textbf{(9)} \\
+		\midrule
+		(1) & \textit{housing\_burden} & 1.000 & & & & & & & & \\
+		(2) & \textit{credit\_access} & -0.055* & 1.000 & & & & & & & \\
+		(3) & \textit{ln\_income} & -0.219* & 0.167* & 1.000 & & & & & & \\
+		(4) & \textit{tsnguoi} & -0.192* & 0.152* & -0.029* & 1.000 & & & & & \\
+		(5) & \textit{collateral} & 0.029* & 0.001 & 0.027* & -0.034* & 1.000 & & & & \\
+		(6) & \textit{edu\_head} & 0.001 & 0.120* & 0.296* & 0.072* & 0.043* & 1.000 & & & \\
+		(7) & \textit{age\_head} & 0.034* & -0.025* & -0.099* & -0.165* & 0.014 & -0.269* & 1.000 & & \\
+		(8) & \textit{peer\_effect} & -0.012 & 0.531* & 0.141* & 0.049* & 0.012 & 0.140* & 0.018 & 1.000 & \\
+		(9) & \textit{social\_network} & -0.065* & 0.199* & 0.137* & 0.082* & 0.030* & 0.235* & -0.010 & 0.213* & 1.000 \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.1cm} \\
+	\raggedright \footnotesize \textit{Chú thích: * có ý nghĩa thống kê ở mức 5\% ($p < 0.05$). Nguồn: Tính toán của tác giả từ dữ liệu VHLSS 2024.}
+\end{table}
+
+\vspace{0.5cm}
+
+% Bảng B2: Kiểm tra Đa cộng tuyến VIF
+\begin{table}[htbp]
+	\centering
+	\caption{Kiểm tra hệ số nhân tử phóng đại phương sai (VIF)}
+	\label{tab:app_vif}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{l c c}
+		\toprule
+		\textbf{Biến độc lập} & \textbf{VIF} & \textbf{1/VIF (Tolerance)} \\
+		\midrule
+		Tiếp cận tín dụng (\textit{credit\_access}) & 1.45 & 0.688 \\
+		Hiệu ứng đồng trang lứa (\textit{peer\_effect}) & 1.43 & 0.699 \\
+		Học vấn chủ hộ (\textit{edu\_head}) & 1.24 & 0.808 \\
+		Log thu nhập (\textit{ln\_income}) & 1.13 & 0.883 \\
+		Mạng lưới xã hội (\textit{social\_network}) & 1.12 & 0.896 \\
+		Tuổi chủ hộ (\textit{age\_head}) & 1.11 & 0.898 \\
+		Số nhân khẩu (\textit{tsnguoi}) & 1.06 & 0.940 \\
+		Tài sản bảo đảm (\textit{collateral}) & 1.00 & 0.996 \\
+		\midrule
+		\textbf{Trung bình (Mean VIF)} & \textbf{1.19} & \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
+\section*{Phụ lục C: Phụ lục các bảng kết quả hồi quy}
+\addcontentsline{toc}{section}{Phụ lục C: Phụ lục các bảng kết quả hồi quy}
+
+% Bảng C.1: So sánh mô hình Heckman và Endogenous Treatment Effects
+\begin{table}[htbp]
+	\centering
+	\caption{Kết quả ước lượng mô hình Heckman và Endogenous Treatment Effects (FIML)}
+	\label{tab:appendix_main_models}
+	\small
+	\begin{tabular}{lcccc}
+		\toprule
+		\multirow{2}{*}{\textbf{Biến số}} & \multicolumn{2}{c}{\textbf{Mô hình Heckman}} & \multicolumn{2}{c}{\textbf{Mô hình Endog. Treatment}} \\
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		& \textbf{Gánh nặng} & \textbf{Lựa chọn vay} & \textbf{Gánh nặng} & \textbf{Xử lý vay} \\
+		\midrule
+		Tiếp cận tín dụng (\textit{CreditAccess}) & --- & --- & -0.194 & 1.000 \\
+		& & & (0.282) & (---) \\
+		Log thu nhập (\textit{ln\_income}) & -3.663*** & 0.300*** & -3.171*** & 0.306*** \\
+		& (0.299) & (0.037) & (0.234) & (0.037) \\
+		Số nhân khẩu (\textit{tsnguoi}) & -0.675*** & --- & -0.852*** & --- \\
+		& (0.065) & & (0.050) & \\
+		Sở hữu tài sản (\textit{collateral}) & 0.894 & -0.138 & 1.204** & -0.137 \\
+		& (0.610) & (0.117) & (0.483) & (0.117) \\
+		Tín dụng phi chính thức (\textit{informal}) & --- & 0.156*** & --- & 0.157*** \\
+		& & (0.053) & & (0.054) \\
+		\midrule
+		\textbf{Biến công cụ / Lựa chọn} & & & & \\
+		Học vấn chủ hộ (\textit{edu\_head}) & --- & 0.001 & --- & 0.002 \\
+		Tuổi chủ hộ (\textit{age\_head}) & --- & -0.001 & --- & -0.002 \\
+		Đồng trang lứa (\textit{peer\_effect}) & --- & 2.417*** & --- & 2.417*** \\
+		Mạng lưới xã hội (\textit{social\_network}) & --- & 0.334*** & --- & 0.335*** \\
+		Thông tin diện rộng (\textit{info\_broad}) & --- & 0.322* & --- & --- \\
+		\midrule
+		Hằng số (\textit{Constant}) & 48.825*** & -4.929*** & 44.386*** & -4.669*** \\
+		\midrule
+		Số quan sát ($N$) & \multicolumn{2}{c}{10,262} & \multicolumn{2}{c}{10,246} \\
+		$\rho$ (Rho) & \multicolumn{2}{c}{0.0051} & \multicolumn{2}{c}{-0.0044} \\
+		Kiểm định Wald ($\rho = 0$) & \multicolumn{2}{c}{$\chi^2 = 0.02$ ($p=0.887$)} & \multicolumn{2}{c}{$\chi^2 = 0.02$ ($p=0.887$)} \\
+		\bottomrule
+		\multicolumn{5}{l}{\footnotesize \textit{Ghi chú: *** $p<0.01$, ** $p<0.05$, * $p<0.1$. Sai số chuẩn Robust trong ngoặc đơn.}} \\
+	\end{tabular}
+\end{table}
+
+% Bảng C.2: Ước lượng IV-2SLS
+\begin{table}[htbp]
+	\centering
+	\caption{Kết quả hồi quy Biến công cụ (IV-2SLS)}
+	\label{tab:appendix_c_2sls}
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Biến số} & \textbf{Hệ số} & \textbf{Sai số chuẩn} & \textbf{z} & \textbf{P-value} \\
+		\midrule
+		Tiếp cận tín dụng (\textit{credit\_access}) & 0.688*** & 0.243 & 2.83 & 0.005 \\
+		Log thu nhập (\textit{ln\_income}) & -3.439*** & 0.222 & -15.51 & 0.000 \\
+		Số nhân khẩu (\textit{tsnguoi}) & -0.841*** & 0.045 & -18.56 & 0.000 \\
+		Sở hữu tài sản (\textit{collateral}) & 1.419*** & 0.438 & 3.24 & 0.001 \\
+		Hằng số (\textit{\_cons}) & 46.212*** & 2.427 & 19.04 & 0.000 \\
+		\midrule
+		Số quan sát (N) & \multicolumn{4}{c}{10,246} \\
+		Wald $\chi^2(4)$ & \multicolumn{4}{c}{485.41} \\
+		R-squared & \multicolumn{4}{c}{0.0869} \\
+		\bottomrule
+		\multicolumn{5}{l}{\footnotesize \textit{Ghi chú: *** $p<0.01$. Biến công cụ: peer\_effect, social\_network.}}
+	\end{tabular}
+\end{table}
+
+\clearpage
+\section*{Phụ lục D: Kiểm định và Phân tích độ vững mô hình}
+\addcontentsline{toc}{section}{Phụ lục D: Kiểm định và Phân tích độ vững mô hình}
+
+% Bảng D.1: Hồi quy phụ trợ để kiểm tra đa cộng tuyến
+\begin{table}[htbp]
+	\centering
+	\caption{Kết quả hồi quy OLS phụ trợ cho biến Tiếp cận tín dụng}
+	\label{tab:vif_regression}
+	\small
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Biến độc lập} & \textbf{Hệ số} & \textbf{Sai số chuẩn} & \textbf{t} & \textbf{P-value} \\
+		\midrule
+		Log thu nhập (\textit{ln\_income}) & 0.090*** & 0.010 & 9.42 & 0.000 \\
+		Tín dụng phi chính thức (\textit{informal}) & 0.051*** & 0.014 & 3.59 & 0.000 \\
+		Sở hữu tài sản (\textit{collateral}) & -0.031 & 0.030 & -1.02 & 0.309 \\
+		Học vấn chủ hộ (\textit{edu\_head}) & 0.000 & 0.001 & 0.04 & 0.969 \\
+		Tuổi chủ hộ (\textit{age\_head}) & -0.001** & 0.000 & -2.30 & 0.022 \\
+		Đồng trang lứa (\textit{peer\_effect}) & 0.779*** & 0.013 & 58.97 & 0.000 \\
+		Mạng lưới xã hội (\textit{social\_network}) & 0.085*** & 0.010 & 8.93 & 0.000 \\
+		Thông tin diện rộng (\textit{info\_broad}) & 0.083** & 0.038 & 2.20 & 0.028 \\
+		Hằng số (\textit{Constant}) & -0.969*** & 0.106 & -9.16 & 0.000 \\
+		\midrule
+		$R^2$ & \multicolumn{4}{c}{0.2989} \\
+		F-statistic (8, 10277) & \multicolumn{4}{c}{547.59***} \\
+		VIF Trung bình & \multicolumn{4}{c}{1.09} \\
+		\bottomrule
+		\multicolumn{5}{l}{\footnotesize \textit{Nguồn: Tính toán của tác giả dựa trên dữ liệu khảo sát.}}
+	\end{tabular}
+\end{table}
+
+% Bảng D.2: Các tham số đo lường sự phù hợp của mô hình (Model Fit)
+\begin{table}[htbp]
+	\centering
+	\caption{Các thông số kiểm định tính phù hợp của mô hình (Diagnostics)}
+	\label{tab:diagnostics_summary}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Kiểm định} & \textbf{Thống kê} & \textbf{Giá trị p} \\
+		\midrule
+		\textbf{Mô hình Heckman Selection} & & \\
+		- Wald test of indep. eqns. ($\rho=0$) & 0.02 & 0.8867 \\
+		- Hệ số Inverse Mills Ratio ($\lambda$) & 0.029 & 0.8870 \\
+		\midrule
+		\textbf{Mô hình Endogenous Treatment} & & \\
+		- Wald test of indep. eqns. ($\rho=0$) & 0.02 & 0.8874 \\
+		- Log pseudolikelihood & -2.57e+07 & --- \\
+		\bottomrule
+		\multicolumn{3}{p{10cm}}{\footnotesize \textit{Ghi chú: Giá trị p > 0.1 trong cả hai kiểm định Wald cho thấy không có sự chệch do tự chọn mẫu sau khi đã kiểm soát biến công cụ, khẳng định tính vững của kết quả.}}
+	\end{tabular}
+\end{table}
+
+% Bảng D.3: Robustness Checks
+\begin{table}[htbp]
+	\centering
+	\caption{Phân tích độ vững (Robustness Checks) cho Phương trình Gánh nặng nhà ở}
+	\label{tab:robustness_checks}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Biến số} & \textbf{Mô hình 1} & \textbf{Mô hình 2 (Chính)} & \textbf{Mô hình 3} \\
+		& \textit{(IV: peer\_effect)} & \textit{(IV: 2 biến)} & \textit{(Thêm biến tương tác)} \\
+		\midrule
+		Tiếp cận tín dụng (\textit{CreditAccess}) & -0.185 & -0.194 & 0.016 \\
+		& (0.160) & (0.150) & (0.155) \\
+		Sở hữu tài sản (\textit{collateral}) & 1.190** & 1.205** & 1.215** \\
+		& (0.515) & (0.510) & (0.505) \\
+		Log thu nhập (\textit{ln\_income}) & -3.095*** & -3.102*** & -3.110*** \\
+		& (0.425) & (0.420) & (0.422) \\
+		\midrule
+		Kiểm định tính độc lập $\rho = 0$ & $p = 0.312$ & $p = 0.345$ & $p = 0.380$ \\
+		\bottomrule
+		\multicolumn{4}{l}{\footnotesize \textit{Ghi chú: *** $p<0.01$, ** $p<0.05$, * $p<0.1$. Sai số chuẩn trong ngoặc đơn.}} \\
+	\end{tabular}
+\end{table}
+
+\vspace{2em}
+
+% Bảng D.4: Kiểm tra Đa cộng tuyến (VIF)
+\begin{table}[htbp]
+	\centering
+	\caption{Kiểm tra hiện tượng Đa cộng tuyến (Hệ số nhân tử phóng đại phương sai - VIF)}
+	\label{tab:vif_test}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Biến số} & \textbf{VIF} & \textbf{1/VIF (Tolerance)} \\
+		\midrule
+		Học vấn chủ hộ (\textit{edu\_head}) & 1.25 & 0.800 \\
+		Sở hữu tài sản (\textit{collateral}) & 1.12 & 0.892 \\
+		Log thu nhập (\textit{ln\_income}) & 1.10 & 0.909 \\
+		Mạng lưới XH (\textit{social\_network}) & 1.05 & 0.952 \\
+		Đồng trang lứa (\textit{peer\_effect}) & 1.02 & 0.980 \\
+		Thông tin diện rộng (\textit{info\_broad}) & 1.01 & 0.990 \\
+		\midrule
+		\textbf{VIF Trung bình} & \textbf{1.09} & \\
+		\bottomrule
+		\multicolumn{3}{l}{\footnotesize \textit{Ghi chú: Giá trị VIF $\ll 10$, xác nhận không có hiện tượng đa cộng tuyến.}} \\
+	\end{tabular}
+\end{table}
+
+% Bảng D.5: Kiểm định chuẩn đoán Biến công cụ
+\begin{table}[htbp]
+	\centering
+	\caption{Các kiểm định chuẩn đoán chất lượng Biến công cụ (IV)}
+	\label{tab:iv_diagnostics}
+	\begin{tabular}{lll}
+		\toprule
+		\textbf{Loại kiểm định} & \textbf{Thống kê kiểm định} & \textbf{Giá trị P} \\
+		\midrule
+		\textbf{1. Kiểm định sức mạnh IV} & Partial $R^2 = 0.2739$ & \\
+		(First-stage F-statistic) & $F(2, 10240) = 2796.8$ & $p = 0.0000$ \\
+		\midrule
+		\textbf{2. Kiểm định quá định danh} & & \\
+		(Sargan-Hansen test) & Score $\chi^2(1) = 8.573$ & $p = 0.0034$ \\
+		\midrule
+		\textbf{3. Kiểm định ràng buộc loại trừ} & & \\
+		(Falsification test trên mẫu $Credit=0$) & $F(2, 5244) = 17.96$ & $p = 0.0000$ \\
+		\bottomrule
+		\multicolumn{3}{p{12cm}}{\footnotesize \textit{Ghi chú: Giá trị F > 10 cho thấy biến công cụ mạnh. Kiểm định Falsification cho thấy các biến công cụ có tác động trực tiếp đến gánh nặng nhà ở kể cả khi không thông qua tín dụng, gợi ý cần thận trọng khi giải thích tác động thuần túy.}}
+	\end{tabular}
+\end{table}
+
+% Bảng D.6: Hồi quy phân vị (Quantile Regression)
+\begin{table}[htbp]
+	\centering
+	\caption{Kết quả hồi quy phân vị cho Gánh nặng nhà ở (Capped 100\%)}
+	\label{tab:quantile_reg}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Biến số} & \textbf{Phân vị 25th} & \textbf{Phân vị 50th} & \textbf{Phân vị 75th} \\
+		\midrule
+		Log thu nhập (\textit{ln\_income}) & -1.394*** & -2.433*** & -4.011*** \\
+		& (0.060) & (0.075) & (0.137) \\
+		Số nhân khẩu (\textit{tsnguoi}) & -0.354*** & -0.550*** & -0.852*** \\
+		& (0.017) & (0.021) & (0.038) \\
+		Sở hữu tài sản (\textit{collateral}) & 0.835*** & 1.913*** & 1.609*** \\
+		& (0.201) & (0.250) & (0.457) \\
+		Tiếp cận tín dụng (\textit{credit\_access}) & 0.393*** & 0.392*** & 0.158 \\
+		& (0.056) & (0.070) & (0.127) \\
+		\midrule
+		Hằng số (\textit{\_cons}) & 19.511*** & 32.961*** & 53.636*** \\
+		Pseudo $R^2$ & 0.0435 & 0.0642 & 0.0831 \\
+		\bottomrule
+		\multicolumn{4}{l}{\footnotesize \textit{Ghi chú: *** $p<0.01$, ** $p<0.05$. Số quan sát N = 10,286.}} \\
+	\end{tabular}
+\end{table}
+
+%====================================================
+% REFERENCES
+%====================================================
+\newpage
+\printbibliography
+\addcontentsline{toc}{section}{Tài liệu tham khảo}
+%====================================================
+
+\end{document}
+/* =====================================================
+>    ADVANCE Q1 - HETEROGENEITY, MECHANISM, & SPATIAL
+>    Data: Ho_Heckman_Model_updated.dta
+>    ===================================================== */
+. 
+. clear all
+
+. set more off
+
+. capture ssc install winsor2, replace
+
+. 
+. use "Ho_Heckman_Model_updated.dta", clear
+
+. eststo clear
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. display "=== ADVANCE Q1 - ĐÃ FIX TOÀN BỘ LỖI & THÊM ĐỒ THỊ HN - HCM ==="
+=== ADVANCE Q1 - ĐÃ FIX TOÀN BỘ LỖI & THÊM ĐỒ THỊ HN - HCM ===
+
+. 
+. /* Phục hồi lại Model Main để làm gốc so sánh */
+. eststo Main: etregress housing_burden ln_income tsnguoi collateral edu_head age_head informal /
+> //
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25692495  
+Iteration 1:   log pseudolikelihood =  -25692495  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(7)  = 522.71
+Log pseudolikelihood = -25692495                        Prob > chi2   = 0.0000
+
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -3.593181    .242424   -14.82   0.000    -4.068323   -3.118039
+        tsnguoi |  -.9050745   .0509481   -17.76   0.000    -1.004931    -.805218
+     collateral |   1.054368   .4833416     2.18   0.029     .1070361      2.0017
+       edu_head |   .0817766   .0191788     4.26   0.000     .0441868    .1193665
+       age_head |  -.0301877   .0064321    -4.69   0.000    -.0427944   -.0175811
+       informal |  -2.005198   .2561721    -7.83   0.000    -2.507286   -1.503109
+1.credit_access |  -.2508007   .2665628    -0.94   0.347    -.7732541    .2716528
+          _cons |   50.22304   2.610796    19.24   0.000     45.10597    55.34011
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3061743    .036887     8.30   0.000     .2338771    .3784715
+     collateral |  -.1367975   .1167224    -1.17   0.241    -.3655691    .0919741
+       informal |   .1583282   .0531631     2.98   0.003     .0541303     .262526
+       edu_head |   .0017359   .0040593     0.43   0.669    -.0062201     .009692
+       age_head |  -.0014917   .0012175    -1.23   0.220    -.0038781    .0008946
+    peer_effect |   2.416067   .0530745    45.52   0.000     2.312043    2.520091
+ social_network |   .3359925   .0374363     8.98   0.000     .2626187    .4093664
+          _cons |  -4.671767   .3986315   -11.72   0.000    -5.453071   -3.890464
+----------------+----------------------------------------------------------------
+        /athrho |   .0031533   .0296042     0.11   0.915    -.0548698    .0611765
+       /lnsigma |   1.869964   .0307348    60.84   0.000     1.809725    1.930203
+----------------+----------------------------------------------------------------
+            rho |   .0031533   .0296039                     -.0548148    .0611003
+          sigma |   6.488064   .1994092                      6.108768    6.890911
+         lambda |   .0204589    .192116                     -.3560814    .3969993
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.01   Prob > chi2 = 0.9152
+
+. 
+. /* ====================== 1. HETEROGENEITY ANALYSIS ====================== */
+. display "--- 1. Heterogeneity by Income Quintile ---"
+--- 1. Heterogeneity by Income Quintile ---
+
+. eststo Het_Q: etregress housing_burden i.credit_access##i.quintile ln_income tsnguoi collateral
+>  edu_head age_head informal ///
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) ///
+>     vce(robust) iterate(500)
+
+Iteration 0:   log pseudolikelihood =  -25685184  
+Iteration 1:   log pseudolikelihood =  -25685184  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(11) = 567.67
+Log pseudolikelihood = -25685184                        Prob > chi2   = 0.0000
+
+----------------------------------------------------------------------------------------
+                       |               Robust
+                       | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+housing_burden         |
+       1.credit_access |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+                       |
+              quintile |
+                    2  |  -.4889736   .4295247    -1.14   0.255    -1.330826    .3528793
+                    3  |   .4831713   .5644641     0.86   0.392     -.623158    1.589501
+                       |
+credit_access#quintile |
+                  1 2  |   -.009031   .3770895    -0.02   0.981    -.7481129    .7300508
+                  1 3  |  -.8369956   .3941798    -2.12   0.034    -1.609574   -.0644174
+                       |
+             ln_income |  -3.568983   .5427577    -6.58   0.000    -4.632769   -2.505198
+               tsnguoi |  -.9012057   .0505943   -17.81   0.000    -1.000369   -.8020427
+            collateral |   1.063834    .482836     2.20   0.028     .1174929    2.010175
+              edu_head |   .0807578   .0191346     4.22   0.000     .0432546     .118261
+              age_head |  -.0297357   .0064309    -4.62   0.000    -.0423401   -.0171313
+              informal |    -1.9981   .2567756    -7.78   0.000    -2.501371   -1.494829
+                 _cons |   49.91537   5.571742     8.96   0.000     38.99496    60.83578
+-----------------------+----------------------------------------------------------------
+credit_access          |
+             ln_income |   .3062906   .0368935     8.30   0.000     .2339806    .3786006
+            collateral |  -.1367662   .1167361    -1.17   0.241    -.3655647    .0920323
+              informal |   .1584451   .0531563     2.98   0.003     .0542607    .2626294
+              edu_head |   .0017488   .0040587     0.43   0.667     -.006206    .0097037
+              age_head |   -.001494   .0012176    -1.23   0.220    -.0038805    .0008925
+           peer_effect |   2.416456   .0530596    45.54   0.000     2.312462    2.520451
+        social_network |   .3352065   .0374151     8.96   0.000     .2618741    .4085388
+                 _cons |  -4.672644   .3986913   -11.72   0.000    -5.454065   -3.891224
+-----------------------+----------------------------------------------------------------
+               /athrho |  -.0029804   .0298385    -0.10   0.920    -.0614627    .0555019
+              /lnsigma |   1.868884   .0307601    60.76   0.000     1.808596    1.929173
+-----------------------+----------------------------------------------------------------
+                   rho |  -.0029804   .0298382                     -.0613855     .055445
+                 sigma |   6.481061    .199358                      6.101871    6.883814
+                lambda |  -.0193161   .1933441                     -.3982635    .3596313
+----------------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.01   Prob > chi2 = 0.9204
+
+. 
+. margins, dydx(credit_access) at(quintile=(1 2 3))
+
+Average marginal effects                                Number of obs = 10,246
+Model VCE: Robust
+
+Expression: Linear prediction, predict()
+dy/dx wrt:  1.credit_access
+1._at: quintile = 1
+2._at: quintile = 2
+3._at: quintile = 3
+
+----------------------------------------------------------------------------------
+                 |            Delta-method
+                 |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+0.credit_access  |  (base outcome)
+-----------------+----------------------------------------------------------------
+1.credit_access  |
+             _at |
+              1  |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+              2  |   .0861144   .3114025     0.28   0.782    -.5242234    .6964522
+              3  |  -.7418501   .3323281    -2.23   0.026    -1.393201   -.0904991
+----------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. marginsplot, title("Fig 8: Marginal Effect of Credit Access by Income Quintile") ///
+>     ytitle("Average Marginal Effect on Housing Burden (%)") ///
+>     xtitle("Income Quintile") yline(0, lcolor(red) lpattern(dash)) ///
+>     note("Source: Authors' calculation from VHLSS 2024") 
+
+Variables that uniquely identify margins: quintile
+
+. graph export "$path\figures\fig8_hetero_marginal.png", as(png) replace width(2000)
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig8_hetero_marginal.png saved as PNG format
+
+. 
+. esttab Het_Q using "$path\Table_Heterogeneity.rtf", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(1.credit_access 1.credit_access#2.quintile 1.credit_access#3.quintile) ///
+>     mtitle("Heterogeneity by Quintile") title("Heterogeneous Treatment Effects")
+(output written to D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ
+> \Khoảng trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai viet\Table_H
+> eterogeneity.rtf)
+
+. 
+. /* ====================== 2. MECHANISM ANALYSIS ====================== */
+. display "--- 2. Mechanism: Credit Type ---"
+--- 2. Mechanism: Credit Type ---
+
+. eststo Mech_B: regress housing_burden i.credit_type ln_income tsnguoi collateral edu_head age_h
+> ead informal ///
+>     if credit_access == 1 [pw=wt45], vce(robust)
+(sum of wgt is 3,404,101)
+
+Linear regression                               Number of obs     =      4,999
+                                                F(9, 4989)        =      29.06
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0856
+                                                Root MSE          =     5.7498
+
+--------------------------------------------------------------------------------------
+                     |               Robust
+      housing_burden | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------------+----------------------------------------------------------------
+         credit_type |
+Vay Tieu dung/Nha o  |  -.4488857   .2445266    -1.84   0.066    -.9282653     .030494
+            Vay Moi  |  -1.479317   .5553229    -2.66   0.008    -2.567994   -.3906398
+            Hon hop  |  -.1504252   .2990467    -0.50   0.615    -.7366882    .4358379
+                     |
+           ln_income |  -3.922061    .295753   -13.26   0.000    -4.501867   -3.342255
+             tsnguoi |  -.7153748   .0656964   -10.89   0.000    -.8441686   -.5865811
+          collateral |   .8033592   .6204443     1.29   0.195    -.4129844    2.019703
+            edu_head |   .0633229   .0248659     2.55   0.011     .0145748    .1120711
+            age_head |  -.0112716    .008664    -1.30   0.193    -.0282568    .0057136
+            informal |  -1.462483   .2900385    -5.04   0.000    -2.031086   -.8938797
+               _cons |   52.21255   3.255505    16.04   0.000     45.83033    58.59477
+--------------------------------------------------------------------------------------
+
+. 
+. esttab Mech_B using "$path\Table_Mechanism.rtf", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(*.credit_type) mtitle("By Credit Purpose") ///
+>     title("Mechanism: Effect of Different Credit Types on Housing Burden")
+(output written to D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ
+> \Khoảng trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai viet\Table_M
+> echanism.rtf)
+
+. 
+. /* ====================== 3. QUANTILE REGRESSION (FIXED LOOP) ====================== */
+. display "--- 3. Quantile Regressions ---"
+--- 3. Quantile Regressions ---
+
+. eststo clear
+
+. foreach q in 10 25 50 75 90 {
+  2.     quietly qreg housing_burden credit_access ln_income tsnguoi collateral, quantile(`q') vc
+> e(robust)
+  3.     eststo Q`q'
+  4. }
+
+. esttab Q10 Q25 Q50 Q75 Q90 using "$path\Table_Quantile_Advanced.rtf", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     mtitle("Q10" "Q25" "Q50" "Q75" "Q90") title("Quantile Regression - Housing Burden")
+(output written to D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ
+> \Khoảng trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai viet\Table_Q
+> uantile_Advanced.rtf)
+
+. 
+. /* ====================== 4. ADDITIONAL ROBUSTNESS ====================== */
+. display "--- 4. Advanced Robustness ---"
+--- 4. Advanced Robustness ---
+
+. capture encode tinh, gen(tinh_num) 
+
+. 
+. eststo Rob_FE: etregress housing_burden ln_income tsnguoi collateral i.tinh_num [pw=wt45], ///
+>     treat(credit_access = ln_income collateral i.tinh_num peer_effect social_network) vce(clust
+> er tinh_num)
+
+Iteration 0:   log pseudolikelihood =  -25386460  
+Iteration 1:   log pseudolikelihood =  -25386457  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(3)  =      .
+Log pseudolikelihood = -25386457                        Prob > chi2   =      .
+
+                                 (Std. err. adjusted for 63 clusters in tinh_num)
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -4.150215    .381125   -10.89   0.000    -4.897206   -3.403224
+        tsnguoi |  -.8200151   .0694154   -11.81   0.000    -.9560668   -.6839634
+     collateral |  -.9585729   .5792877    -1.65   0.098    -2.093956    .1768101
+                |
+       tinh_num |
+            02  |  -4.252736   .4127093   -10.30   0.000    -5.061631   -3.443841
+            04  |  -4.695437   .4791589    -9.80   0.000    -5.634571   -3.756303
+            06  |  -2.451133   .6022902    -4.07   0.000      -3.6316   -1.270666
+            08  |  -1.298122   .4908541    -2.64   0.008    -2.260179   -.3360658
+            10  |  -5.294682   .5203203   -10.18   0.000    -6.314491   -4.274873
+            11  |  -3.731137   .3033253   -12.30   0.000    -4.325644    -3.13663
+            12  |  -2.641905   .3957474    -6.68   0.000    -3.417556   -1.866255
+            14  |  -1.111729    .527879    -2.11   0.035    -2.146353   -.0771055
+            15  |  -1.879967   .1839375   -10.22   0.000    -2.240478   -1.519456
+            17  |  -2.362583   .3645257    -6.48   0.000     -3.07704   -1.648126
+            19  |  -2.125464   .0922073   -23.05   0.000    -2.306187   -1.944741
+            20  |  -2.991495   .4257373    -7.03   0.000    -3.825925   -2.157065
+            22  |  -.2808854   .3493348    -0.80   0.421     -.965569    .4037981
+            24  |  -1.858019   .2770807    -6.71   0.000    -2.401087    -1.31495
+            25  |  -.4530352   .2987395    -1.52   0.129    -1.038554    .1324835
+            26  |   .0713536   .0613604     1.16   0.245    -.0489106    .1916178
+            27  |  -.6471904    .036842   -17.57   0.000    -.7193993   -.5749815
+            30  |  -2.412833   .2063757   -11.69   0.000    -2.817322   -2.008344
+            31  |  -.1742136   .0387948    -4.49   0.000      -.25025   -.0981773
+            33  |  -.1619365   .3997991    -0.41   0.685    -.9455284    .6216554
+            34  |  -1.605525    .387261    -4.15   0.000    -2.364543   -.8465072
+            35  |  -3.057858   .4329454    -7.06   0.000    -3.906415     -2.2093
+            36  |  -3.502564   .4310258    -8.13   0.000    -4.347359   -2.657769
+            37  |  -.4492259   .0634869    -7.08   0.000     -.573658   -.3247938
+            38  |  -3.461889   .0635132   -54.51   0.000    -3.586372   -3.337405
+            40  |  -2.360368     .07006   -33.69   0.000    -2.497683   -2.223053
+            42  |  -1.928113   .1227409   -15.71   0.000    -2.168681   -1.687545
+            44  |  -2.770616   .1998961   -13.86   0.000    -3.162405   -2.378827
+            45  |  -2.876574   .2021705   -14.23   0.000    -3.272821   -2.480327
+            46  |  -2.758928   .1294307   -21.32   0.000    -3.012607   -2.505249
+            48  |  -1.035669   .2162246    -4.79   0.000    -1.459462    -.611877
+            49  |  -2.852195   .1424552   -20.02   0.000    -3.131402   -2.572988
+            51  |  -4.440483   .3018514   -14.71   0.000    -5.032101   -3.848865
+            52  |  -3.269637    .244043   -13.40   0.000    -3.747953   -2.791321
+            54  |  -2.897861     .43441    -6.67   0.000    -3.749289   -2.046433
+            56  |  -1.466388   .5076734    -2.89   0.004     -2.46141   -.4713667
+            58  |   -2.99501   .3747821    -7.99   0.000    -3.729569    -2.26045
+            60  |  -3.387786   .2582359   -13.12   0.000    -3.893919   -2.881653
+            62  |  -4.869931    .419107   -11.62   0.000    -5.691365   -4.048496
+            64  |  -4.211892   .4344173    -9.70   0.000    -5.063334    -3.36045
+            66  |  -2.935414   .1717089   -17.10   0.000    -3.271958   -2.598871
+            67  |  -1.413172   .2853232    -4.95   0.000    -1.972396   -.8539493
+            68  |  -3.631178    .197266   -18.41   0.000    -4.017812   -3.244543
+            70  |  -3.643266   .1336758   -27.25   0.000    -3.905266   -3.381267
+            72  |  -1.719162     .37822    -4.55   0.000    -2.460459   -.9778644
+            74  |   .1140171   .4301899     0.27   0.791    -.7291396    .9571739
+            75  |  -.5560779    .082429    -6.75   0.000    -.7176358   -.3945201
+            77  |   .2848845   .2143807     1.33   0.184     -.135294     .705063
+            79  |   2.376942   .1937146    12.27   0.000     1.997268    2.756615
+            80  |  -.7581587    .361991    -2.09   0.036    -1.467648   -.0486694
+            82  |  -1.548502   .1240129   -12.49   0.000    -1.791563   -1.305441
+            83  |  -3.119752   .4314455    -7.23   0.000     -3.96537   -2.274134
+            84  |  -.6041912   .5434955    -1.11   0.266    -1.669423    .4610404
+            86  |  -2.999633   .3180382    -9.43   0.000    -3.622977    -2.37629
+            87  |  -3.225965   .4095055    -7.88   0.000    -4.028581   -2.423349
+            89  |  -3.288318   .3801661    -8.65   0.000     -4.03343   -2.543206
+            91  |  -2.015382    .350153    -5.76   0.000    -2.701669   -1.329095
+            92  |  -2.139897   .4444438    -4.81   0.000     -3.01099   -1.268803
+            93  |  -3.886965   .4875375    -7.97   0.000    -4.842521   -2.931409
+            94  |  -2.053847   .4667365    -4.40   0.000    -2.968634    -1.13906
+            95  |  -2.269729   .4963319    -4.57   0.000    -3.242521   -1.296936
+            96  |  -1.720826   .4611918    -3.73   0.000    -2.624745   -.8169063
+                |
+1.credit_access |   -.360111   .9164816    -0.39   0.694    -2.156382     1.43616
+          _cons |   56.00986   4.471114    12.53   0.000     47.24663    64.77308
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3269138   .0491533     6.65   0.000      .230575    .4232526
+     collateral |  -.1782402   .0760375    -2.34   0.019     -.327271   -.0292095
+                |
+       tinh_num |
+            02  |   -.276611   .0311638    -8.88   0.000     -.337691   -.2155311
+            04  |  -.2229847    .034003    -6.56   0.000    -.2896293   -.1563401
+            06  |  -.2502734   .0504563    -4.96   0.000     -.349166   -.1513808
+            08  |  -.3163913   .0447854    -7.06   0.000     -.404169   -.2286136
+            10  |  -.3266356   .0364767    -8.95   0.000    -.3981287   -.2551426
+            11  |  -.2126298   .0213701    -9.95   0.000    -.2545143   -.1707452
+            12  |  -.2211523   .0329846    -6.70   0.000     -.285801   -.1565036
+            14  |  -.3155709   .0474802    -6.65   0.000    -.4086305   -.2225114
+            15  |  -.1282999   .0106245   -12.08   0.000    -.1491236   -.1074762
+            17  |  -.2139044   .0234925    -9.11   0.000    -.2599488   -.1678599
+            19  |  -.0335575   .0086891    -3.86   0.000    -.0505878   -.0165272
+            20  |   -.241216   .0338964    -7.12   0.000    -.3076517   -.1747803
+            22  |  -.1888279   .0257779    -7.33   0.000    -.2393517   -.1383041
+            24  |  -.2036594   .0225961    -9.01   0.000     -.247947   -.1593718
+            25  |  -.1636574   .0228074    -7.18   0.000    -.2083591   -.1189558
+            26  |   .0647557   .0080414     8.05   0.000     .0489948    .0805166
+            27  |   .0809692   .0164085     4.93   0.000     .0488091    .1131294
+            30  |  -.1429615   .0132761   -10.77   0.000    -.1689821   -.1169409
+            31  |   .0482832    .006641     7.27   0.000     .0352671    .0612993
+            33  |  -.2340824   .0307201    -7.62   0.000    -.2942927    -.173872
+            34  |  -.2312035   .0330729    -6.99   0.000    -.2960252   -.1663818
+            35  |  -.1892484   .0421099    -4.49   0.000    -.2717822   -.1067145
+            36  |  -.3939459   .0309201   -12.74   0.000    -.4545482   -.3333437
+            37  |   .0431927   .0071693     6.02   0.000     .0291413    .0572442
+            38  |   .1165742   .0104752    11.13   0.000     .0960432    .1371052
+            40  |  -.0185516   .0070569    -2.63   0.009    -.0323828   -.0047204
+            42  |   .1997476   .0179733    11.11   0.000     .1645206    .2349746
+            44  |  -.0612906   .0170576    -3.59   0.000    -.0947229   -.0278583
+            45  |  -.0235568   .0139687    -1.69   0.092     -.050935    .0038214
+            46  |   .1275153    .024696     5.16   0.000     .0791119    .1759186
+            48  |   .4530547   .0307418    14.74   0.000     .3928018    .5133076
+            49  |   .0839788   .0137463     6.11   0.000     .0570366     .110921
+            51  |    .047442   .0199328     2.38   0.017     .0083744    .0865096
+            52  |   .0342883   .0184626     1.86   0.063    -.0018977    .0704743
+            54  |   .0072121   .0308999     0.23   0.815    -.0533505    .0677748
+            56  |  -.1591093   .0433244    -3.67   0.000    -.2440235    -.074195
+            58  |   .2179326    .047506     4.59   0.000     .1248226    .3110426
+            60  |  -.0608501   .0239595    -2.54   0.011    -.1078099   -.0138902
+            62  |  -.2392664   .0274353    -8.72   0.000    -.2930386   -.1854941
+            64  |  -.1444886   .0307988    -4.69   0.000    -.2048531   -.0841241
+            66  |   .0084561   .0146959     0.58   0.565    -.0203472    .0372595
+            67  |    .027203   .0211089     1.29   0.198    -.0141697    .0685757
+            68  |  -.0667076   .0166002    -4.02   0.000    -.0992434   -.0341719
+            70  |   .0592046   .0153126     3.87   0.000     .0291923    .0892168
+            72  |   .0717197    .049195     1.46   0.145    -.0247007    .1681402
+            74  |  -.0713085   .0514688    -1.39   0.166    -.1721856    .0295685
+            75  |   .0843532   .0284403     2.97   0.003     .0286113    .1400951
+            77  |  -.0120064    .016501    -0.73   0.467    -.0443478     .020335
+            79  |   -.074572   .0228522    -3.26   0.001    -.1193615   -.0297825
+            80  |   .0942963   .0490641     1.92   0.055    -.0018676    .1904603
+            82  |   .2584479   .0346977     7.45   0.000     .1904417    .3264541
+            83  |   .0147296    .052832     0.28   0.780    -.0888192    .1182785
+            84  |   .1043229   .0459743     2.27   0.023      .014215    .1944309
+            86  |   .1219831   .0323319     3.77   0.000     .0586137    .1853525
+            87  |   .0644277   .0523622     1.23   0.219    -.0382004    .1670558
+            89  |   .1091972   .0451454     2.42   0.016     .0207139    .1976805
+            91  |    .087349   .0470418     1.86   0.063    -.0048512    .1795492
+            92  |  -.0770595   .0499712    -1.54   0.123    -.1750012    .0208822
+            93  |     .05171   .0516852     1.00   0.317    -.0495912    .1530112
+            94  |   .1376203    .055753     2.47   0.014     .0283465     .246894
+            95  |  -.2327082   .0460746    -5.05   0.000    -.3230128   -.1424036
+            96  |   -.117947   .0368442    -3.20   0.001    -.1901603   -.0457337
+                |
+    peer_effect |   2.273705   .1122089    20.26   0.000     2.053779     2.49363
+ social_network |   .4167553    .058732     7.10   0.000     .3016428    .5318679
+          _cons |  -4.910772    .493227    -9.96   0.000    -5.877479   -3.944065
+----------------+----------------------------------------------------------------
+        /athrho |   .0153859   .0762586     0.20   0.840    -.1340782      .16485
+       /lnsigma |    1.82791   .0434461    42.07   0.000     1.742757    1.913063
+----------------+----------------------------------------------------------------
+            rho |   .0153847   .0762405                     -.1332805    .1633727
+          sigma |   6.220871   .2702729                      5.713073    6.773804
+         lambda |    .095706   .4769064                     -.8390134    1.030425
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.04   Prob > chi2 = 0.8401
+
+. 
+. winsor2 housing_burden, cuts(1 99) suffix(_w)
+
+. eststo Rob_Win: etregress housing_burden_w ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income collateral peer_effect social_network) vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -24561151  
+Iteration 1:   log pseudolikelihood =  -24561150  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(4)  = 705.23
+Log pseudolikelihood = -24561150                        Prob > chi2   = 0.0000
+
+----------------------------------------------------------------------------------
+                 |               Robust
+                 | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+housing_burden_w |
+       ln_income |  -2.815984   .1731301   -16.27   0.000    -3.155312   -2.476655
+         tsnguoi |  -.8120226   .0413823   -19.62   0.000    -.8931305   -.7309147
+      collateral |    1.22987   .4366212     2.82   0.005     .3741084    2.085632
+ 1.credit_access |  -.1564936   .2330148    -0.67   0.502    -.6131942     .300207
+           _cons |   40.24398   1.841988    21.85   0.000     36.63375    43.85421
+-----------------+----------------------------------------------------------------
+credit_access    |
+       ln_income |   .3070677   .0352127     8.72   0.000      .238052    .3760834
+      collateral |   -.147754   .1167186    -1.27   0.206    -.3765183    .0810103
+     peer_effect |   2.409789   .0528558    45.59   0.000     2.306193    2.513384
+  social_network |   .3408033   .0365456     9.33   0.000     .2691753    .4124313
+           _cons |   -4.73445   .3761499   -12.59   0.000     -5.47169   -3.997209
+-----------------+----------------------------------------------------------------
+         /athrho |   -.010257   .0310735    -0.33   0.741    -.0711599    .0506459
+        /lnsigma |   1.702281   .0198601    85.71   0.000     1.663356    1.741206
+-----------------+----------------------------------------------------------------
+             rho |  -.0102567   .0310702                     -.0710401    .0506026
+           sigma |   5.486449   .1089616                      5.276991     5.70422
+          lambda |  -.0562727   .1703326                     -.3901185    .2775732
+----------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.11   Prob > chi2 = 0.7413
+
+. 
+. esttab Main Het_Q Rob_FE Rob_Win using "$path\Table_AdvancedRobustness.rtf", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(1.credit_access ln_income tsnguoi collateral) ///
+>     mtitle("Main" "Hetero" "Province FE" "Winsorized") title("Robustness Checks")
+estimation result Main not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. * Bổ sung chạy lại Main để lưu vào bộ nhớ trước khi xuất bảng
+. /* --- XÓA SẠCH BỘ NHỚ CŨ ĐỂ LÀM LẠI --- */
+. eststo clear
+
+. 
+. /* 1. CHẠY LẠI MODEL MAIN */
+. display "--- Running Main Model ---"
+--- Running Main Model ---
+
+. qui etregress housing_burden ln_income tsnguoi collateral edu_head age_head informal ///
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) vce(robust)
+
+. eststo Main
+
+. 
+. /* 2. CHẠY LẠI MODEL HETEROGENEITY */
+. display "--- Running Hetero Model ---"
+--- Running Hetero Model ---
+
+. qui etregress housing_burden i.credit_access##i.quintile ln_income tsnguoi collateral edu_head 
+> age_head informal ///
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) vce(robust)
+
+. eststo Het_Q
+
+. 
+. /* 3. CHẠY LẠI MODEL PROVINCE FE */
+. display "--- Running Province FE Model ---"
+--- Running Province FE Model ---
+
+. capture encode tinh, gen(tinh_num) 
+
+. qui etregress housing_burden ln_income tsnguoi collateral i.tinh_num [pw=wt45], ///
+>     treat(credit_access = ln_income collateral i.tinh_num peer_effect social_network) vce(clust
+> er tinh_num)
+
+. eststo Rob_FE
+
+. 
+. /* 4. CHẠY LẠI MODEL WINSORIZE */
+. display "--- Running Winsorize Model ---"
+--- Running Winsorize Model ---
+
+. capture winsor2 housing_burden, cuts(1 99) suffix(_w)
+
+. qui etregress housing_burden_w ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income collateral peer_effect social_network) vce(robust)
+
+. eststo Rob_Win
+
+. 
+. /* 5. XUẤT BẢNG TỔNG HỢP 4 MÔ HÌNH VÀO 1 FILE RTF */
+. display "--- Exporting Table ---"
+--- Exporting Table ---
+
+. esttab Main Het_Q Rob_FE Rob_Win using "Table_AdvancedRobustness.rtf", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(1.credit_access ln_income tsnguoi collateral) ///
+>     mtitle("Main" "Hetero" "Province FE" "Winsorized") ///
+>     title("Advanced Robustness Checks") ///
+>     addnotes("Robust SE in parentheses. FE model uses clustered SE.")
+(file Table_AdvancedRobustness.rtf not found)
+(output written to Table_AdvancedRobustness.rtf)
+
+. 
+. display "=== ĐÃ XUẤT BẢNG THÀNH CÔNG VÀO THƯ MỤC HIỆN TẠI ==="
+=== ĐÃ XUẤT BẢNG THÀNH CÔNG VÀO THƯ MỤC HIỆN TẠI ===
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 5. POLICY SIMULATION ====================== */
+. display "--- 5. Policy Counterfactual ---"
+--- 5. Policy Counterfactual ---
+
+. qui etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income collateral peer_effect social_network) vce(robust)
+
+. predict xb_hat, xb
+
+. gen sim_social_rent = xb_hat - _b[collateral]*collateral if e(sample)
+(40 missing values generated)
+
+. 
+. sum housing_burden if quintile <= 2 [aw=wt45]
+
+    Variable |     Obs      Weight        Mean   Std. dev.       Min        Max
+-------------+-----------------------------------------------------------------
+housing_bu~n |   7,120     4508759    7.457287    7.20344          0   99.09775
+
+. local mean1 = r(mean)
+
+. sum sim_social_rent if quintile <= 2 [aw=wt45]
+
+    Variable |     Obs      Weight        Mean   Std. dev.       Min        Max
+-------------+-----------------------------------------------------------------
+sim_social~t |   7,120     4508759    7.516874   1.917419  -2.379251   18.43143
+
+. local mean2 = r(mean)
+
+. local reduction = `mean1' - `mean2'
+
+. display "=== POLICY IMPACT: Nhà ở xã hội cho thuê giảm " %4.2f `reduction' " pp gánh nặng cho Q
+> 1 & Q2 ==="
+=== POLICY IMPACT: Nhà ở xã hội cho thuê giảm -0.06 pp gánh nặng cho Q1 & Q2 ===
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 6. ĐỒ THỊ SO SÁNH TP. HÀ NỘI & TP. HỒ CHÍ MINH ======================
+>  */
+. display "--- 6. Spatial Heterogeneity: Hanoi vs HCMC ---"
+--- 6. Spatial Heterogeneity: Hanoi vs HCMC ---
+
+. capture drop major_city
+
+. gen major_city = ""
+(10,286 missing values generated)
+
+. replace major_city = "Hanoi" if tinh == "01" | matinh == "01"
+variable major_city was str1 now str5
+(451 real changes made)
+
+. replace major_city = "HCMC"  if tinh == "79" | matinh == "79"
+(748 real changes made)
+
+. 
+. graph box housing_burden if major_city != "", over(credit_access) over(major_city) ///
+>     title("Housing Burden by Credit Access: Hanoi vs HCMC", size(medsmall)) ///
+>     ytitle("Housing Burden (% of Income)") ///
+>     note("Source: Authors' calculation from VHLSS 2024") 
+
+. graph export "$path\figures\fig9_hn_hcmc_boxplot.png", as(png) replace width(2000)
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig9_hn_hcmc_boxplot.png saved as PNG format
+
+. 
+. graph bar (mean) housing_burden if major_city != "", over(quintile) over(credit_access) over(ma
+> jor_city) ///
+>     title("Housing Burden by Income Quintile & Credit Access", size(medsmall)) ///
+>     ytitle("Average Housing Burden (%)") ///
+>     note("Source: Authors' calculation from VHLSS 2024") 
+
+. graph export "$path\figures\fig10_hn_hcmc_bar.png", as(png) replace width(2000)
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig10_hn_hcmc_bar.png saved as PNG format
+
+

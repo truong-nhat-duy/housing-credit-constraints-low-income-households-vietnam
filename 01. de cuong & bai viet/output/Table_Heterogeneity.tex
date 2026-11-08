@@ -1,0 +1,24 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Heterogeneous Treatment Effects}
+\begin{tabular}{l*{1}{c}}
+\toprule
+            &\multicolumn{1}{c}{(1)}\\
+            &\multicolumn{1}{c}{Heterogeneity by Quintile}\\
+\midrule
+housing\_burden&                     \\
+1.credit\_access&       0.095         \\
+            &     (0.385)         \\
+\addlinespace
+1.credit\_access#2.quintile&      -0.009         \\
+            &     (0.377)         \\
+\addlinespace
+1.credit\_access#3.quintile&      -0.837\sym{**} \\
+            &     (0.394)         \\
+\midrule
+\(N\)       &       10246         \\
+\bottomrule
+\multicolumn{2}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{2}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

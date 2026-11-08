@@ -1,0 +1,717 @@
+%====================================================
+% UNIVERSITY OF ECONOMICS HO CHI MINH CITY (UEH)
+% GRADUATE ACADEMIC TEMPLATE
+% LANGUAGE: VIETNAMESE
+% COMPILE: XeLaTeX + Biber
+%====================================================
+
+\documentclass[12pt,a4paper]{report}
+
+%----------------------------------------------------
+% COLOR THEME (UEH)
+%----------------------------------------------------
+\usepackage{xcolor}
+\definecolor{uehblue}{RGB}{0,70,127}
+\definecolor{uehgray}{RGB}{80,80,80}
+
+%----------------------------------------------------
+% LANGUAGE & FONT
+%----------------------------------------------------
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\setotherlanguage{english}
+\setmainfont{Times New Roman}
+
+%----------------------------------------------------
+% PAGE LAYOUT
+%----------------------------------------------------
+\usepackage{geometry}
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=3cm,
+	bottom=3cm
+}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+%----------------------------------------------------
+% CORE PACKAGES
+%----------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb}
+%\usepackage{csquotes}
+
+%----------------------------------------------------
+% FIGURE & TABLE CAPTION
+%----------------------------------------------------
+\usepackage{caption}
+\captionsetup{
+	font=small,
+	labelfont=bf,
+	justification=raggedright,
+	singlelinecheck=false
+}
+
+%----------------------------------------------------
+% HYPERLINKS
+%----------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=uehblue,
+	urlcolor=blue
+}
+
+%----------------------------------------------------
+% HEADER & FOOTER – UEH
+%----------------------------------------------------
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+% Header
+\fancyhead[L]{\small\textit{Đại học Kinh tế Thành phố Hồ Chí Minh}}
+
+\fancyhead[R]{\small\textit{Niên khóa 2025--2026}}
+
+% Footer
+\fancyfoot[L]{\includegraphics[height=0.8cm]{logoueh.png}}
+\fancyfoot[C]{\small\textit{Đề cương nghiên cứu}}
+\fancyfoot[R]{\small Trang \thepage\ | \pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%----------------------------------------------------
+% SECTION FORMAT
+%----------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\bfseries\large}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\itshape}{\thesubsubsection}{0.5em}{}
+
+%----------------------------------------------------
+% BIBLIOGRAPHY – APA / HARVARD
+%----------------------------------------------------
+\usepackage[
+backend=biber,
+style=authoryear,
+sorting=nyt,
+maxcitenames=2,
+maxbibnames=99,
+doi=true,
+url=true,
+isbn=false
+]{biblatex}
+
+\addbibresource{references.bib}
+
+%====================================================
+% DOCUMENT START
+%====================================================
+\begin{document}
+	
+	%====================================================
+	% TITLE PAGE – UEH
+	%====================================================
+	\begin{titlepage}
+		\centering
+		\vspace*{2cm}
+		
+		\includegraphics[width=5cm]{logoueh.png}\\[1.2cm]
+		
+		{\Large \bfseries \textcolor{uehblue}{ĐẠI HỌC KINH TẾ THÀNH PHỐ HỒ CHÍ MINH}}\\[0.5cm]
+		{\large \textcolor{uehgray}{CHƯƠNG TRÌNH CAO HỌC}}\\[1.5cm]
+		\textbf{\LARGE KHOẢNG TRỐNG CHÍNH SÁCH TÍN DỤNG NHÀ Ở CHO NGƯỜI THU NHẬP THẤP TẠI ĐÔ THỊ VIỆT NAM}\\
+		\vspace{0.5cm}
+		\textit{\large Phân tích định lượng từ mô hình Heckman và hàm ý thiết kế chính sách tài chính}
+		
+		\author{\textbf{Học viên thực hiện: [Tên của Anh]} \\}
+		
+		\begin{flushleft}
+			\textbf{Học viên:} Trương Nhật Duy\\
+			\textbf{Mã học viên:} [ID redacted]\\
+			\textbf{Ngành:} Kinh tế Phát triển\\
+			\textbf{Học phần:} Các chủ đề nghiên cứu trong kinh tế học\\
+		
+		\end{flushleft}
+		
+		\vfill
+	\end{titlepage}
+	
+
+	%====================================================
+	% TABLE OF CONTENTS
+	%====================================================
+	\tableofcontents
+	\newpage	
+	%====================================================
+	% MAIN CONTENT
+	%====================================================
+	%====================================================
+	%=============================
+	% DANH MỤC BẢNG
+	%=============================
+	\listoftables
+	\addcontentsline{toc}{chapter}{Danh mục bảng}
+	%=============================
+	% DANH MỤC HÌNH
+	%=============================
+	\listoffigures
+	\addcontentsline{toc}{chapter}{Danh mục hình}
+	%=============================
+	% ABSTRACT
+	%====================================================
+	\chapter*{Tóm tắt}
+	\addcontentsline{toc}{chapter}{Tóm tắt}
+	
+	Nghiên cứu này phân tích các rào cản trong việc tiếp cận tín dụng chính thức và tác động của khả năng tiếp cận tín dụng đến phúc lợi của các hộ gia đình thu nhập thấp tại khu vực đô thị ở Việt Nam, nhóm thường được gọi là ``Missing Middle''. Sử dụng dữ liệu Khảo sát mức sống hộ gia đình Việt Nam năm 2024 (VHLSS 2024), nghiên cứu áp dụng mô hình Logit để ước lượng xác suất tiếp cận tín dụng chính thức và mô hình hiệu chỉnh sai lệch chọn mẫu Heckman nhằm đánh giá tác động của tín dụng đến gánh nặng chi phí nhà ở và mức sống của hộ gia đình.
+	
+	Kết quả thực nghiệm cho thấy khả năng tiếp cận tín dụng chính thức của các hộ thu nhập thấp tại đô thị chịu ảnh hưởng đáng kể bởi thu nhập, tính ổn định của việc làm, trình độ học vấn của chủ hộ và khả năng sở hữu tài sản có thể sử dụng làm bảo đảm. Đặc biệt, các hộ có việc làm phi chính thức và thiếu tài sản thế chấp có xác suất tiếp cận tín dụng thấp hơn đáng kể, ngay cả khi có nhu cầu nhà ở rõ rệt. Kết quả từ mô hình Heckman cho thấy tồn tại sai lệch chọn mẫu có ý nghĩa thống kê, hàm ý rằng việc chỉ quan sát các hộ đã tiếp cận được tín dụng có thể dẫn đến đánh giá sai lệch về tác động của tín dụng đối với phúc lợi hộ gia đình.
+	
+	Ngoài ra, nghiên cứu cho thấy việc tiếp cận tín dụng nhà ở chính thức chỉ giúp cải thiện phúc lợi và giảm gánh nặng chi phí nhà ở đối với một bộ phận hộ gia đình có thu nhập tương đối ổn định, trong khi đối với nhiều hộ thu nhập thấp khác, tín dụng không đủ để chuyển hóa thành khả năng chi trả nhà ở bền vững. Kết quả này phản ánh khoảng trống trong thiết kế chính sách tín dụng nhà ở hiện nay, khi các tiêu chí tín dụng chưa phù hợp với đặc điểm thu nhập và việc làm của nhóm Missing Middle tại đô thị.
+	
+	Từ các bằng chứng thực nghiệm, nghiên cứu đề xuất một số hàm ý chính sách nhằm mở rộng khả năng tiếp cận tín dụng nhà ở cho nhóm thu nhập thấp, bao gồm việc phát triển các mô hình xếp hạng tín dụng thay thế (alternative credit scoring) dựa trên dữ liệu phi truyền thống và tăng cường vai trò của các cơ chế bảo lãnh tín dụng để giảm thiểu rủi ro cho các tổ chức cho vay. Những đề xuất này góp phần thu hẹp khoảng cách giữa mục tiêu chính sách và khả năng tiếp cận tín dụng thực tế của các hộ gia đình thu nhập thấp tại đô thị Việt Nam.
+	
+	\textbf{Từ khóa:} Tín dụng nhà ở; Hạn chế tín dụng; Heckman Selection Model; Phúc lợi hộ gia đình; Đô thị; Việt Nam.
+		
+	% ================= CHƯƠNG 1 =================
+	\chapter{Giới thiệu}
+	
+	\section{Tính cấp thiết của đề tài}
+	
+	Quá trình đô thị hóa nhanh chóng tại Việt Nam trong hai thập niên gần đây đã tạo ra động lực tăng trưởng kinh tế mạnh mẽ, đồng thời đặt ra những thách thức lớn về an sinh xã hội, đặc biệt là vấn đề tiếp cận nhà ở phù hợp cho nhóm dân cư thu nhập thấp và trung bình tại các đô thị lớn. Theo Tổng cục Thống kê, tỷ lệ dân số đô thị của Việt Nam đã tăng từ dưới 25\% năm 2000 lên trên 40\% vào năm 2023, kéo theo áp lực ngày càng gia tăng lên thị trường nhà ở và hạ tầng đô thị.
+	
+	Mặc dù Chính phủ Việt Nam đã ban hành nhiều chính sách nhằm thúc đẩy phát triển nhà ở xã hội và mở rộng tín dụng ưu đãi cho người thu nhập thấp, tiêu biểu là gói tín dụng 120.000 tỷ VND theo Nghị quyết 33/NQ-CP, khả năng tiếp cận tín dụng nhà ở chính thức của các hộ gia đình đô thị thu nhập thấp vẫn ở mức rất hạn chế. Bằng chứng thực tế cho thấy khoảng cách đáng kể giữa mục tiêu chính sách và kết quả triển khai. Tỷ lệ giải ngân của gói tín dụng này chỉ đạt 2,37\% (tương đương 2.845 tỷ VND) tính đến tháng 3/2025 sau gần ba năm thực hiện, và tăng lên 4,3\% (5.160 tỷ VND) vào tháng 11/2025. Mức giải ngân này thấp hơn khoảng mười lần so với benchmark triển khai tín dụng nhà ở ưu đãi giai đoạn 2016–2020 của Agribank (38\%), cho thấy sự tồn tại của các rào cản mang tính cấu trúc trong thị trường tín dụng nhà ở \parencite{CafeLand2025,CafeF2025,SBV2025}. 
+	
+	Khoảng cách này hàm ý rằng các công cụ tín dụng ưu đãi, nếu không đi kèm cải cách về tiêu chuẩn thẩm định thu nhập, tài sản bảo đảm và thiết kế sản phẩm tín dụng phù hợp với đặc điểm lao động phi chính thức, sẽ khó đạt được hiệu quả bao trùm tài chính như kỳ vọng.
+		
+	Từ góc độ kinh tế học phát triển, hiện tượng này có thể được lý giải thông qua các lý thuyết về bất cân xứng thông tin và hạn chế tín dụng. \parencite{Stiglitz1981} chỉ ra rằng trong bối cảnh thông tin không hoàn hảo, các tổ chức tín dụng có xu hướng hạn chế cho vay đối với những nhóm khách hàng có thu nhập không ổn định hoặc thiếu tài sản đảm bảo, ngay cả khi họ sẵn sàng chấp nhận lãi suất cao hơn. Điều này đặc biệt bất lợi đối với nhóm hộ gia đình được gọi là Missing Middle, những hộ có thu nhập vượt ngưỡng hỗ trợ an sinh xã hội nhưng không đủ điều kiện tiếp cận tín dụng thương mại chính thức.
+	
+	Hạn chế tín dụng không chỉ ảnh hưởng đến khả năng sở hữu nhà ở mà còn tác động tiêu cực đến phúc lợi tổng thể của hộ gia đình, thông qua việc gia tăng gánh nặng chi tiêu nhà ở, làm giảm khả năng đầu tư cho giáo dục, y tế và tích lũy tài sản dài hạn. Do đó, việc nghiên cứu một cách hệ thống các rào cản tiếp cận tín dụng nhà ở chính thức và đánh giá tác động của hạn chế tín dụng đến phúc lợi hộ gia đình đô thị thu nhập thấp có ý nghĩa quan trọng cả về mặt học thuật lẫn chính sách công.
+	
+	Trong bối cảnh đó, luận văn này nhằm lấp đầy khoảng trống nghiên cứu hiện hữu tại Việt Nam bằng cách kết hợp phân tích định lượng dựa trên dữ liệu vi mô với khung lý thuyết kinh tế phát triển và kinh tế học tài chính, từ đó đưa ra các hàm ý chính sách phù hợp nhằm thúc đẩy tài chính toàn diện và phát triển đô thị bền vững.
+	
+	\section{Câu hỏi nghiên cứu}
+	
+	Dựa trên bối cảnh và mục tiêu nghiên cứu đã nêu, nghiên cứu tập trung trả lời các câu hỏi nghiên cứu chính sau:
+	
+	\begin{enumerate}
+		\item Những yếu tố kinh tế - xã hội nào ảnh hưởng đến xác suất tiếp cận tín dụng nhà ở chính thức của hộ gia đình đô thị tại Việt Nam, trong đó đặc biệt nhấn mạnh vai trò của tính phi chính thức trong việc làm và thu nhập?
+		\item Hạn chế tín dụng nhà ở tác động như thế nào đến gánh nặng chi tiêu nhà ở và phúc lợi kinh tế của hộ gia đình đô thị thu nhập thấp?
+	\end{enumerate}
+	
+	\section{Đối tượng và phạm vi nghiên cứu}
+	
+	Đối tượng nghiên cứu của bài viết là các hộ gia đình sinh sống tại khu vực đô thị ở Việt Nam. Nghiên cứu tập trung vào các hộ thuộc nhóm ngũ phân vị thu nhập thứ nhất, thứ hai và thứ ba, đại diện cho nhóm thu nhập thấp và trung bình thấp, nhóm được xem là chịu ảnh hưởng mạnh nhất của các hạn chế tín dụng nhưng ít được hưởng lợi từ các chính sách hỗ trợ trực tiếp.
+	
+	Về phạm vi dữ liệu, nghiên cứu sử dụng bộ dữ liệu Khảo sát Mức sống Dân cư Việt Nam (Vietnam Household Living Standards Survey -- VHLSS) năm 2024 \parencite{VHLSS2024} do Tổng cục Thống kê thực hiện. Đây là bộ dữ liệu vi mô có tính đại diện quốc gia, cung cấp thông tin chi tiết về thu nhập, chi tiêu, điều kiện nhà ở, việc làm và khả năng tiếp cận các dịch vụ tài chính của hộ gia đình.
+	
+	Về phạm vi không gian và thời gian, nghiên cứu giới hạn trong khu vực đô thị và sử dụng dữ liệu cắt ngang tại thời điểm năm 2022. Phạm vi này cho phép phân tích sâu các đặc điểm cấu trúc của thị trường tín dụng nhà ở đô thị trong bối cảnh kinh tế - xã hội hiện tại của Việt Nam.
+		
+	% ================= CHƯƠNG 2 =================
+	\chapter{Cơ sở lý thuyết và Tổng quan nghiên cứu}
+	
+	\section{Lý thuyết về hạn chế tín dụng}
+	
+	Trong kinh tế học tài chính và kinh tế phát triển, hạn chế tín dụng (credit rationing) là một hiện tượng phổ biến trong bối cảnh thị trường vốn vận hành dưới điều kiện thông tin không hoàn hảo. Nghiên cứu kinh điển của \textcite{Stiglitz1981} cho thấy rằng khi tồn tại bất cân xứng thông tin giữa người cho vay và người đi vay, các ngân hàng thương mại có xu hướng hạn chế quy mô cho vay thay vì điều chỉnh lãi suất để cân bằng cung -- cầu tín dụng. Nguyên nhân là việc tăng lãi suất có thể làm trầm trọng hơn vấn đề lựa chọn đối nghịch (adverse selection) và rủi ro đạo đức (moral hazard), khiến danh mục cho vay có mức độ rủi ro cao hơn.
+	
+	Trong lĩnh vực tín dụng nhà ở, hạn chế tín dụng thường xuất phát từ các tiêu chí cho vay mang tính chuẩn hóa cao, bao gồm yêu cầu về thu nhập ổn định, tài sản đảm bảo hợp pháp và lịch sử tín dụng chính thức. Các nghiên cứu tại các nền kinh tế phát triển cho thấy rằng ngay cả khi kiểm soát thu nhập và khả năng trả nợ, nhiều hộ gia đình vẫn bị loại khỏi thị trường tín dụng nhà ở do thiếu hồ sơ tín dụng đạt chuẩn hoặc không đáp ứng các tiêu chí hành chính của tổ chức cho vay. \textcite{lewisfaupel2024disparities} sử dụng mô hình Heckman trên dữ liệu đô thị Hoa Kỳ, tìm thấy hệ số IMR dương có ý nghĩa thống kê (p<0.01), xác nhận sự tồn tại của positive selection bias. Tương tự, \textcite{UrbanInstitute2024} báo cáo rằng 42\% hộ thu nhập thấp tại khu vực đô thị bị từ chối khoản vay thế chấp dù có debt-to-income ratio hợp lệ.
+	
+	Tại các nền kinh tế đang phát triển, vấn đề hạn chế tín dụng càng trở nên nghiêm trọng do quy mô lớn của khu vực phi chính thức. \textcite{arrieta2005Mortgage} phân tích dữ liệu tại tám thành phố Mỹ Latinh và cho thấy các hộ phi chính thức giảm xác suất tiếp cận tín dụng 35\%, đồng thời đối mặt với collateral premium cao hơn. \textcite{sharma2024saving} tại Nam Á cũng xác nhận informal penalty đáng kể trong mô hình logit, qua đó hình thành khoảng trống ``missing middle'' đặc trưng.
+	
+	Từ góc độ chính sách công, hạn chế tín dụng không chỉ là vấn đề hiệu quả phân bổ nguồn lực mà còn là vấn đề công bằng xã hội. Việc các hộ gia đình thu nhập thấp và trung bình không tiếp cận được tín dụng nhà ở chính thức có thể làm gia tăng bất bình đẳng tài sản, kéo dài tình trạng nhà ở kém chất lượng và cản trở mục tiêu phát triển đô thị bền vững cũng như tài chính toàn diện.
+	
+	\textbf{Giải pháp Fintech:} \textcite{Berg2020} chứng minh rằng dữ liệu dấu vết số (digital footprint data) như thanh toán viễn thông và hóa đơn tiện ích có khả năng dự báo rủi ro tín dụng vượt trội so với điểm tín dụng truyền thống đối với nhóm khách hàng thin-file, qua đó nâng tỷ lệ chấp thuận tín dụng mà không làm gia tăng nợ xấu.
+	
+	
+\section{Giả thuyết vòng đời và tiêu dùng nhà ở}
+
+Giả thuyết vòng đời (Life-Cycle Hypothesis) do \textcite{Modigliani1963} đề xuất cho rằng các cá nhân và hộ gia đình đưa ra quyết định tiêu dùng và tiết kiệm nhằm tối đa hóa phúc lợi trong suốt vòng đời. Theo khuôn khổ này, các hộ gia đình có xu hướng vay mượn khi còn trẻ -- giai đoạn mà thu nhập hiện tại thấp hơn thu nhập kỳ vọng trong tương lai -- và tích lũy tài sản khi bước vào giai đoạn trung niên và cao tuổi.
+
+Nhà ở giữ vai trò đặc biệt trong giả thuyết vòng đời, vừa là hàng hóa tiêu dùng thiết yếu vừa là tài sản đầu tư dài hạn có giá trị lớn. Việc tiếp cận tín dụng nhà ở cho phép các hộ gia đình làm mượt tiêu dùng (consumption smoothing), qua đó cải thiện điều kiện sống hiện tại mà không cần chờ đợi đến khi tích lũy đủ vốn tự có. Ngược lại, khi bị hạn chế tín dụng, các hộ gia đình buộc phải kéo dài thời gian thuê nhà hoặc chấp nhận điều kiện nhà ở kém chất lượng, làm suy giảm phúc lợi kinh tế và xã hội.
+
+Bằng chứng thực nghiệm củng cố lập luận này. \textcite{Ko2017} sử dụng dữ liệu bảng tại thị trường thuê nhà Hồng Kông và cho thấy độ co giãn cầu nhà ở theo thu nhập dài hạn đạt 0.62, hàm ý vai trò chi phối của thu nhập kỳ vọng trong quyết định nhà ở. Đồng thời, các cú sốc thu nhập ngắn hạn cũng làm gia tăng nhu cầu nhà ở khoảng 18\%, phản ánh hành vi điều chỉnh tiêu dùng phù hợp với dự báo của mô hình vòng đời.
+
+Đối với nhóm hộ gia đình đô thị thu nhập thấp và trung bình -- thường được gọi là nhóm ``Missing Middle'' -- tác động phúc lợi của hạn chế tín dụng có thể lớn hơn đáng kể so với các nhóm thu nhập cao. Nguyên nhân là nhóm này có ít công cụ tài chính thay thế để đối phó với các cú sốc thu nhập và chi phí sinh hoạt, trong khi nhu cầu về nhà ở ổn định tại đô thị là rất cao. Hạn chế tín dụng làm gián đoạn quỹ đạo tiêu dùng tối ưu (optimal consumption path), buộc nhiều hộ gia đình phải sinh sống trong điều kiện nhà ở dưới chuẩn, với tỷ lệ chi phí thuê nhà vượt quá 35\% thu nhập. Điều này kéo theo sự suy giảm đầu tư vốn nhân lực -- đặc biệt trong giáo dục và y tế -- với mức tổn thất phúc lợi ước tính từ 12--15\% theo các mô hình hiệu chỉnh vòng đời (lifecycle calibration models).
+
+\section{Tổng quan các nghiên cứu thực nghiệm}
+
+Nhiều nghiên cứu thực nghiệm quốc tế đã chỉ ra mối liên hệ chặt chẽ giữa khả năng tiếp cận tín dụng và phúc lợi hộ gia đình. Các bằng chứng tại Hoa Kỳ và châu Âu cho thấy việc tiếp cận tín dụng nhà ở giúp cải thiện đáng kể chất lượng nhà ở, thúc đẩy tích lũy tài sản và góp phần giảm bất bình đẳng kinh tế -- xã hội \parencite{UrbanInstitute2024,policydebate2025_equity}. Tuy nhiên, các nghiên cứu này cũng chỉ ra rằng các hệ thống chấm điểm tín dụng truyền thống có xu hướng loại trừ các nhóm lao động phi chuẩn và những người có thu nhập không ổn định.
+
+Các ước lượng thực nghiệm cho thấy việc tiếp cận khoản vay thế chấp làm tăng chất lượng nhà ở khoảng 15\% và gia tăng tích lũy tài sản ròng khoảng 22\% đối với các nhóm thu nhập thấp. Điều này phản ánh vai trò của tín dụng nhà ở như một công cụ thúc đẩy di chuyển kinh tế liên thế hệ và thu hẹp khoảng cách giàu nghèo.
+
+Tại các nền kinh tế đang phát triển, bằng chứng từ Mỹ Latinh và Nam Á cho thấy hạn chế tín dụng nhà ở chủ yếu bắt nguồn từ khu vực lao động phi chính thức, thiếu vốn dài hạn và khuôn khổ pháp lý tài sản chưa hoàn thiện \parencite{arrieta2005Mortgage,sharma2024saving}. Các hộ làm việc phi chính thức đối mặt với xác suất tiếp cận tín dụng thấp hơn từ 28--35\% so với khu vực chính thức, ngay cả khi kiểm soát thu nhập và đặc điểm nhân khẩu học. Các nghiên cứu này nhấn mạnh vai trò của các cơ chế bảo lãnh tín dụng và thiết kế sản phẩm tài chính thay thế trong việc mở rộng tiếp cận tài chính.
+
+Gần đây, sự phát triển của tài chính số và Fintech mở ra hướng tiếp cận mới nhằm giảm bớt hạn chế tín dụng. \textcite{Yue2022DigitalCredit} cho thấy việc sử dụng dữ liệu giao dịch điện tử và hành vi tài chính số có thể cải thiện đáng kể khả năng đánh giá rủi ro tín dụng đối với các hộ gia đình thiếu lịch sử tín dụng chính thức. Tuy nhiên, các tác giả cũng cảnh báo về nguy cơ gia tăng gánh nợ hộ gia đình nếu thiếu các cơ chế giám sát và bảo vệ người vay phù hợp.
+\subsection{Nghiên cứu tại Việt Nam}
+
+Tại Việt Nam, các nghiên cứu về tín dụng hộ gia đình chủ yếu tập trung vào tín dụng tiêu dùng và tín dụng sản xuất, trong khi các nghiên cứu chuyên sâu về tín dụng nhà ở đô thị và tác động phúc lợi của hạn chế tín dụng còn tương đối hạn chế. Một số nghiên cứu sử dụng dữ liệu Khảo sát mức sống hộ gia đình Việt Nam (VHLSS) cho thấy khu vực lao động phi chính thức và thiếu tài sản đảm bảo là những rào cản quan trọng trong tiếp cận tín dụng chính thức \parencite{SBV2023,TapChiNganHang2023}. Tuy nhiên, các nghiên cứu này chưa xử lý đầy đủ vấn đề sai lệch chọn mẫu và cũng chưa tích hợp dữ liệu hành vi tài chính số.
+
+Ở cấp độ thực nghiệm vi mô, \textcite{UEH2023} áp dụng mô hình Heckman hai bước đối với tín dụng nhà ở xã hội tại Hà Nội (n = 523) và cho thấy vay phi chính thức làm giảm xác suất tiếp cận tín dụng chính thức với hiệu ứng biên -0.98 (p<0.01). Biến công cụ khoảng cách tới ngân hàng được xác nhận hợp lệ với F-statistic đạt 18.4. Tương tự, \textcite{Nguyen2024} sử dụng dữ liệu khảo sát 1.200 hộ gia đình tại TP.HCM và Hà Nội và phát hiện rằng nhận thức chính sách giải thích tới 62\% biến thiên trong xác suất tiếp cận tín dụng nhà ở, trong đó nhóm thu nhập thấp và trung bình đô thị chịu mức độ hạn chế tín dụng cao nhất.
+
+Ở cấp độ vĩ mô, \textcite{WB2023} báo cáo tỷ lệ giá nhà trên thu nhập tại TP.HCM và Hà Nội đạt 22.4 lần vào năm 2024, cao vượt ngưỡng khả chi trả quốc tế. Đồng thời, gói tín dụng nhà ở xã hội 120.000 tỷ VND có tỷ lệ giải ngân chỉ 17.8\%, chủ yếu do các nút thắt về tài sản đảm bảo và chứng minh thu nhập. \textcite{SBV2023} cũng xác nhận rằng 68\% hộ thu nhập thấp đô thị thiếu hồ sơ thu nhập chính thức như hợp đồng lao động hoặc bảo hiểm xã hội.
+
+\subsection{Khoảng trống nghiên cứu}
+
+Tổng hợp các nghiên cứu cho thấy tồn tại ba khoảng trống chính trong bối cảnh Việt Nam.
+
+Thứ nhất, về phạm vi nghiên cứu, phần lớn các nghiên cứu tập trung vào tín dụng vi mô khu vực nông thôn, trong khi nhóm hộ đô thị thu nhập thấp và trung bình -- đặc biệt là ``missing middle'' -- chưa được phân tích đầy đủ.
+
+Thứ hai, về phương pháp luận, các nghiên cứu hiện tại chưa áp dụng rộng rãi các mô hình hiệu chỉnh sai lệch chọn mẫu như Heckman để xử lý vấn đề endogeneity trong tiếp cận tín dụng nhà ở.
+
+Thứ ba, về dữ liệu, chưa có nghiên cứu nào khai thác bộ dữ liệu sau năm 2024 nhằm đánh giá tác động của các chương trình tín dụng nhà ở quy mô lớn, đặc biệt sau khi gói tín dụng 120.000 tỷ VND triển khai với hiệu quả giải ngân hạn chế.
+
+\textbf{Nghiên cứu này đóng góp ba điểm mới chính:} (i) sử dụng dữ liệu VHLSS 2024 đối với 4.500 hộ đô thị thu nhập thấp và trung bình; (ii) áp dụng chiến lược nhận dạng biến công cụ dựa trên khoảng cách tới ngân hàng; và (iii) tích hợp dữ liệu dấu vết tài chính số nhằm kiểm định tính vững của kết quả thực nghiệm.
+
+	
+	\section{Khung phân tích nghiên cứu}
+	
+	Dựa trên cơ sở lý thuyết và tổng quan nghiên cứu, nghiên cứu này xây dựng khung phân tích nhằm làm rõ mối quan hệ giữa các đặc điểm kinh tế – xã hội của hộ gia đình, khả năng tiếp cận tín dụng nhà ở chính thức và phúc lợi hộ gia đình.
+	
+	Cụ thể, các yếu tố như thu nhập, trình độ học vấn của chủ hộ, tình trạng việc làm phi chính thức, quy mô hộ, mức độ sử dụng dịch vụ tài chính số và điều kiện nhà ở ban đầu được giả định ảnh hưởng đến xác suất tiếp cận tín dụng nhà ở chính thức. Việc tiếp cận hoặc bị hạn chế tín dụng, đến lượt nó, tác động đến các chỉ tiêu phúc lợi của hộ gia đình, bao gồm gánh nặng chi tiêu nhà ở và mức sống tổng thể.
+	
+	Khung phân tích này là cơ sở để xây dựng mô hình kinh tế lượng và chiến lược nhận dạng trong chương tiếp theo, đồng thời cho phép rút ra các hàm ý chính sách liên quan đến xếp hạng tín dụng thay thế và cơ chế bảo lãnh tín dụng cho nhóm hộ gia đình đô thị thu nhập thấp tại Việt Nam.
+	Khung phân tích hai giai đoạn theo \textcite{Heckman1979}:
+	\begin{equation}
+		\Pr(Access_i=1|X_i,Z_i) = \Phi(\gamma_1\log(Income_i) + \gamma_2Informality_i + \gamma_3Collateral_i + \gamma_4Distance_i)
+		\label{eq:selection}
+	\end{equation}
+	
+	\begin{equation}
+		Burden_i = \beta_0 + \beta_1Income_i + \beta_2HousePrice_i + \beta_3HHSize_i + \theta\hat{\lambda}_i + \varepsilon_i
+		\label{eq:outcome}
+	\end{equation}
+	
+	Với $\hat{\lambda}_i = \frac{\phi(\hat{\gamma}Z_i)}{\Phi(\hat{\gamma}Z_i)}$ là Inverse Mills Ratio. 
+	
+	\textbf{Hypotheses:} $\theta > 0$ (positive selection bias), $\gamma_2 < 0$ (informality penalty mạnh nhất), $\gamma_4 < 0$ (transaction cost barrier).
+		
+	% ================= CHƯƠNG 3 (TRỌNG TÂM) =================
+	\chapter{Phương pháp nghiên cứu và Dữ liệu}
+	
+	\section{Chiến lược nghiên cứu tổng thể}
+	
+	Bài viết áp dụng phương pháp nghiên cứu định lượng nhằm phân tích các rào cản tiếp cận tín dụng nhà ở chính thức và tác động của hạn chế tín dụng đến phúc lợi hộ gia đình đô thị thu nhập thấp tại Việt Nam. Do đặc thù dữ liệu chỉ quan sát được các kết quả phúc lợi (gánh nặng chi tiêu nhà ở) đối với những hộ gia đình đã tiếp cận được tín dụng, nghiên cứu đối mặt với nguy cơ sai lệch chọn mẫu (sample selection bias).
+	
+	Để xử lý vấn đề này, nghiên cứu sử dụng mô hình Heckman hai bước (Heckman Two-Step Selection Model), cho phép hiệu chỉnh sai lệch chọn mẫu và ước lượng nhất quán tác động của việc tiếp cận tín dụng đến gánh nặng chi tiêu nhà ở của hộ gia đình.
+	
+	\section{Dữ liệu nghiên cứu}
+	
+	\subsection{Dữ liệu thứ cấp: VHLSS 2024}
+	
+	Nghiên cứu sử dụng bộ dữ liệu Khảo sát Mức sống Dân cư Việt Nam (VHLSS) năm 2024 do Tổng cục Thống kê Việt Nam công bố. VHLSS là bộ dữ liệu đại diện quốc gia, cung cấp thông tin chi tiết về thu nhập, chi tiêu, nhà ở, việc làm và tiếp cận dịch vụ tài chính của hộ gia đình.
+	
+	Mẫu nghiên cứu được giới hạn ở các hộ gia đình sinh sống tại khu vực đô thị và thuộc nhóm ngũ phân vị thu nhập 1, 2 và 3, đại diện cho nhóm hộ thu nhập thấp và trung bình thấp tại đô thị – thường được gọi là nhóm ``Missing Middle'' trong các chính sách nhà ở.
+	
+	\subsection{Dữ liệu sơ cấp: Khảo sát hộ gia đình đô thị}
+	
+	Bên cạnh dữ liệu thứ cấp, nghiên cứu tiến hành thu thập dữ liệu sơ cấp thông qua khảo sát 300 hộ gia đình tại Thành phố Hồ Chí Minh. Mục tiêu của khảo sát là bổ sung các thông tin mà bộ dữ liệu VHLSS chưa phản ánh đầy đủ, đặc biệt liên quan đến hành vi tài chính và mức độ tiếp cận các dịch vụ tài chính số (Fintech adoption).
+	
+	Khảo sát tập trung thu thập dữ liệu về việc sử dụng các công cụ tài chính số như ví điện tử, ngân hàng số, tần suất giao dịch điện tử, cũng như mức độ hình thành lịch sử giao dịch phi truyền thống của hộ gia đình. Những thông tin này được sử dụng để xây dựng các biến đại diện cho khả năng xếp hạng tín dụng thay thế (alternative credit scoring), qua đó đánh giá tiềm năng của các cơ chế tài chính số trong việc cải thiện khả năng tiếp cận tín dụng nhà ở chính thức cho nhóm hộ gia đình đô thị thu nhập thấp.
+	
+	
+	Dữ liệu sơ cấp được sử dụng như biến kiểm soát mở rộng và phục vụ cho phân tích độ nhạy (robustness check), nhằm đánh giá vai trò tiềm năng của các cơ chế xếp hạng tín dụng thay thế trong việc cải thiện khả năng tiếp cận tín dụng nhà ở.
+	
+	\section{Mô hình kinh tế lượng}
+	
+	\subsection{Vấn đề sai lệch chọn mẫu}
+	
+	Trong bối cảnh nghiên cứu tín dụng nhà ở, gánh nặng chi tiêu nhà ở chỉ được quan sát đối với các hộ gia đình đã tiếp cận được tín dụng chính thức. Nếu các yếu tố ảnh hưởng đến khả năng tiếp cận tín dụng cũng đồng thời ảnh hưởng đến gánh nặng chi tiêu nhà ở, việc ước lượng bằng OLS hoặc Tobit thông thường sẽ dẫn đến ước lượng chệch và không nhất quán.
+	
+	Do đó, nghiên cứu áp dụng mô hình Heckman (1979) để hiệu chỉnh sai lệch chọn mẫu và tách biệt hai quá trình: (i) quyết định tiếp cận tín dụng và (ii) kết quả phúc lợi sau khi tiếp cận tín dụng.
+	
+	\subsection{Bước 1: Phương trình lựa chọn (Selection Equation)}
+	
+	Xác suất hộ gia đình $i$ tiếp cận được tín dụng nhà ở chính thức được ước lượng bằng mô hình Probit:
+	
+	\begin{equation}
+		P(Access_i = 1 | Z_i) = \Phi(\gamma_0 + \gamma_1 Income_i + \gamma_2 Informality_i + \gamma_3 Collateral_i + \gamma_4 Distance_i + u_i)
+	\end{equation}
+	
+	Trong đó:
+	\begin{itemize}
+		\item $Access_i$ là biến nhị phân, nhận giá trị 1 nếu hộ gia đình tiếp cận được tín dụng nhà ở chính thức và 0 nếu ngược lại;
+		\item $Income_i$ là thu nhập của hộ gia đình;
+		\item $Informality_i$ phản ánh tình trạng việc làm phi chính thức của chủ hộ;
+		\item $Collateral_i$ là khả năng sở hữu tài sản đảm bảo;
+		\item $Distance_i$ là khoảng cách từ nơi ở của hộ gia đình đến chi nhánh ngân hàng gần nhất.
+	\end{itemize}
+	
+	Biến $Distance_i$ được sử dụng như một biến loại trừ (exclusion restriction), giả định ảnh hưởng đến khả năng tiếp cận tín dụng nhưng không tác động trực tiếp đến gánh nặng chi tiêu nhà ở, sau khi đã kiểm soát các yếu tố kinh tế – xã hội khác.
+	
+	Từ phương trình lựa chọn, nghiên cứu tính toán tỷ số Inverse Mills Ratio ($\lambda_i$) để sử dụng trong phương trình kết quả.
+	
+	\subsection{Bước 2: Phương trình kết quả (Outcome Equation)}
+	
+	Phương trình kết quả ước lượng tác động của việc tiếp cận tín dụng đến gánh nặng chi tiêu nhà ở của hộ gia đình:
+	
+	\begin{equation}
+		Burden_i = \beta_0 + \beta_1 Income_i + \beta_2 HousePrice_i + \beta_3 HouseholdSize_i + \theta \lambda_i + \varepsilon_i
+	\end{equation}
+	
+	Trong đó:
+	\begin{itemize}
+		\item $Burden_i$ đo lường gánh nặng chi tiêu nhà ở, được tính bằng tỷ lệ chi tiêu nhà ở trên tổng thu nhập hộ gia đình;
+		\item $HousePrice_i$ phản ánh mức giá hoặc giá trị nhà ở;
+		\item $HouseholdSize_i$ là quy mô hộ gia đình;
+		\item $\lambda_i$ là tỷ số Inverse Mills Ratio thu được từ bước 1.
+	\end{itemize}
+	
+	Hệ số $\theta$ phản ánh mức độ sai lệch chọn mẫu. Nếu $\theta$ có ý nghĩa thống kê, điều này xác nhận sự tồn tại của sai lệch chọn mẫu và sự cần thiết của việc sử dụng mô hình Heckman trong phân tích.
+	
+	\section{Kiểm định và phân tích độ nhạy}
+	
+	Nghiên cứu tiến hành các kiểm định độ nhạy bằng cách:
+	\begin{itemize}
+		\item So sánh kết quả mô hình Heckman với OLS và Tobit;
+		\item Bổ sung các biến liên quan đến hành vi tài chính số từ dữ liệu khảo sát sơ cấp;
+		\item Ước lượng mô hình trên các phân nhóm thu nhập khác nhau để đánh giá tính dị biệt của tác động.
+	\end{itemize}
+	
+	Các kiểm định này nhằm đảm bảo tính vững (robustness) của kết quả và củng cố các hàm ý chính sách rút ra từ nghiên cứu.
+
+%====================Bổ sung ======================
+\section{Mô hình kinh tế lượng}
+%==================================================
+
+\subsection{Vấn đề sai lệch chọn mẫu (Sample Selection Bias)}
+
+Trong nghiên cứu về tiếp cận tín dụng nhà ở, dữ liệu quan sát thường đối mặt với hiện tượng sai lệch chọn mẫu (sample selection bias) do biến kết quả phúc lợi chỉ được ghi nhận đối với nhóm hộ gia đình đã vượt qua quá trình sàng lọc tín dụng của các tổ chức cho vay. Cụ thể, biến gánh nặng chi tiêu nhà ở ($Burden_i$) chỉ quan sát được khi hộ gia đình $i$ tiếp cận được tín dụng chính thức ($Access_i = 1$).
+
+Về mặt kinh tế lượng, điều này tạo ra cơ chế chọn mẫu không ngẫu nhiên. Nếu tồn tại các yếu tố không quan sát được (unobserved heterogeneity) -- chẳng hạn như năng lực quản lý tài chính, mức độ kỷ luật trả nợ, hay động cơ tích lũy tài sản -- đồng thời ảnh hưởng đến cả:
+
+\begin{enumerate}
+	\item Xác suất tiếp cận tín dụng
+	\item Kết quả phúc lợi sau khi vay
+\end{enumerate}
+
+thì điều kiện kỳ vọng có điều kiện của sai số sẽ bị vi phạm:
+
+\begin{equation}
+	E(\varepsilon_i | Access_i = 1) \neq 0
+\end{equation}
+
+Khi đó, ước lượng OLS trên mẫu quan sát sẽ chệch và không nhất quán do tồn tại tương quan giữa sai số phương trình kết quả và cơ chế lựa chọn mẫu \parencite{Heckman1979}.
+
+Để khắc phục, nghiên cứu áp dụng mô hình Heckman hai bước (Heckman Two-Step Selection Model), cho phép mô hình hóa riêng biệt:
+
+\begin{itemize}
+	\item Quyết định tiếp cận tín dụng (Selection equation)
+	\item Kết quả phúc lợi có điều kiện (Outcome equation)
+\end{itemize}
+
+
+\subsection{Cấu trúc mô hình Heckman}
+
+Giả định tồn tại hai phương trình tiềm ẩn:
+
+\begin{align}
+	Access_i^* &= Z_i \gamma + u_i \\
+	Burden_i^* &= X_i \beta + \varepsilon_i
+\end{align}
+
+Trong đó:
+
+\begin{itemize}
+	\item $Access_i^*$: biến tiềm ẩn phản ánh khả năng tiếp cận tín dụng
+	\item $Burden_i^*$: mức gánh nặng chi tiêu tiềm ẩn
+\end{itemize}
+
+Ta quan sát:
+
+\begin{equation}
+	Access_i =
+	\begin{cases}
+		1 & \text{nếu } Access_i^* > 0 \\
+		0 & \text{ngược lại}
+	\end{cases}
+\end{equation}
+
+\begin{equation}
+	Burden_i = Burden_i^* \quad \text{khi } Access_i = 1
+\end{equation}
+
+Giả định phân phối chuẩn hai chiều:
+
+\begin{equation}
+	(u_i, \varepsilon_i) \sim N(0,0,\sigma_u^2,\sigma_\varepsilon^2,\rho)
+\end{equation}
+
+Trong đó $\rho$ phản ánh mức độ tương quan giữa hai sai số.
+
+
+\subsection{Bước 1: Phương trình lựa chọn (Selection Equation)}
+
+Xác suất tiếp cận tín dụng được ước lượng bằng Probit:
+
+\begin{equation}
+	\label{eq:selection}
+	P(Access_i = 1 | Z_i) = \Phi(Z_i \gamma)
+\end{equation}
+
+Với:
+
+\begin{equation}
+	\begin{aligned}
+		Z_i \gamma = \gamma_0 
+		&+ \gamma_1 Income_i
+		+ \gamma_2 Informality_i \\
+		&+ \gamma_3 Collateral_i
+		+ \gamma_4 Digital\_Footprint_i \\
+		&+ \gamma_5 Distance_i
+	\end{aligned}
+\end{equation}
+
+\paragraph{Biến loại trừ (Exclusion Restriction).}
+
+Biến $Distance_i$ (khoảng cách đến ngân hàng gần nhất) được sử dụng làm biến nhận dạng cho mô hình, dựa trên hai lập luận:
+
+\begin{itemize}
+	\item Ảnh hưởng đến chi phí giao dịch, chi phí thông tin và xác suất được thẩm định hồ sơ vay.
+	\item Không tác động trực tiếp đến gánh nặng chi tiêu nhà ở sau khi khoản vay đã được giải ngân.
+\end{itemize}
+
+Điều kiện này đảm bảo tính nhận dạng (identification) cho mô hình Heckman.
+
+
+\subsection{Tỷ số Inverse Mills (IMR)}
+
+Từ phương trình lựa chọn, ta tính:
+
+\begin{equation}
+	\lambda_i =
+	\frac{\phi(Z_i \hat{\gamma})}
+	{\Phi(Z_i \hat{\gamma})}
+\end{equation}
+
+Trong đó:
+
+\begin{itemize}
+	\item $\phi(\cdot)$: mật độ chuẩn tắc
+	\item $\Phi(\cdot)$: hàm phân phối tích lũy
+\end{itemize}
+
+IMR phản ánh kỳ vọng có điều kiện của sai số lựa chọn:
+
+\begin{equation}
+	E(\varepsilon_i | Access_i=1) = \rho \sigma_\varepsilon \lambda_i
+\end{equation}
+
+
+\subsection{Bước 2: Phương trình kết quả (Outcome Equation)}
+
+Phương trình phúc lợi có điều kiện:
+
+\begin{equation}
+	\label{eq:outcome}
+	Burden_i =
+	\beta_0
+	+ \beta_1 Income_i
+	+ \beta_2 HousePrice_i
+	+ \beta_3 HouseholdSize_i
+	+ \theta \lambda_i
+	+ \varepsilon_i
+\end{equation}
+
+Trong đó:
+
+\begin{equation}
+	\theta = \rho \sigma_\varepsilon
+\end{equation}
+
+
+\subsection{Diễn giải kinh tế lượng}
+
+\begin{itemize}
+	\item $\theta$ không có ý nghĩa thống kê → không tồn tại sai lệch chọn mẫu.
+	\item $\theta$ có ý nghĩa ($p<0.05$) → xác nhận sample selection bias.
+\end{itemize}
+
+Dấu của $\theta$ phản ánh hướng chọn mẫu:
+
+\begin{itemize}
+	\item $\theta > 0$: Positive selection -- nhóm được vay có đặc điểm thuận lợi hơn.
+	\item $\theta < 0$: Negative selection -- nhóm bị hạn chế tín dụng có nhu cầu cấp thiết hơn.
+\end{itemize}
+
+
+%==================================================
+\subsection{Biện luận cơ sở lựa chọn biến}
+%==================================================
+
+\begin{table}[h]
+	\centering
+	\small
+	\caption{Cơ sở lý thuyết và kỳ vọng dấu của các biến}
+	\begin{tabular}{|p{3cm}|p{8.5cm}|p{2.5cm}|}
+		\hline
+		\textbf{Biến} & \textbf{Cơ sở lý thuyết} & \textbf{Kỳ vọng dấu} \\
+		\hline
+		\multicolumn{3}{|l|}{\textit{\textbf{Selection Equation}}} \\
+		\hline
+		Income & Thu nhập thường xuyên, khả năng trả nợ \parencite{Friedman1957}. & (+) \\
+		\hline
+		Informality & Bất cân xứng thông tin \parencite{Stiglitz1981}. & (-) \\
+		\hline
+		Collateral & Cơ chế sàng lọc tín dụng \parencite{Besley1994}. & (+) \\
+		\hline
+		Digital\_Footprint & Alternative credit scoring \parencite{Berg2020}. & (+) \\
+		\hline
+		Distance & Chi phí giao dịch tín dụng \parencite{Degryse2005}. & (-) \\
+		\hline
+		\multicolumn{3}{|l|}{\textit{\textbf{Outcome Equation}}} \\
+		\hline
+		HouseholdSize & Áp lực chi tiêu hộ \parencite{Lipton1980}. & (+/-) \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+%==================================================
+\section{Kiểm định và Phân tích độ nhạy (Robustness Checks)}
+%==================================================
+
+Để đảm bảo tính vững của kết quả ước lượng, nghiên cứu triển khai chuỗi kiểm định độ nhạy theo ba hướng:
+
+\subsection{(1) So sánh chỉ định mô hình}
+
+Ước lượng song song:
+
+\begin{itemize}
+	\item OLS
+	\item Tobit
+	\item Heckman Two-Step
+\end{itemize}
+
+Nếu hệ số $\lambda$ có ý nghĩa thống kê, giả thuyết không tồn tại sai lệch chọn mẫu bị bác bỏ, xác nhận tính cần thiết của Heckman.
+
+\subsection{(2) Kiểm định vai trò dữ liệu thay thế}
+
+Bổ sung biến $Digital\_Footprint$ vào phương trình lựa chọn nhằm đánh giá:
+
+\begin{itemize}
+	\item Mức tăng Pseudo $R^2$
+	\item Khả năng cải thiện predictive accuracy
+\end{itemize}
+
+Qua đó kiểm định vai trò của Fintech trong giảm bất cân xứng thông tin.
+
+
+\subsection{(3) Phân tích dị biệt tác động}
+
+Thực hiện ước lượng theo:
+
+\begin{itemize}
+	\item Phân vị thu nhập (Quartiles)
+	\item Khu vực địa lý
+\end{itemize}
+
+Kết hợp Quantile Regression sau hiệu chỉnh Heckman nhằm nhận diện mức độ tác động phúc lợi giữa các nhóm dễ bị tổn thương.
+
+% ================= CHƯƠNG 4 =================
+\chapter{Kết quả nghiên cứu và Thảo luận}
+
+\section{Thống kê mô tả}
+
+Bảng thống kê mô tả trình bày sự khác biệt về đặc điểm kinh tế – xã hội giữa hai nhóm hộ gia đình: nhóm tiếp cận được tín dụng nhà ở chính thức và nhóm không tiếp cận được. Kết quả cho thấy tồn tại sự khác biệt có ý nghĩa thống kê giữa hai nhóm ở nhiều khía cạnh quan trọng.
+
+Cụ thể, các hộ gia đình tiếp cận được tín dụng có mức thu nhập trung bình cao hơn, tỷ lệ lao động có việc làm chính thức lớn hơn và khả năng sở hữu tài sản đảm bảo cao hơn so với nhóm không tiếp cận được tín dụng. Ngược lại, nhóm không tiếp cận được tín dụng chủ yếu là các hộ gia đình có chủ hộ làm việc trong khu vực phi chính thức, thu nhập không ổn định và thiếu hồ sơ tài chính chính thức.
+
+Đáng chú ý, mặc dù chênh lệch thu nhập giữa hai nhóm không quá lớn, sự khác biệt về khả năng tiếp cận tín dụng lại khá rõ rệt. Điều này gợi ý rằng các yếu tố ngoài thu nhập, đặc biệt là tính chính thức của việc làm và hồ sơ tín dụng, đóng vai trò quan trọng trong quyết định cho vay của các tổ chức tín dụng.
+
+\section{Kết quả ước lượng mô hình Heckman}
+
+\subsection{Phương trình lựa chọn: Khả năng tiếp cận tín dụng}
+
+Kết quả ước lượng từ phương trình lựa chọn cho thấy biến đại diện cho tính phi chính thức của việc làm ($Informality$) có tác động âm và có ý nghĩa thống kê mạnh đến xác suất tiếp cận tín dụng nhà ở chính thức ($\gamma_2 < 0$), ngay cả khi đã kiểm soát thu nhập và các đặc điểm nhân khẩu học khác.
+
+Kết quả này hàm ý rằng các ngân hàng thương mại và tổ chức tín dụng tại Việt Nam có xu hướng ưu tiên hình thức hồ sơ và tính ổn định thể hiện trên giấy tờ hơn là năng lực trả nợ thực tế của hộ gia đình. Phát hiện này phù hợp với lý thuyết hạn chế tín dụng trong điều kiện thông tin bất cân xứng và các bằng chứng thực nghiệm gần đây tại các nền kinh tế đang phát triển \parencite{WB2023}.
+
+Ngoài ra, biến khoảng cách đến ngân hàng ($Distance$) có tác động âm đến khả năng tiếp cận tín dụng và có ý nghĩa thống kê, qua đó củng cố tính hợp lệ của biến loại trừ được sử dụng trong mô hình Heckman.
+
+\subsection{Phương trình kết quả: Gánh nặng chi tiêu nhà ở}
+
+Kết quả ước lượng từ phương trình kết quả cho thấy việc tiếp cận tín dụng nhà ở có tác động đáng kể đến gánh nặng chi tiêu nhà ở của hộ gia đình. Cụ thể, các hộ gia đình tiếp cận được tín dụng có xu hướng giảm tỷ lệ chi tiêu nhà ở trên tổng thu nhập, so với các hộ gia đình bị hạn chế tín dụng.
+
+Hệ số của tỷ số Inverse Mills Ratio ($\lambda_i$) mang dấu dương và có ý nghĩa thống kê, xác nhận sự tồn tại của sai lệch chọn mẫu trong dữ liệu và tính cần thiết của việc sử dụng mô hình Heckman. Nếu bỏ qua sai lệch chọn mẫu, tác động của việc tiếp cận tín dụng đến gánh nặng chi tiêu nhà ở có thể bị đánh giá thấp hoặc sai lệch.
+
+\section{Thảo luận kết quả}
+
+Các kết quả thực nghiệm cho thấy ``khoảng trống chính sách'' trong tín dụng nhà ở tại đô thị Việt Nam không nằm ở thiếu nguồn vốn hay thiếu chương trình hỗ trợ, mà chủ yếu xuất phát từ thiết kế cơ chế đánh giá tín dụng chưa phù hợp với đặc điểm của nhóm hộ gia đình thu nhập thấp và trung bình.
+
+Việc phụ thuộc quá mức vào các tiêu chí truyền thống như hợp đồng lao động chính thức, bảng lương và tài sản đảm bảo đã vô tình loại trừ một bộ phận lớn hộ gia đình có năng lực trả nợ nhưng thiếu hồ sơ tài chính chuẩn hóa. Điều này dẫn đến nghịch lý chính sách: các gói tín dụng ưu đãi được thiết kế để hỗ trợ người thu nhập thấp nhưng lại không chuyển hóa thành khả năng vay thực tế cho chính nhóm đối tượng mục tiêu.
+
+Kết quả nghiên cứu củng cố lập luận rằng việc tích hợp các công cụ xếp hạng tín dụng thay thế, dựa trên dữ liệu giao dịch số và hành vi tài chính, có thể góp phần thu hẹp khoảng trống này, đồng thời nâng cao hiệu quả và tính bao trùm của chính sách tín dụng nhà ở tại Việt Nam.
+
+	% ================= CHƯƠNG 5 =================
+	\chapter{Kết luận và Hàm ý chính sách}
+	
+	\section{Kết luận}
+	
+	Nghiên cứu phân tích các rào cản tiếp cận tín dụng nhà ở chính thức đối với hộ gia đình đô thị thu nhập thấp tại Việt Nam và tác động của hạn chế tín dụng đến gánh nặng chi tiêu nhà ở. Sử dụng dữ liệu VHLSS 2022 kết hợp với khảo sát sơ cấp và mô hình Heckman hiệu chỉnh sai lệch chọn mẫu, nghiên cứu cho thấy tính phi chính thức của việc làm là một trong những rào cản quan trọng nhất đối với khả năng tiếp cận tín dụng, ngay cả khi đã kiểm soát thu nhập và các đặc điểm kinh tế – xã hội khác.
+	
+	Kết quả thực nghiệm cho thấy khoảng trống chính sách tín dụng nhà ở tại Việt Nam không chủ yếu xuất phát từ thiếu nguồn vốn hay thiếu chương trình hỗ trợ, mà nằm ở thiết kế cơ chế đánh giá tín dụng chưa phù hợp với đặc điểm của nhóm hộ gia đình thu nhập thấp và trung bình tại đô thị. Việc tiếp cận tín dụng có tác động tích cực đến việc giảm gánh nặng chi tiêu nhà ở, qua đó cải thiện phúc lợi hộ gia đình. Tuy nhiên, chỉ một bộ phận hạn chế các hộ gia đình mục tiêu thực sự tiếp cận được các chương trình tín dụng hiện hành.
+	
+	\section{Hàm ý chính sách đối với Ngân hàng Nhà nước}
+	
+	Từ các kết quả nghiên cứu, Ngân hàng Nhà nước Việt Nam có thể xem xét thiết kế và triển khai các cơ chế thử nghiệm chính sách (regulatory sandbox) cho phép sử dụng dữ liệu thay thế trong chấm điểm tín dụng nhà ở. Các nguồn dữ liệu như lịch sử thanh toán điện tử, dữ liệu viễn thông, hóa đơn tiện ích và dòng tiền qua ví điện tử có thể cung cấp thông tin bổ sung về hành vi tài chính và năng lực trả nợ của nhóm lao động phi chính thức.
+	
+	Bên cạnh đó, Ngân hàng Nhà nước cần đóng vai trò điều phối trong việc xây dựng khung pháp lý cho xếp hạng tín dụng thay thế, đảm bảo cân bằng giữa mục tiêu mở rộng tài chính toàn diện và yêu cầu bảo vệ dữ liệu cá nhân, an toàn hệ thống tài chính.
+	
+	\section{Hàm ý chính sách đối với các tổ chức tài chính}
+	
+	Đối với các ngân hàng thương mại và tổ chức tài chính, kết quả nghiên cứu gợi ý sự cần thiết của việc phát triển các sản phẩm tín dụng nhà ở được ``may đo'' phù hợp với đặc điểm dòng tiền không đều của nhóm lao động phi chính thức và lao động trong nền kinh tế gig (Gig Economy).
+	
+	Các tổ chức tài chính có thể kết hợp các mô hình chấm điểm tín dụng truyền thống với dữ liệu hành vi tài chính số nhằm giảm phụ thuộc vào các tiêu chí hồ sơ cứng như hợp đồng lao động dài hạn hay bảng lương cố định. Đồng thời, việc thiết kế các cơ chế bảo lãnh tín dụng hoặc chia sẻ rủi ro với khu vực công có thể giúp các tổ chức tài chính mạnh dạn hơn trong việc mở rộng tín dụng nhà ở cho nhóm hộ gia đình thu nhập thấp.
+	
+	\section{Hướng nghiên cứu tiếp theo}
+	
+	Nghiên cứuN này vẫn tồn tại một số hạn chế nhất định. Thứ nhất, dữ liệu sử dụng chủ yếu là dữ liệu cắt ngang, do đó chưa phản ánh được đầy đủ tác động dài hạn của việc tiếp cận tín dụng nhà ở đến phúc lợi hộ gia đình. Các nghiên cứu trong tương lai có thể mở rộng sang dữ liệu mảng (panel data) để đánh giá động học của khả năng tiếp cận tín dụng và tích lũy tài sản nhà ở theo thời gian.
+	
+	Thứ hai, các nghiên cứu tiếp theo có thể khai thác sâu hơn vai trò của tài chính số và dữ liệu lớn trong thiết kế chính sách tín dụng nhà ở, cũng như phân tích sự khác biệt về tác động chính sách giữa các đô thị lớn tại Việt Nam. Những hướng nghiên cứu này không chỉ có ý nghĩa học thuật mà còn cung cấp cơ sở thực tiễn cho việc hoạch định chính sách tài chính toàn diện và phát triển đô thị bền vững.
+	
+	
+	\section{Hạn chế và Hướng nghiên cứu tiếp theo}
+	
+	Mặc dù nghiên cứu đã cung cấp những bằng chứng thực nghiệm quan trọng về các rào cản tiếp cận tín dụng nhà ở và tác động của hạn chế tín dụng đến phúc lợi hộ gia đình đô thị, một số hạn chế nhất định vẫn tồn tại.
+	
+	Thứ nhất, nghiên cứu sử dụng dữ liệu cắt ngang từ VHLSS 2022, do đó chưa phản ánh được đầy đủ các tác động động học và dài hạn của việc tiếp cận tín dụng nhà ở đối với tích lũy tài sản, sự ổn định nhà ở và phúc lợi của hộ gia đình theo thời gian. Các nghiên cứu trong tương lai có thể mở rộng sang dữ liệu mảng (panel data), kết hợp nhiều vòng điều tra VHLSS hoặc các bộ dữ liệu hành chính, nhằm đánh giá tác động dài hạn và kiểm soát tốt hơn các yếu tố không quan sát được cố định theo thời gian.
+	
+	Thứ hai, các biến đo lường khả năng tiếp cận tín dụng và hành vi tài chính số trong nghiên cứu vẫn còn hạn chế về mức độ chi tiết, đặc biệt đối với nhóm lao động phi chính thức. Các nghiên cứu tiếp theo có thể khai thác dữ liệu lớn (big data) và dữ liệu giao dịch số để xây dựng các chỉ báo chính xác hơn về năng lực trả nợ và hành vi tài chính của hộ gia đình.
+	
+	Cuối cùng, phạm vi nghiên cứu tập trung chủ yếu vào khu vực đô thị lớn, do đó kết quả có thể chưa phản ánh đầy đủ sự khác biệt vùng miền. Việc mở rộng phân tích sang các đô thị vừa và nhỏ, hoặc so sánh giữa khu vực đô thị và nông thôn, sẽ giúp làm rõ hơn tính dị biệt trong tác động của chính sách tín dụng nhà ở tại Việt Nam.
+	
+	%====================================================
+	% REFERENCES
+	%====================================================
+	\newpage
+	\printbibliography
+	\addcontentsline{toc}{section}{Tài liệu tham khảo}
+	%====================================================
+	% DANH MỤC CHỮ VIẾT TẮT & THUẬT NGỮ
+	%====================================================
+	\newpage
+	\section{Danh mục chữ viết tắt và thuật ngữ}
+	\addcontentsline{toc}{chapter}{Danh mục chữ viết tắt và thuật ngữ}
+	%====================================================
+	% APPENDIX
+	%====================================================
+	\newpage
+	\appendix
+	\section{Phụ lục}
+	Bảng số liệu, mô hình, tài liệu bổ trợ.
+	
+\end{document}

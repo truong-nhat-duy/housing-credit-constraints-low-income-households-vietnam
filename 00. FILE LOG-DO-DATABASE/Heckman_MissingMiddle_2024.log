@@ -1,0 +1,2346 @@
+-------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoản
+> g trống chính sách tín dụng nhà ở cho người thu nhập thấp\00. FILE LOG-DO-DATABASE\Heckman_Miss
+> ingMiddle_2024.log
+  log type:  text
+ opened on:  28 Feb 2026, 11:09:12
+
+. display "===== BAT DAU XU LY DU LIEU ====="
+===== BAT DAU XU LY DU LIEU =====
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. *======================================================*
+. * STEP 4 — CHẠY MÔ HÌNH HECKMAN CHÍNH (FIML)
+. *======================================================*
+. display ">>> 4. Dang chay mo hinh Heckman (Full Model)..."
+>>> 4. Dang chay mo hinh Heckman (Full Model)...
+
+. use "Ho_Heckman_Model_updated.dta", clear
+
+. svyset diaban [pw=wt45]
+
+Sampling weights: wt45
+             VCE: linearized
+     Single unit: missing
+        Strata 1: <one>
+ Sampling unit 1: diaban
+           FPC 1: <zero>
+
+. 
+. * Chạy mô hình Heckman với tùy chọn pweight:
+. heckman housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     select(credit_access = ln_income informal collateral edu_head age_head peer_effect social_n
+> etwork info_broad) ///
+>     vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -14224169  
+Iteration 1:   log pseudolikelihood =  -14224168  
+Iteration 2:   log pseudolikelihood =  -14224168  
+
+Heckman selection model                         Number of obs     =     10,262
+(regression model with sample selection)              Selected    =      4,999
+                                                      Nonselected =      5,263
+
+                                                Wald chi2(3)      =     218.22
+Log pseudolikelihood = -1.42e+07                Prob > chi2       =     0.0000
+
+--------------------------------------------------------------------------------
+               |               Robust
+               | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+housing_burden |
+     ln_income |  -3.663462   .2988835   -12.26   0.000    -4.249263   -3.077661
+       tsnguoi |  -.6745849   .0648858   -10.40   0.000    -.8017588   -.5474111
+    collateral |   .8944841   .6102373     1.47   0.143     -.301559    2.090527
+         _cons |   48.82461    3.37486    14.47   0.000     42.21001    55.43922
+---------------+----------------------------------------------------------------
+credit_access  |
+     ln_income |   .3003979   .0370317     8.11   0.000      .227817    .3729787
+      informal |   .1556262   .0534019     2.91   0.004     .0509605    .2602919
+    collateral |  -.1383242   .1165131    -1.19   0.235    -.3666856    .0900372
+      edu_head |      .0011   .0040713     0.27   0.787    -.0068796    .0090796
+      age_head |  -.0013897   .0012202    -1.14   0.255    -.0037813     .001002
+   peer_effect |   2.417182   .0530026    45.60   0.000     2.313299    2.521065
+social_network |   .3343904   .0369861     9.04   0.000     .2618989    .4068818
+    info_broad |   .3218465   .1677496     1.92   0.055    -.0069366    .6506296
+         _cons |  -4.928577   .4181987   -11.79   0.000    -5.748231   -4.108923
+---------------+----------------------------------------------------------------
+       /athrho |   .0050737   .0355953     0.14   0.887    -.0646917    .0748391
+      /lnsigma |   1.752487   .0526003    33.32   0.000     1.649392    1.855582
+---------------+----------------------------------------------------------------
+           rho |   .0050737   .0355943                     -.0646016    .0746997
+         sigma |   5.768932   .3034475                      5.203817    6.395417
+        lambda |   .0292696    .205493                     -.3734893    .4320286
+--------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) = 0.02       Prob > chi2 = 0.8867
+
+. 
+. est store HECKMAN_MAIN
+
+. 
+. * CHẠY MÔ HÌNH ENDOGENOUS TREATMENT EFFECTS:
+. etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income informal collateral edu_head age_head peer_effect social_ne
+> twork) ///
+>     vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25739437  
+Iteration 1:   log pseudolikelihood =  -25739436  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(4)  = 469.76
+Log pseudolikelihood = -25739436                        Prob > chi2   = 0.0000
+
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -3.170548   .2343124   -13.53   0.000    -3.629791   -2.711304
+        tsnguoi |  -.8516473   .0495807   -17.18   0.000    -.9488237    -.754471
+     collateral |   1.204224   .4829833     2.49   0.013     .2575937    2.150854
+1.credit_access |  -.1944809   .2821182    -0.69   0.491    -.7474225    .3584606
+          _cons |   44.38633    2.52404    17.59   0.000      39.4393    49.33336
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3060342   .0370058     8.27   0.000     .2335043    .3785642
+       informal |   .1571124    .054468     2.88   0.004     .0503571    .2638677
+     collateral |  -.1368456   .1167324    -1.17   0.241    -.3656369    .0919456
+       edu_head |   .0018071   .0041225     0.44   0.661    -.0062728     .009887
+       age_head |  -.0015143    .001227    -1.23   0.217    -.0039192    .0008907
+    peer_effect |   2.416513   .0530418    45.56   0.000     2.312552    2.520473
+ social_network |   .3350055   .0374896     8.94   0.000     .2615273    .4084836
+          _cons |  -4.669084   .4002625   -11.67   0.000    -5.453584   -3.884584
+----------------+----------------------------------------------------------------
+        /athrho |   -.004433   .0313135    -0.14   0.887    -.0658063    .0569403
+       /lnsigma |     1.8769   .0303945    61.75   0.000     1.817328    1.936472
+----------------+----------------------------------------------------------------
+            rho |   -.004433   .0313129                     -.0657115    .0568788
+          sigma |   6.533221   .1985737                      6.155389    6.934244
+         lambda |  -.0289618   .2045004                     -.4297751    .3718516
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.02   Prob > chi2 = 0.8874
+
+.         
+. *======================================================*
+. * CHẠY KIỂM TRA CÁC TEST
+. *======================================================*        
+. *======================================================*
+. * KIỂM TRA MA TRẬN TƯƠNG QUAN VÀ ĐA CỘNG TUYẾN
+. *======================================================*
+. 
+. * 1. Chạy ma trận tương quan (hiển thị luôn mức ý nghĩa và đánh dấu sao p<0.05)
+. pwcorr housing_burden credit_access ln_income tsnguoi collateral edu_head age_head peer_effect 
+> social_network, star(0.05) sig
+
+             | housin~n credit~s ln_inc~e  tsnguoi collat~l edu_head age_head
+-------------+---------------------------------------------------------------
+housing_bu~n |   1.0000 
+             |
+             |
+credit_acc~s |  -0.0548*  1.0000 
+             |   0.0000
+             |
+   ln_income |  -0.2186*  0.1668*  1.0000 
+             |   0.0000   0.0000
+             |
+     tsnguoi |  -0.1916*  0.1524* -0.0286*  1.0000 
+             |   0.0000   0.0000   0.0037
+             |
+  collateral |   0.0289*  0.0011   0.0267* -0.0344*  1.0000 
+             |   0.0035   0.9130   0.0068   0.0005
+             |
+    edu_head |   0.0014   0.1202*  0.2964*  0.0723*  0.0428*  1.0000 
+             |   0.8870   0.0000   0.0000   0.0000   0.0000
+             |
+    age_head |   0.0336* -0.0251* -0.0988* -0.1649*  0.0140  -0.2694*  1.0000 
+             |   0.0007   0.0109   0.0000   0.0000   0.1561   0.0000
+             |
+ peer_effect |  -0.0121   0.5313*  0.1411*  0.0492*  0.0120   0.1396*  0.0175 
+             |   0.2222   0.0000   0.0000   0.0000   0.2222   0.0000   0.0760
+             |
+social_net~k |  -0.0651*  0.1992*  0.1371*  0.0817*  0.0304*  0.2353* -0.0099 
+             |   0.0000   0.0000   0.0000   0.0000   0.0021   0.0000   0.3178
+             |
+
+             | peer_e~t social~k
+-------------+------------------
+ peer_effect |   1.0000 
+             |
+             |
+social_net~k |   0.2134*  1.0000 
+             |   0.0000
+             |
+
+. 
+. * ---> XUẤT MA TRẬN TƯƠNG QUAN RA LATEX (Dùng cho luận văn)
+. quietly estpost correlate housing_burden credit_access ln_income tsnguoi collateral edu_head ag
+> e_head peer_effect social_network, matrix
+
+. esttab using "appendix_correlation.tex", replace ///
+>     unstack not noobs compress ///
+>     title("Ma trận tương quan Pearson") ///
+>     b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+>     booktabs alignment(c)
+(output written to appendix_correlation.tex)
+
+. * 2. Kiểm tra Đa cộng tuyến (VIF)
+. * Phải chạy hồi quy tuyến tính (regress) trước khi dùng lệnh vif
+. qui regress housing_burden credit_access ln_income tsnguoi collateral edu_head age_head peer_ef
+> fect social_network
+
+. 
+. * Hiển thị bảng VIF
+. vif     
+
+    Variable |       VIF       1/VIF  
+-------------+----------------------
+credit_acc~s |      1.45    0.687513
+ peer_effect |      1.43    0.698775
+    edu_head |      1.24    0.807783
+   ln_income |      1.13    0.882812
+social_net~k |      1.12    0.895820
+    age_head |      1.11    0.898384
+     tsnguoi |      1.06    0.939955
+  collateral |      1.00    0.995673
+-------------+----------------------
+    Mean VIF |      1.19
+
+. *======================================================*
+. * STEP 5 — CHẠY KIỂM TRA ĐỘ VỮNG (ROBUSTNESS CHECKS)
+. *======================================================*
+. display ">>> 5. Dang chay cac mo hinh so sanh (Robustness Check)..."
+>>> 5. Dang chay cac mo hinh so sanh (Robustness Check)...
+
+. 
+. heckman housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     select(credit_access = ln_income informal collateral edu_head age_head peer_effect) vce(rob
+> ust)
+
+Iteration 0:   log pseudolikelihood =  -14262221  
+Iteration 1:   log pseudolikelihood =  -14262220  
+
+Heckman selection model                         Number of obs     =     10,262
+(regression model with sample selection)              Selected    =      4,999
+                                                      Nonselected =      5,263
+
+                                                Wald chi2(3)      =     218.77
+Log pseudolikelihood = -1.43e+07                Prob > chi2       =     0.0000
+
+--------------------------------------------------------------------------------
+               |               Robust
+               | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+housing_burden |
+     ln_income |  -3.677462   .2991963   -12.29   0.000    -4.263876   -3.091048
+       tsnguoi |  -.6741467   .0648457   -10.40   0.000     -.801242   -.5470514
+    collateral |    .893925   .6104775     1.46   0.143    -.3025889    2.090439
+         _cons |    49.0055   3.379128    14.50   0.000     42.38253    55.62847
+---------------+----------------------------------------------------------------
+credit_access  |
+     ln_income |   .3263816   .0366163     8.91   0.000     .2546151    .3981482
+      informal |    .192542   .0526474     3.66   0.000      .089355     .295729
+    collateral |  -.1238329   .1163922    -1.06   0.287    -.3519575    .1042917
+      edu_head |   .0087716   .0039526     2.22   0.026     .0010246    .0165185
+      age_head |  -.0006555   .0012185    -0.54   0.591    -.0030437    .0017328
+   peer_effect |   2.488989   .0522435    47.64   0.000     2.386593    2.591384
+         _cons |  -4.806395    .396271   -12.13   0.000    -5.583072   -4.029718
+---------------+----------------------------------------------------------------
+       /athrho |  -.0042492   .0336233    -0.13   0.899    -.0701496    .0616512
+      /lnsigma |   1.752486   .0525899    33.32   0.000     1.649411     1.85556
+---------------+----------------------------------------------------------------
+           rho |  -.0042492   .0336227                     -.0700348    .0615732
+         sigma |   5.768924   .3033874                      5.203915    6.395279
+        lambda |  -.0245133   .1938309                     -.4044148    .3553882
+--------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) = 0.02       Prob > chi2 = 0.8994
+
+. est store Model_1
+
+. 
+. heckman housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     select(credit_access = ln_income informal collateral edu_head age_head social_network) vce(
+> robust)
+
+Iteration 0:   log pseudolikelihood =  -15237037  (not concave)
+Iteration 1:   log pseudolikelihood =  -15237030  (not concave)
+Iteration 2:   log pseudolikelihood =  -15237026  (not concave)
+Iteration 3:   log pseudolikelihood =  -15237023  (not concave)
+Iteration 4:   log pseudolikelihood =  -15237021  (not concave)
+Iteration 5:   log pseudolikelihood =  -15143728  (not concave)
+Iteration 6:   log pseudolikelihood =  -14870905  (not concave)
+Iteration 7:   log pseudolikelihood =  -14725267  
+Iteration 8:   log pseudolikelihood =  -14489067  
+Iteration 9:   log pseudolikelihood =  -14319542  
+Iteration 10:  log pseudolikelihood =  -14282461  
+Iteration 11:  log pseudolikelihood =  -14225167  
+Iteration 12:  log pseudolikelihood =  -14201620  
+Iteration 13:  log pseudolikelihood =  -14200078  
+Iteration 14:  log pseudolikelihood =  -14200070  
+Iteration 15:  log pseudolikelihood =  -14200070  
+
+Heckman selection model                         Number of obs     =     10,262
+(regression model with sample selection)              Selected    =      4,999
+                                                      Nonselected =      5,263
+
+                                                Wald chi2(3)      =     118.92
+Log pseudolikelihood = -1.42e+07                Prob > chi2       =     0.0000
+
+--------------------------------------------------------------------------------
+               |               Robust
+               | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+housing_burden |
+     ln_income |   .3525936   .2748146     1.28   0.199     -.186033    .8912202
+       tsnguoi |  -.2495504    .024479   -10.19   0.000    -.2975283   -.2015725
+    collateral |   .3979063   .7209091     0.55   0.581     -1.01505    1.810862
+         _cons |   -1.99368   3.047497    -0.65   0.513    -7.966664    3.979304
+---------------+----------------------------------------------------------------
+credit_access  |
+     ln_income |   .2176651    .032305     6.74   0.000     .1543485    .2809817
+      informal |   .0613843   .0130038     4.72   0.000     .0358974    .0868712
+    collateral |  -.0375438   .0925196    -0.41   0.685    -.2188789    .1437913
+      edu_head |  -.0033094     .00119    -2.78   0.005    -.0056417    -.000977
+      age_head |  -.0006339   .0003762    -1.69   0.092    -.0013712    .0001033
+social_network |   .0601967   .0114845     5.24   0.000     .0376874    .0827059
+         _cons |  -2.435079   .3489835    -6.98   0.000    -3.119074   -1.751084
+---------------+----------------------------------------------------------------
+       /athrho |   3.221687   .0856472    37.62   0.000     3.053822    3.389552
+      /lnsigma |   2.063519   .0423431    48.73   0.000     1.980528     2.14651
+---------------+----------------------------------------------------------------
+           rho |    .996823   .0005433                      .9955583     .997728
+         sigma |   7.873631   .3333938                      7.246571    8.554951
+        lambda |   7.848616   .3358237                      7.190414    8.506818
+--------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) = 1414.95    Prob > chi2 = 0.0000
+
+. est store Model_2
+
+. 
+. heckman housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     select(credit_access = ln_income informal collateral edu_head age_head info_broad) vce(robu
+> st)
+
+Iteration 0:   log pseudolikelihood =  -15396690  
+Iteration 1:   log pseudolikelihood =  -15386774  
+Iteration 2:   log pseudolikelihood =  -15385914  
+Iteration 3:   log pseudolikelihood =  -15385890  
+Iteration 4:   log pseudolikelihood =  -15385890  
+
+Heckman selection model                         Number of obs     =     10,262
+(regression model with sample selection)              Selected    =      4,999
+                                                      Nonselected =      5,263
+
+                                                Wald chi2(3)      =     232.21
+Log pseudolikelihood = -1.54e+07                Prob > chi2       =     0.0000
+
+--------------------------------------------------------------------------------
+               |               Robust
+               | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+housing_burden |
+     ln_income |  -3.724907   .2888313   -12.90   0.000    -4.291006   -3.158808
+       tsnguoi |  -.6744642   .0648854   -10.39   0.000    -.8016373   -.5472911
+    collateral |   .9041222   .6090118     1.48   0.138     -.289519    2.097763
+         _cons |   49.64812   3.250163    15.28   0.000     43.27792    56.01832
+---------------+----------------------------------------------------------------
+credit_access  |
+     ln_income |   .4055512   .0335271    12.10   0.000     .3398392    .4712632
+      informal |   .0903347   .0471187     1.92   0.055    -.0020161    .1826856
+    collateral |  -.1282716   .1021614    -1.26   0.209    -.3285043    .0719612
+      edu_head |   .0245285   .0036468     6.73   0.000      .017381    .0316761
+      age_head |   .0028298   .0011322     2.50   0.012     .0006107    .0050488
+    info_broad |   .3473852   .1378515     2.52   0.012     .0772011    .6175692
+         _cons |  -5.104213   .3756996   -13.59   0.000    -5.840571   -4.367855
+---------------+----------------------------------------------------------------
+       /athrho |   -.031525    .027761    -1.14   0.256    -.0859355    .0228855
+      /lnsigma |   1.752791   .0524888    33.39   0.000     1.649915    1.855667
+---------------+----------------------------------------------------------------
+           rho |  -.0315145   .0277334                     -.0857246    .0228815
+         sigma |   5.770688   .3028964                      5.206538    6.395965
+        lambda |  -.1818605   .1584976                       -.49251     .128789
+--------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) = 1.29       Prob > chi2 = 0.2561
+
+. est store Model_3
+
+. 
+. * Tính Wald Test cho Full Model (HECKMAN_MAIN)
+. * Chạy lại mô hình Full (Model_4)
+. qui heckman housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     select(credit_access = ln_income informal collateral edu_head age_head peer_effect social_n
+> etwork info_broad) vce(robust)
+
+. * Chạy kiểm định Wald (Joint test) cho 3 biến công cụ
+. test [credit_access]peer_effect [credit_access]social_network [credit_access]info_broad
+
+ ( 1)  [credit_access]peer_effect = 0
+ ( 2)  [credit_access]social_network = 0
+ ( 3)  [credit_access]info_broad = 0
+
+           chi2(  3) = 2324.50
+         Prob > chi2 =    0.0000
+
+. 
+. *======================================================*
+. * STEP 5 — CHẠY KIỂM TRA ĐỘ VỮNG BẰNG ETREGRESS
+. *======================================================*
+. display ">>> 5. Dang chay cac mo hinh so sanh (Robustness Check)..."
+>>> 5. Dang chay cac mo hinh so sanh (Robustness Check)...
+
+. 
+. * Model 1: Chỉ dùng Peer Effect làm IV
+. eststo Model_1: etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income informal collateral edu_head age_head peer_effect) vce(robu
+> st)
+
+Iteration 0:   log pseudolikelihood =  -25775306  
+Iteration 1:   log pseudolikelihood =  -25775280  
+Iteration 2:   log pseudolikelihood =  -25775280  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(4)  = 468.40
+Log pseudolikelihood = -25775280                        Prob > chi2   = 0.0000
+
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -3.208144   .2343375   -13.69   0.000    -3.667437   -2.748851
+        tsnguoi |  -.8504255   .0496223   -17.14   0.000    -.9476834   -.7531676
+     collateral |   1.212905   .4835186     2.51   0.012     .2652262    2.160584
+1.credit_access |   .0165065   .2760411     0.06   0.952     -.524524    .5575371
+          _cons |   44.68098   2.525328    17.69   0.000     39.73143    49.63054
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3236444   .0368707     8.78   0.000     .2513792    .3959096
+       informal |   .1845973   .0539597     3.42   0.001     .0788381    .2903564
+     collateral |  -.1229896   .1167624    -1.05   0.292    -.3518397    .1058606
+       edu_head |   .0091274   .0039821     2.29   0.022     .0013226    .0169322
+       age_head |  -.0007304    .001231    -0.59   0.553    -.0031431    .0016823
+    peer_effect |   2.488421   .0523021    47.58   0.000      2.38591    2.590931
+          _cons |  -4.773547   .3993282   -11.95   0.000    -5.556216   -3.990878
+----------------+----------------------------------------------------------------
+        /athrho |  -.0318301    .031024    -1.03   0.305     -.092636    .0289758
+       /lnsigma |   1.877069   .0303677    61.81   0.000     1.817549    1.936588
+----------------+----------------------------------------------------------------
+            rho |  -.0318194   .0309926                     -.0923719    .0289677
+          sigma |   6.534324   .1984322                      6.156752    6.935051
+         lambda |   -.207918   .2020672                     -.6039624    .1881265
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     1.05   Prob > chi2 = 0.3049
+
+. 
+. * Model 2: Dùng Peer Effect và Social Network làm IV (Model chính)
+. eststo Model_2: etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income informal collateral edu_head age_head peer_effect social_ne
+> twork) vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25739437  
+Iteration 1:   log pseudolikelihood =  -25739436  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(4)  = 469.76
+Log pseudolikelihood = -25739436                        Prob > chi2   = 0.0000
+
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -3.170548   .2343124   -13.53   0.000    -3.629791   -2.711304
+        tsnguoi |  -.8516473   .0495807   -17.18   0.000    -.9488237    -.754471
+     collateral |   1.204224   .4829833     2.49   0.013     .2575937    2.150854
+1.credit_access |  -.1944809   .2821182    -0.69   0.491    -.7474225    .3584606
+          _cons |   44.38633    2.52404    17.59   0.000      39.4393    49.33336
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3060342   .0370058     8.27   0.000     .2335043    .3785642
+       informal |   .1571124    .054468     2.88   0.004     .0503571    .2638677
+     collateral |  -.1368456   .1167324    -1.17   0.241    -.3656369    .0919456
+       edu_head |   .0018071   .0041225     0.44   0.661    -.0062728     .009887
+       age_head |  -.0015143    .001227    -1.23   0.217    -.0039192    .0008907
+    peer_effect |   2.416513   .0530418    45.56   0.000     2.312552    2.520473
+ social_network |   .3350055   .0374896     8.94   0.000     .2615273    .4084836
+          _cons |  -4.669084   .4002625   -11.67   0.000    -5.453584   -3.884584
+----------------+----------------------------------------------------------------
+        /athrho |   -.004433   .0313135    -0.14   0.887    -.0658063    .0569403
+       /lnsigma |     1.8769   .0303945    61.75   0.000     1.817328    1.936472
+----------------+----------------------------------------------------------------
+            rho |   -.004433   .0313129                     -.0657115    .0568788
+          sigma |   6.533221   .1985737                      6.155389    6.934244
+         lambda |  -.0289618   .2045004                     -.4297751    .3718516
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.02   Prob > chi2 = 0.8874
+
+. 
+. * Model 3: Loại bỏ informal, thêm biến tương tác tuổi và học vấn (để test biến kiểm soát)
+. eststo Model_3: etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income collateral edu_head age_head c.edu_head#c.age_head peer_eff
+> ect social_network) vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25737773  
+Iteration 1:   log pseudolikelihood =  -25737766  
+Iteration 2:   log pseudolikelihood =  -25737766  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(4)  = 469.25
+Log pseudolikelihood = -25737766                        Prob > chi2   = 0.0000
+
+---------------------------------------------------------------------------------------
+                      |               Robust
+                      | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------------+----------------------------------------------------------------
+housing_burden        |
+            ln_income |  -3.189561    .234526   -13.60   0.000    -3.649224   -2.729899
+              tsnguoi |  -.8514102   .0495798   -17.17   0.000    -.9485848   -.7542356
+           collateral |   1.208441   .4833237     2.50   0.012     .2611437    2.155738
+      1.credit_access |  -.0881238   .2790874    -0.32   0.752     -.635125    .4588774
+                _cons |   44.53692   2.526243    17.63   0.000     39.58558    49.48827
+----------------------+----------------------------------------------------------------
+credit_access         |
+            ln_income |   .2926191   .0369162     7.93   0.000     .2202647    .3649735
+           collateral |  -.1437555   .1160044    -1.24   0.215      -.37112    .0836089
+             edu_head |  -.0475862   .0151429    -3.14   0.002    -.0772657   -.0179067
+             age_head |  -.0101292    .002671    -3.79   0.000    -.0153642   -.0048941
+                      |
+c.edu_head#c.age_head |   .0008817   .0002587     3.41   0.001     .0003747    .0013888
+                      |
+          peer_effect |   2.421466   .0532405    45.48   0.000     2.317117    2.525816
+       social_network |    .335652   .0374359     8.97   0.000     .2622789    .4090251
+                _cons |  -4.018871   .4265095    -9.42   0.000    -4.854814   -3.182928
+----------------------+----------------------------------------------------------------
+              /athrho |  -.0184004   .0311947    -0.59   0.555    -.0795409    .0427401
+             /lnsigma |   1.876953   .0303813    61.78   0.000     1.817407    1.936499
+----------------------+----------------------------------------------------------------
+                  rho |  -.0183983   .0311841                     -.0793735    .0427141
+                sigma |   6.533567   .1984981                      6.155874    6.934432
+               lambda |  -.1202066   .2034582                     -.5189774    .2785642
+---------------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.35   Prob > chi2 = 0.5553
+
+. 
+. *======================================================*
+. * KIỂM ĐỊNH CHẨN ĐOÁN BIẾN CÔNG CỤ
+. *======================================================*
+. 
+. * 1. First-stage F-statistic (Kiểm định sức mạnh biến công cụ)
+. ivregress 2sls housing_burden (credit_access = peer_effect social_network) ///
+>     ln_income tsnguoi collateral, vce(robust)
+
+Instrumental variables 2SLS regression            Number of obs   =     10,246
+                                                  Wald chi2(4)    =     485.41
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.0869
+                                                  Root MSE        =     6.3782
+
+-------------------------------------------------------------------------------
+              |               Robust
+housing_bur~n | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+credit_access |   .6883406   .2431367     2.83   0.005     .2118014     1.16488
+    ln_income |  -3.439156   .2217127   -15.51   0.000    -3.873705   -3.004607
+      tsnguoi |  -.8408741   .0452942   -18.56   0.000    -.9296492   -.7520991
+   collateral |   1.419122    .437761     3.24   0.001      .561126    2.277118
+        _cons |   46.21232   2.427385    19.04   0.000     41.45474    50.96991
+-------------------------------------------------------------------------------
+Instrumented: credit_access
+ Instruments: ln_income tsnguoi collateral peer_effect social_network
+
+. estat firststage
+
+  First-stage regression summary statistics
+  --------------------------------------------------------------------------
+               |            Adjusted      Partial       Robust
+      Variable |   R-sq.       R-sq.        R-sq.    F(2,10240)   Prob > F
+  -------------+------------------------------------------------------------
+  credit_acc~s |  0.3125      0.3121       0.2739        2796.8    0.0000
+  --------------------------------------------------------------------------
+
+
+. 
+. * 2. Over-identification Test (Sargan-Hansen)
+. estat overid
+
+  Test of overidentifying restrictions:
+
+  Score chi2(1)          =  8.57316  (p = 0.0034)
+
+. 
+. * 3. Falsification Test (Exclusion restriction)
+. regress housing_burden peer_effect social_network if credit_access==0
+
+      Source |       SS           df       MS      Number of obs   =     5,247
+-------------+----------------------------------   F(2, 5244)      =     17.96
+       Model |  1861.38749         2  930.693746   Prob > F        =    0.0000
+    Residual |  271692.823     5,244  51.8102256   R-squared       =    0.0068
+-------------+----------------------------------   Adj R-squared   =    0.0064
+       Total |  273554.211     5,246  52.1452937   Root MSE        =    7.1979
+
+--------------------------------------------------------------------------------
+housing_burden | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+   peer_effect |   1.020187   .3955887     2.58   0.010     .2446686    1.795706
+social_network |  -1.139671   .2051293    -5.56   0.000    -1.541809   -.7375317
+         _cons |   7.226051   .2003303    36.07   0.000      6.83332    7.618782
+--------------------------------------------------------------------------------
+
+. 
+. * 4. Kiểm định Hausman / Durbin-Wu-Hausman
+. estat endogenous
+estat endogenous not valid
+r(321);
+
+end of do-file
+
+r(321);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. estat endogenous, durbin
+estat endogenous not valid
+r(321);
+
+end of do-file
+
+r(321);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. *======================================================*
+. * THAY ĐỔI THƯỚC ĐO VÀ HỒI QUY PHÂN VỊ
+. *======================================================*
+. 
+. * 1. Giới hạn biến phụ thuộc (Capping)
+. * Giới hạn gánh nặng nhà ở tối đa 100%
+. gen housing_burden_cap = housing_burden
+variable housing_burden_cap already defined
+r(110);
+
+end of do-file
+
+r(110);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. replace housing_burden_cap = 100 if housing_burden_cap > 100
+(0 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. * 2. Hồi quy phân vị (Quantile Regression)
+. * Ước lượng tại các phân vị 25th, 50th, 75th
+. qreg housing_burden_cap ln_income tsnguoi collateral credit_access, quantile(0.25)
+Iteration  1:  WLS sum of weighted deviations =  18820.081
+
+Iteration  1: sum of abs. weighted deviations =   18811.12
+Iteration  2: sum of abs. weighted deviations =  14291.851
+Iteration  3: sum of abs. weighted deviations =  14031.416
+Iteration  4: sum of abs. weighted deviations =   13664.82
+Iteration  5: sum of abs. weighted deviations =  12858.544
+Iteration  6: sum of abs. weighted deviations =   12107.68
+Iteration  7: sum of abs. weighted deviations =  11893.265
+Iteration  8: sum of abs. weighted deviations =  11504.931
+Iteration  9: sum of abs. weighted deviations =  11483.488
+Iteration 10: sum of abs. weighted deviations =  11482.493
+Iteration 11: sum of abs. weighted deviations =  11477.547
+Iteration 12: sum of abs. weighted deviations =  11321.797
+Iteration 13: sum of abs. weighted deviations =  11318.356
+Iteration 14: sum of abs. weighted deviations =  11303.193
+Iteration 15: sum of abs. weighted deviations =  11302.357
+Iteration 16: sum of abs. weighted deviations =  11300.317
+Iteration 17: sum of abs. weighted deviations =  11300.217
+Iteration 18: sum of abs. weighted deviations =  11300.162
+Iteration 19: sum of abs. weighted deviations =  11300.154
+Iteration 20: sum of abs. weighted deviations =  11300.026
+Iteration 21: sum of abs. weighted deviations =      11300
+Iteration 22: sum of abs. weighted deviations =  11299.967
+Iteration 23: sum of abs. weighted deviations =  11299.959
+Iteration 24: sum of abs. weighted deviations =  11299.859
+Iteration 25: sum of abs. weighted deviations =   11299.85
+Iteration 26: sum of abs. weighted deviations =   11299.84
+Iteration 27: sum of abs. weighted deviations =  11299.775
+Iteration 28: sum of abs. weighted deviations =  11299.772
+Iteration 29: sum of abs. weighted deviations =  11299.766
+Iteration 30: sum of abs. weighted deviations =  11299.763
+Iteration 31: sum of abs. weighted deviations =  11299.761
+Iteration 32: sum of abs. weighted deviations =  11299.761
+Iteration 33: sum of abs. weighted deviations =  11299.756
+Iteration 34: sum of abs. weighted deviations =  11299.755
+Iteration 35: sum of abs. weighted deviations =  11299.755
+
+.25 Quantile regression                             Number of obs =     10,286
+  Raw sum of deviations  11813.1 (about 3.1299865)
+  Min sum of deviations 11299.76                    Pseudo R2     =     0.0435
+
+-------------------------------------------------------------------------------
+housing_bur~p | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+    ln_income |  -1.394453   .0602618   -23.14   0.000    -1.512578   -1.276328
+      tsnguoi |  -.3539589    .016876   -20.97   0.000    -.3870391   -.3208787
+   collateral |   .8346229   .2006593     4.16   0.000     .4412915    1.227954
+credit_access |   .3933027   .0559073     7.03   0.000     .2837134     .502892
+        _cons |   19.51126   .6499492    30.02   0.000     18.23723    20.78528
+-------------------------------------------------------------------------------
+
+. qreg housing_burden_cap ln_income tsnguoi collateral credit_access, quantile(0.50)
+Iteration  1:  WLS sum of weighted deviations =  20028.227
+
+Iteration  1: sum of abs. weighted deviations =  20027.454
+Iteration  2: sum of abs. weighted deviations =  18798.599
+Iteration  3: sum of abs. weighted deviations =  18617.016
+Iteration  4: sum of abs. weighted deviations =  18239.341
+Iteration  5: sum of abs. weighted deviations =   18204.02
+Iteration  6: sum of abs. weighted deviations =  18182.504
+Iteration  7: sum of abs. weighted deviations =  18168.706
+Iteration  8: sum of abs. weighted deviations =  18153.828
+Iteration  9: sum of abs. weighted deviations =  18151.992
+Iteration 10: sum of abs. weighted deviations =  18150.869
+Iteration 11: sum of abs. weighted deviations =  18150.389
+Iteration 12: sum of abs. weighted deviations =  18150.224
+Iteration 13: sum of abs. weighted deviations =   18150.16
+Iteration 14: sum of abs. weighted deviations =  18148.125
+Iteration 15: sum of abs. weighted deviations =  18148.041
+Iteration 16: sum of abs. weighted deviations =  18148.007
+Iteration 17: sum of abs. weighted deviations =  18147.992
+Iteration 18: sum of abs. weighted deviations =  18147.972
+Iteration 19: sum of abs. weighted deviations =  18147.972
+
+Median regression                                   Number of obs =     10,286
+  Raw sum of deviations 19393.05 (about 4.7080388)
+  Min sum of deviations 18147.97                    Pseudo R2     =     0.0642
+
+-------------------------------------------------------------------------------
+housing_bur~p | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+    ln_income |  -2.432957   .0750539   -32.42   0.000    -2.580078   -2.285837
+      tsnguoi |  -.5495585   .0210184   -26.15   0.000    -.5907587   -.5083584
+   collateral |   1.913064    .249914     7.65   0.000     1.423184    2.402944
+credit_access |   .3922899   .0696306     5.63   0.000     .2558004    .5287794
+        _cons |   32.96118   .8094883    40.72   0.000     31.37443    34.54794
+-------------------------------------------------------------------------------
+
+. qreg housing_burden_cap ln_income tsnguoi collateral credit_access, quantile(0.75)
+Iteration  1:  WLS sum of weighted deviations =  20356.046
+
+Iteration  1: sum of abs. weighted deviations =  20356.314
+Iteration  2: sum of abs. weighted deviations =  20322.382
+Iteration  3: sum of abs. weighted deviations =  20306.682
+Iteration  4: sum of abs. weighted deviations =  20305.196
+Iteration  5: sum of abs. weighted deviations =  20269.976
+Iteration  6: sum of abs. weighted deviations =  20220.969
+Iteration  7: sum of abs. weighted deviations =  20166.868
+Iteration  8: sum of abs. weighted deviations =  20158.373
+Iteration  9: sum of abs. weighted deviations =   20155.36
+Iteration 10: sum of abs. weighted deviations =  20154.915
+Iteration 11: sum of abs. weighted deviations =  20154.446
+Iteration 12: sum of abs. weighted deviations =  20154.236
+Iteration 13: sum of abs. weighted deviations =  20154.106
+Iteration 14: sum of abs. weighted deviations =  20154.013
+Iteration 15: sum of abs. weighted deviations =      20154
+Iteration 16: sum of abs. weighted deviations =  20153.953
+Iteration 17: sum of abs. weighted deviations =  20153.941
+Iteration 18: sum of abs. weighted deviations =   20153.94
+Iteration 19: sum of abs. weighted deviations =  20153.939
+
+.75 Quantile regression                             Number of obs =     10,286
+  Raw sum of deviations 21981.05 (about 7.4074073)
+  Min sum of deviations 20153.94                    Pseudo R2     =     0.0831
+
+-------------------------------------------------------------------------------
+housing_bur~p | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+    ln_income |  -4.011294   .1371805   -29.24   0.000    -4.280195   -3.742394
+      tsnguoi |  -.8515796   .0384166   -22.17   0.000    -.9268836   -.7762756
+   collateral |   1.609085   .4567824     3.52   0.000     .7137024    2.504467
+credit_access |    .157743   .1272679     1.24   0.215    -.0917268    .4072129
+        _cons |   53.63606   1.479549    36.25   0.000     50.73586    56.53627
+-------------------------------------------------------------------------------
+
+. 
+. *======================================================*
+. * STEP 6 — XUẤT BẢNG KẾT QUẢ
+. *======================================================*
+. display ">>> 6. XUẤT BẢNG KẾT QUẢ"
+>>> 6. XUẤT BẢNG KẾT QUẢ
+
+. 
+. * Xuất bảng so sánh
+. esttab Model_1 Model_2 Model_3, b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(1.credit_access ln_income tsnguoi collateral) ///
+>     title("Bang: Kiem tra do vung cua mo hinh Endogenous Treatment") mtitle("Model 1" "Model 2"
+>  "Model 3")
+
+Bang: Kiem tra do vung cua mo hinh Endogenous Treatment
+------------------------------------------------------------
+                      (1)             (2)             (3)   
+                  Model 1         Model 2         Model 3   
+------------------------------------------------------------
+housing_bu~n                                                
+ln_income          -3.208***       -3.171***       -3.190***
+                  (0.234)         (0.234)         (0.235)   
+
+tsnguoi            -0.850***       -0.852***       -0.851***
+                  (0.050)         (0.050)         (0.050)   
+
+collateral          1.213**         1.204**         1.208** 
+                  (0.484)         (0.483)         (0.483)   
+
+1.credit_a~s        0.017          -0.194          -0.088   
+                  (0.276)         (0.282)         (0.279)   
+------------------------------------------------------------
+credit_acc~s                                                
+ln_income           0.324***        0.306***        0.293***
+                  (0.037)         (0.037)         (0.037)   
+
+collateral         -0.123          -0.137          -0.144   
+                  (0.117)         (0.117)         (0.116)   
+------------------------------------------------------------
+N                   10246           10246           10246   
+------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. capture esttab Model_1 Model_2 Model_3 Model_4 using "Heckman_Robustness_Table.rtf", ///
+>     replace wide align(c) ///
+>     b(%9.3f) se(%9.3f) star(* 0.1 ** 0.05 *** 0.01) ///
+>     title("Bang 1: Ket qua uoc luong Heckman FIML voi cac bien cong cu") ///
+>     mtitles("Chi Peer Effect" "Chi Social Net" "Chi Info Broad" "Full Model") ///
+>     keep(housing_burden:ln_income housing_burden:tsnguoi housing_burden:collateral ///
+>          select:ln_income select:informal select:peer_effect select:social_network select:info_
+> broad) ///
+>     order(housing_burden:ln_income housing_burden:tsnguoi housing_burden:collateral ///
+>           select:ln_income select:informal select:peer_effect select:social_network select:info
+> _broad) ///
+>     scalars("rho He so rho" "wald_chi2 Thong ke Wald (Chi2)" "wald_p P-value Wald test") ///
+>     addnotes("Sai so chuan manh (Robust SE) trong ngoac. Co su dung trong so khao sat (wt45).")
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ : 
+. * ----------------------------------------------------------------------
+.         * Khai báo đường dẫn lưu ảnh (macro)
+. local export_path "D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC 
+> SĨ\Khoảng trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai viet\figur
+> es"
+
+. 
+. * Đảm bảo biểu đồ có nền trắng chuẩn học thuật:
+. set scheme s2color 
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 1: Boxplot So sánh gánh nặng nhà ở giữa 2 nhóm Vay và Không Vay
+. * ----------------------------------------------------------------------
+. graph box housing_burden, over(credit_access) ///
+>     title("Đồ thị 1: Phân phối Gánh nặng chi phí nhà ở" ///
+>           "theo Tình trạng tiếp cận tín dụng", size(medsmall)) ///
+>     ytitle("Tỷ lệ chi phí nhà ở / Thu nhập (%)") ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. 
+. graph export "`export_path'\fig1_boxplot_burden.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig1_boxplot_burden.png saved as PNG format
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 2: Scatter plot và Trendline giữa Thu nhập và Gánh nặng nhà ở
+. * ----------------------------------------------------------------------
+. 
+. twoway (scatter housing_burden ln_income, mcolor(navy%30) msize(small)) ///
+>        (lfit housing_burden ln_income, lcolor(red) lwidth(medthick)), ///
+>     title("Đồ thị 2: Mối liên hệ giữa Thu nhập cốt lõi" ///
+>           "và Gánh nặng chi phí nhà ở", size(medsmall)) ///
+>     xtitle("Logarit tự nhiên của Thu nhập (ln_income)") ///
+>     ytitle("Tỷ lệ chi phí nhà ở / Thu nhập (%)") ///
+>     legend(order(1 "Quan sát thực tế" 2 "Đường xu hướng tuyến tính")) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. 
+. graph export "`export_path'\fig2_scatter_income.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig2_scatter_income.png saved as PNG format
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 3: Bar chart thể hiện "Bẫy tài sản" (Gộp 4 nhóm)
+. * ----------------------------------------------------------------------
+. 
+. graph bar (mean) housing_burden, over(collateral) over(credit_access) ///
+>     title("Đồ thị 3: Trung bình Gánh nặng nhà ở" ///
+>           "theo Tình trạng sở hữu tài sản và Tín dụng", size(medsmall)) ///
+>     ytitle("Trung bình tỷ lệ chi phí nhà ở / Thu nhập (%)") ///
+>     b1title("Tình trạng sở hữu tài sản (0 = Thuê, 1 = Sở hữu)") ///
+>     blabel(bar, format(%9.1f)) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. 
+. graph export "`export_path'\fig3_bar_asset_trap.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig3_bar_asset_trap.png saved as PNG format
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 4: Kernel density của Housing Burden (Phân phối cực đoan)
+. * ----------------------------------------------------------------------
+. kdensity housing_burden, recast(area) fcolor(navy%30) lcolor(navy) lwidth(medthick) ///
+>     title("Đồ thị 4: Phân phối Mật độ Gánh nặng chi phí nhà ở", size(medsmall)) ///
+>     xtitle("Tỷ lệ chi phí nhà ở / Thu nhập (%)") ///
+>     ytitle("Mật độ (Density)") ///
+>     xline(30, lcolor(red) lpattern(dash)) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024. Đường đứt nét đỏ = ngưỡng gánh nặng 30%."
+> )
+
+. graph export "`export_path'\fig4_density_burden.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig4_density_burden.png saved as PNG format
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 5: Bar chart theo Credit Type (Cơ cấu dòng vốn)
+. * ----------------------------------------------------------------------
+. graph bar (count), over(credit_type, label(angle(45) labsize(small))) ///
+>     title("Đồ thị 5: Cơ cấu mục đích sử dụng vốn vay" ///
+>           "trong nhóm Missing Middle", size(medsmall)) ///
+>     ytitle("Số lượng hộ gia đình") ///
+>     blabel(bar, format(%9.0f) size(small)) ///
+>     bar(1, color(teal)) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. graph export "`export_path'\fig5_bar_credit_type.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig5_bar_credit_type.png saved as PNG format
+
+. 
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 6: Line chart Peer Effect theo địa bàn
+. * ----------------------------------------------------------------------
+. preserve
+
+. collapse (mean) peer_effect, by(diaban)
+
+. 
+. * Tạo biến số thứ tự cho địa bàn
+. encode diaban, gen(diaban_num)
+
+. 
+. sort diaban_num
+
+. twoway (line peer_effect diaban_num, lcolor(blue) lwidth(medthick) msymbol(circle)), ///
+>     title("Đồ thị 6: Sự phân hóa của Hiệu ứng đồng trang lứa (Peer Effect)" ///
+>           "theo các địa bàn khảo sát", size(medsmall)) ///
+>     xtitle("Khu vực / Địa bàn") ///
+>     ytitle("Mức độ Peer Effect trung bình") ///
+>     xlabel(, valuelabel angle(45) labsize(small)) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. graph export "`export_path'\fig6_line_peer_effect.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig6_line_peer_effect.png saved as PNG format
+
+. restore
+
+. * ----------------------------------------------------------------------
+. * ĐỒ THỊ 7: Interaction plot (Gánh nặng nhà ở theo Thu nhập và Tín dụng)
+. * ----------------------------------------------------------------------
+. graph bar (mean) housing_burden, over(quintile) over(credit_access) ///
+>     title("Đồ thị 7: Gánh nặng nhà ở phân hóa theo" ///
+>           "Phân vị thu nhập và Tình trạng tín dụng", size(medsmall)) ///
+>     ytitle("Trung bình tỷ lệ chi phí nhà ở / Thu nhập (%)") ///
+>     blabel(bar, format(%9.1f) size(small)) ///
+>     legend(label(1 "Không vay") label(2 "Có vay")) ///
+>     note("Nguồn: Tính toán của tác giả từ VHLSS 2024")
+
+. graph export "`export_path'\fig7_bar_quintile_credit.png", as(png) replace
+file D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Khoảng
+    trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai
+    viet\figures\fig7_bar_quintile_credit.png saved as PNG format
+
+. 
+. *====================================================
+. * THỐNG KÊ MÔ TẢ CÁC BIẾN TRONG MÔ HÌNH
+. *====================================================
+. 
+. * 1. Thống kê mô tả cơ bản
+. summarize housing_burden credit_access ln_income social_network ///
+>           age_head tsnguoi edu_head
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+housing_bu~n |     10,246    6.487911    6.675048          0   99.09775
+credit_acc~s |     10,286    .4883337    .4998882          0          1
+   ln_income |     10,286    10.74607    .4586769   6.915723   11.33244
+social_net~k |     10,286    .7084387    .4545035          0          1
+    age_head |     10,286     55.1715    13.52167         15        101
+-------------+---------------------------------------------------------
+     tsnguoi |     10,286    3.711939    1.634446          1         16
+    edu_head |     10,286    9.336088    4.387403          0         21
+
+. 
+. * 2. Thống kê chi tiết (có median, percentiles)
+. summarize housing_burden credit_access ln_income social_network ///
+>           age_head tsnguoi edu_head, detail
+
+            Gánh nặng nhà ở (% thu nhập)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .9745361              0
+ 5%     1.707335              0
+10%     2.183523              0       Obs              10,246
+25%     3.125079       .1972996       Sum of wgt.      10,246
+
+50%     4.695265                      Mean           6.487911
+                        Largest       Std. dev.      6.675048
+75%     7.353076       83.63544
+90%     12.06079       90.07781       Variance       44.55626
+95%     16.94646       98.92255       Skewness       5.020021
+99%      34.0694       99.09775       Kurtosis       43.16968
+
+                Có tiếp cận tín dụng
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs              10,286
+25%            0              0       Sum of wgt.      10,286
+
+50%            0                      Mean           .4883337
+                        Largest       Std. dev.      .4998882
+75%            1              1
+90%            1              1       Variance       .2498882
+95%            1              1       Skewness       .0466781
+99%            1              1       Kurtosis       1.002179
+
+                 Log thu nhập bình quân
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     9.350558       6.915723
+ 5%     9.844798       7.112938
+10%     10.07687        8.03948       Obs              10,286
+25%     10.50092       8.118902       Sum of wgt.      10,286
+
+50%     10.87196                      Mean           10.74607
+                        Largest       Std. dev.      .4586769
+75%       11.086       11.33216
+90%     11.22486       11.33224       Variance       .2103845
+95%      11.2732       11.33225       Skewness      -1.299053
+99%     11.32267       11.33244       Kurtosis       5.332121
+
+                    (max) social_network
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs              10,286
+25%            0              0       Sum of wgt.      10,286
+
+50%            1                      Mean           .7084387
+                        Largest       Std. dev.      .4545035
+75%            1              1
+90%            1              1       Variance       .2065734
+95%            1              1       Skewness      -.9172594
+99%            1              1       Kurtosis       1.841365
+
+                          age_head
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%           29             15
+ 5%           35             17
+10%           38             17       Obs              10,286
+25%           44             18       Sum of wgt.      10,286
+
+50%           55                      Mean            55.1715
+                        Largest       Std. dev.      13.52167
+75%           65             99
+90%           73             99       Variance       182.8355
+95%           78            101       Skewness       .1693162
+99%           87            101       Kurtosis       2.552086
+
+                           tsnguoi
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            1              1
+ 5%            1              1
+10%            2              1       Obs              10,286
+25%            2              1       Sum of wgt.      10,286
+
+50%            4                      Mean           3.711939
+                        Largest       Std. dev.      1.634446
+75%            5             14
+90%            6             14       Variance       2.671412
+95%            6             14       Skewness       .5695302
+99%            8             16       Kurtosis       4.100209
+
+                          edu_head
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            2              0
+10%            3              0       Obs              10,286
+25%            6              0       Sum of wgt.      10,286
+
+50%            9                      Mean           9.336088
+                        Largest       Std. dev.      4.387403
+75%           13             18
+90%           15             18       Variance       19.24931
+95%           16             21       Skewness      -.2257091
+99%           16             21       Kurtosis       2.196905
+
+. 
+. * 3. Thống kê mô tả theo bảng (mean, sd, min, max)
+. tabstat housing_burden credit_access ln_income social_network ///
+>         age_head tsnguoi edu_head, statistics(count mean sd min max) columns(statistics)
+
+    Variable |         N      Mean        SD       Min       Max
+-------------+--------------------------------------------------
+housing_bu~n |     10246  6.487911  6.675048         0  99.09775
+credit_acc~s |     10286  .4883337  .4998882         0         1
+   ln_income |     10286  10.74607  .4586769  6.915723  11.33244
+social_net~k |     10286  .7084387  .4545035         0         1
+    age_head |     10286   55.1715  13.52167        15       101
+     tsnguoi |     10286  3.711939  1.634446         1        16
+    edu_head |     10286  9.336088  4.387403         0        21
+----------------------------------------------------------------
+
+. 
+. *====================================================
+. * 4. Xuất bảng sang LaTeX bằng estout (nếu muốn chèn vào luận văn)
+. *====================================================
+. ssc install estout, replace   // cài đặt nếu chưa có
+checking estout consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. 
+. estpost summarize housing_burden credit_access ln_income social_network ///
+>     age_head tsnguoi edu_head, detail
+
+             |  e(count)   e(sum_w)    e(mean)     e(Var)      e(sd)  e(skewn~)  e(kurto~) 
+-------------+-----------------------------------------------------------------------------
+housing_bu~n |     10246      10246   6.487911   44.55626   6.675048   5.020021   43.16968 
+credit_acc~s |     10286      10286   .4883337   .2498882   .4998882   .0466781   1.002179 
+   ln_income |     10286      10286   10.74607   .2103845   .4586769  -1.299053   5.332121 
+social_net~k |     10286      10286   .7084387   .2065734   .4545035  -.9172594   1.841365 
+    age_head |     10286      10286    55.1715   182.8355   13.52167   .1693162   2.552086 
+     tsnguoi |     10286      10286   3.711939   2.671412   1.634446   .5695302   4.100209 
+    edu_head |     10286      10286   9.336088   19.24931   4.387403  -.2257091   2.196905 
+
+             |    e(sum)     e(min)     e(max)      e(p1)      e(p5)     e(p10)     e(p25) 
+-------------+-----------------------------------------------------------------------------
+housing_bu~n |  66475.13          0   99.09775   .9745361   1.707335   2.183523   3.125079 
+credit_acc~s |      5023          0          1          0          0          0          0 
+   ln_income |  110534.1   6.915723   11.33244   9.350558   9.844798   10.07687   10.50092 
+social_net~k |      7287          0          1          0          0          0          0 
+    age_head |    567494         15        101         29         35         38         44 
+     tsnguoi |     38181          1         16          1          1          2          2 
+    edu_head |     96031          0         21          0          2          3          6 
+
+             |    e(p50)     e(p75)     e(p90)     e(p95)     e(p99) 
+-------------+-------------------------------------------------------
+housing_bu~n |  4.695265   7.353076   12.06079   16.94646    34.0694 
+credit_acc~s |         0          1          1          1          1 
+   ln_income |  10.87196     11.086   11.22486    11.2732   11.32267 
+social_net~k |         1          1          1          1          1 
+    age_head |        55         65         73         78         87 
+     tsnguoi |         4          5          6          6          8 
+    edu_head |         9         13         15         16         16 
+
+. 
+. esttab using "appendix_desc_stats.tex", ///
+>     cells("count mean sd min max") ///
+>     label replace ///
+>     title("Thống kê mô tả các biến trong mô hình") ///
+>     alignment(l c c c c c) ///
+>     booktabs ///
+>     varlabels(housing_burden "Gánh nặng nhà ở (Tỷ lệ chi phí/Thu nhập)" ///
+>               credit_access "Tiếp cận tín dụng (1=Có,0=Không)" ///
+>               ln_income "Thu nhập hộ gia đình (log)" ///
+>               social_network "Tham gia mạng lưới xã hội (1=Có, 0=Không)" ///
+>               age_head "Tuổi chủ hộ (Năm)" ///
+>               tsnguoi "Số nhân khẩu (Người)" ///
+>               edu_head "Học vấn chủ hộ (Số năm đi học)")
+(tabulating estimates stored by eststo; specify "." to tabulate the active results)
+(output written to appendix_desc_stats.tex)
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== ADVANCE ====================== */
+. 
+. /* ====================== 1. HETEROGENEITY ANALYSIS ====================== */
+. * Tác động của tín dụng khác nhau theo phân vị thu nhập (Quintile 1-3)
+. eststo Het_Q: etregress housing_burden c.credit_access##i.quintile ln_income tsnguoi collateral
+>  edu_head age_head informal ///
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) ///
+>     vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25685184  
+Iteration 1:   log pseudolikelihood =  -25685184  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(11) = 567.67
+Log pseudolikelihood = -25685184                        Prob > chi2   = 0.0000
+
+------------------------------------------------------------------------------------------
+                         |               Robust
+                         | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------------------+----------------------------------------------------------------
+housing_burden           |
+                quintile |
+                      2  |  -.4889736   .4295247    -1.14   0.255    -1.330826    .3528793
+                      3  |   .4831713   .5644641     0.86   0.392     -.623158    1.589501
+                         |
+quintile#c.credit_access |
+                      1  |          0  (omitted)
+                      2  |   -.009031   .3770895    -0.02   0.981    -.7481129    .7300508
+                      3  |  -.8369956   .3941798    -2.12   0.034    -1.609574   -.0644174
+                         |
+               ln_income |  -3.568983   .5427577    -6.58   0.000    -4.632769   -2.505198
+                 tsnguoi |  -.9012057   .0505943   -17.81   0.000    -1.000369   -.8020427
+              collateral |   1.063834    .482836     2.20   0.028     .1174929    2.010175
+                edu_head |   .0807578   .0191346     4.22   0.000     .0432546     .118261
+                age_head |  -.0297357   .0064309    -4.62   0.000    -.0423401   -.0171313
+                informal |    -1.9981   .2567756    -7.78   0.000    -2.501371   -1.494829
+         1.credit_access |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+                   _cons |   49.91537   5.571742     8.96   0.000     38.99496    60.83578
+-------------------------+----------------------------------------------------------------
+credit_access            |
+               ln_income |   .3062906   .0368935     8.30   0.000     .2339806    .3786006
+              collateral |  -.1367662   .1167361    -1.17   0.241    -.3655647    .0920323
+                informal |   .1584451   .0531563     2.98   0.003     .0542607    .2626294
+                edu_head |   .0017488   .0040587     0.43   0.667     -.006206    .0097037
+                age_head |   -.001494   .0012176    -1.23   0.220    -.0038805    .0008925
+             peer_effect |   2.416456   .0530596    45.54   0.000     2.312462    2.520451
+          social_network |   .3352065   .0374151     8.96   0.000     .2618741    .4085388
+                   _cons |  -4.672644   .3986913   -11.72   0.000    -5.454065   -3.891224
+-------------------------+----------------------------------------------------------------
+                 /athrho |  -.0029804   .0298385    -0.10   0.920    -.0614627    .0555019
+                /lnsigma |   1.868884   .0307601    60.76   0.000     1.808596    1.929173
+-------------------------+----------------------------------------------------------------
+                     rho |  -.0029804   .0298382                     -.0613855     .055445
+                   sigma |   6.481061    .199358                      6.101871    6.883814
+                  lambda |  -.0193161   .1933441                     -.3982635    .3596313
+------------------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.01   Prob > chi2 = 0.9204
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. * Marginal Effects Plot (rất mạnh cho Q1)
+. margins, dydx(credit_access) at(quintile=(1 2 3))
+invalid dydx() option;
+variable credit_access may not be present in model as factor and continuous predictor
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. * Bảng Heterogeneity
+. esttab Het_Q using "$path\Table_Heterogeneity.tex", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(credit_access 1.credit_access#1.quintile 1.credit_access#2.quintile 1.credit_access#3.
+> quintile) ///
+>     mtitle("Heterogeneity by Quintile") booktabs title("Heterogeneous Treatment Effects")
+coefficient credit_access not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 2. MECHANISM ANALYSIS (Credit Type) ====================== */
+. * Phân tích theo mục đích vay (Business / Consumption / Mixed)
+. eststo Mech_B: etregress housing_burden i.credit_type ln_income tsnguoi collateral [pw=wt45], /
+> //
+>     treat(credit_access = ln_income collateral peer_effect social_network) vce(robust)
+
+Iteration 0:   log pseudolikelihood =  -25741016  (not concave)
+Iteration 1:   log pseudolikelihood =  -25741014  (not concave)
+Iteration 2:   log pseudolikelihood =  -25741014  (not concave)
+Iteration 3:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 4:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 5:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 6:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 7:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 8:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 9:   log pseudolikelihood =  -25741013  (not concave)
+Iteration 10:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 11:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 12:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 13:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 14:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 15:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 16:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 17:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 18:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 19:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 20:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 21:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 22:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 23:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 24:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 25:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 26:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 27:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 28:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 29:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 30:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 31:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 32:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 33:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 34:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 35:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 36:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 37:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 38:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 39:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 40:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 41:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 42:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 43:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 44:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 45:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 46:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 47:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 48:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 49:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 50:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 51:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 52:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 53:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 54:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 55:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 56:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 57:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 58:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 59:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 60:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 61:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 62:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 63:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 64:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 65:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 66:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 67:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 68:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 69:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 70:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 71:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 72:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 73:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 74:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 75:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 76:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 77:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 78:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 79:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 80:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 81:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 82:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 83:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 84:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 85:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 86:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 87:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 88:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 89:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 90:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 91:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 92:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 93:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 94:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 95:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 96:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 97:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 98:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 99:  log pseudolikelihood =  -25741013  (not concave)
+Iteration 100: log pseudolikelihood =  -25741013  (not concave)
+Iteration 101: log pseudolikelihood =  -25741013  (not concave)
+Iteration 102: log pseudolikelihood =  -25741013  (not concave)
+Iteration 103: log pseudolikelihood =  -25741013  (not concave)
+Iteration 104: log pseudolikelihood =  -25741013  (not concave)
+Iteration 105: log pseudolikelihood =  -25741013  (not concave)
+Iteration 106: log pseudolikelihood =  -25741013  (not concave)
+Iteration 107: log pseudolikelihood =  -25741013  (not concave)
+Iteration 108: log pseudolikelihood =  -25741013  (not concave)
+Iteration 109: log pseudolikelihood =  -25741013  (not concave)
+Iteration 110: log pseudolikelihood =  -25741013  (not concave)
+Iteration 111: log pseudolikelihood =  -25741013  (not concave)
+Iteration 112: log pseudolikelihood =  -25741013  (not concave)
+Iteration 113: log pseudolikelihood =  -25741013  (not concave)
+Iteration 114: log pseudolikelihood =  -25741013  (not concave)
+Iteration 115: log pseudolikelihood =  -25741013  (not concave)
+Iteration 116: log pseudolikelihood =  -25741013  (not concave)
+Iteration 117: log pseudolikelihood =  -25741013  (not concave)
+Iteration 118: log pseudolikelihood =  -25741013  (not concave)
+Iteration 119: log pseudolikelihood =  -25741013  (not concave)
+Iteration 120: log pseudolikelihood =  -25741013  (not concave)
+Iteration 121: log pseudolikelihood =  -25741013  (not concave)
+Iteration 122: log pseudolikelihood =  -25741013  (not concave)
+Iteration 123: log pseudolikelihood =  -25741013  (not concave)
+Iteration 124: log pseudolikelihood =  -25741013  (not concave)
+Iteration 125: log pseudolikelihood =  -25741013  (not concave)
+Iteration 126: log pseudolikelihood =  -25741013  (not concave)
+Iteration 127: log pseudolikelihood =  -25741013  (not concave)
+Iteration 128: log pseudolikelihood =  -25741013  (not concave)
+Iteration 129: log pseudolikelihood =  -25741013  (not concave)
+Iteration 130: log pseudolikelihood =  -25741013  (not concave)
+Iteration 131: log pseudolikelihood =  -25741013  (not concave)
+Iteration 132: log pseudolikelihood =  -25741013  (not concave)
+Iteration 133: log pseudolikelihood =  -25741013  (not concave)
+Iteration 134: log pseudolikelihood =  -25741013  (not concave)
+Iteration 135: log pseudolikelihood =  -25741013  (not concave)
+Iteration 136: log pseudolikelihood =  -25741013  (not concave)
+Iteration 137: log pseudolikelihood =  -25741013  (not concave)
+Iteration 138: log pseudolikelihood =  -25741013  (not concave)
+Iteration 139: log pseudolikelihood =  -25741013  (not concave)
+Iteration 140: log pseudolikelihood =  -25741013  (not concave)
+Iteration 141: log pseudolikelihood =  -25741013  (not concave)
+Iteration 142: log pseudolikelihood =  -25741013  (not concave)
+Iteration 143: log pseudolikelihood =  -25741013  (not concave)
+Iteration 144: log pseudolikelihood =  -25741013  (not concave)
+Iteration 145: log pseudolikelihood =  -25741013  (not concave)
+Iteration 146: log pseudolikelihood =  -25741013  (not concave)
+Iteration 147: log pseudolikelihood =  -25741013  (not concave)
+Iteration 148: log pseudolikelihood =  -25741013  (not concave)
+Iteration 149: log pseudolikelihood =  -25741013  (not concave)
+Iteration 150: log pseudolikelihood =  -25741013  (not concave)
+Iteration 151: log pseudolikelihood =  -25741013  (not concave)
+Iteration 152: log pseudolikelihood =  -25741013  (not concave)
+Iteration 153: log pseudolikelihood =  -25741013  (not concave)
+Iteration 154: log pseudolikelihood =  -25741013  (not concave)
+Iteration 155: log pseudolikelihood =  -25741013  (not concave)
+Iteration 156: log pseudolikelihood =  -25741013  (not concave)
+Iteration 157: log pseudolikelihood =  -25741013  (not concave)
+Iteration 158: log pseudolikelihood =  -25741013  (not concave)
+Iteration 159: log pseudolikelihood =  -25741013  (not concave)
+Iteration 160: log pseudolikelihood =  -25741013  (not concave)
+Iteration 161: log pseudolikelihood =  -25741013  (not concave)
+Iteration 162: log pseudolikelihood =  -25741013  (not concave)
+Iteration 163: log pseudolikelihood =  -25741013  (not concave)
+Iteration 164: log pseudolikelihood =  -25741013  (not concave)
+Iteration 165: log pseudolikelihood =  -25741013  (not concave)
+Iteration 166: log pseudolikelihood =  -25741013  (not concave)
+Iteration 167: log pseudolikelihood =  -25741013  (not concave)
+Iteration 168: log pseudolikelihood =  -25741013  (not concave)
+Iteration 169: log pseudolikelihood =  -25741013  (not concave)
+Iteration 170: log pseudolikelihood =  -25741013  (not concave)
+Iteration 171: log pseudolikelihood =  -25741013  (not concave)
+Iteration 172: log pseudolikelihood =  -25741013  (not concave)
+Iteration 173: log pseudolikelihood =  -25741013  (not concave)
+Iteration 174: log pseudolikelihood =  -25741013  (not concave)
+Iteration 175: log pseudolikelihood =  -25741013  (not concave)
+Iteration 176: log pseudolikelihood =  -25741013  (not concave)
+Iteration 177: log pseudolikelihood =  -25741013  (not concave)
+Iteration 178: log pseudolikelihood =  -25741013  (not concave)
+Iteration 179: log pseudolikelihood =  -25741013  (not concave)
+Iteration 180: log pseudolikelihood =  -25741013  (not concave)
+Iteration 181: log pseudolikelihood =  -25741013  (not concave)
+Iteration 182: log pseudolikelihood =  -25741013  (not concave)
+Iteration 183: log pseudolikelihood =  -25741013  (not concave)
+Iteration 184: log pseudolikelihood =  -25741013  (not concave)
+Iteration 185: log pseudolikelihood =  -25741013  (not concave)
+Iteration 186: log pseudolikelihood =  -25741013  (not concave)
+Iteration 187: log pseudolikelihood =  -25741013  (not concave)
+Iteration 188: log pseudolikelihood =  -25741013  (not concave)
+Iteration 189: log pseudolikelihood =  -25741013  (not concave)
+Iteration 190: log pseudolikelihood =  -25741013  (not concave)
+Iteration 191: log pseudolikelihood =  -25741013  (not concave)
+Iteration 192: log pseudolikelihood =  -25741013  (not concave)
+Iteration 193: log pseudolikelihood =  -25741013  (not concave)
+Iteration 194: log pseudolikelihood =  -25741013  (not concave)
+Iteration 195: log pseudolikelihood =  -25741013  (not concave)
+Iteration 196: log pseudolikelihood =  -25741013  (not concave)
+Iteration 197: log pseudolikelihood =  -25741013  (not concave)
+Iteration 198: log pseudolikelihood =  -25741013  (not concave)
+Iteration 199: log pseudolikelihood =  -25741013  (not concave)
+Iteration 200: log pseudolikelihood =  -25741013  (not concave)
+Iteration 201: log pseudolikelihood =  -25741013  (not concave)
+Iteration 202: log pseudolikelihood =  -25741013  (not concave)
+Iteration 203: log pseudolikelihood =  -25741013  (not concave)
+Iteration 204: log pseudolikelihood =  -25741013  (not concave)
+Iteration 205: log pseudolikelihood =  -25741013  (not concave)
+Iteration 206: log pseudolikelihood =  -25741013  (not concave)
+Iteration 207: log pseudolikelihood =  -25741013  (not concave)
+Iteration 208: log pseudolikelihood =  -25741013  (not concave)
+Iteration 209: log pseudolikelihood =  -25741013  (not concave)
+Iteration 210: log pseudolikelihood =  -25741013  (not concave)
+Iteration 211: log pseudolikelihood =  -25741013  (not concave)
+Iteration 212: log pseudolikelihood =  -25741013  (not concave)
+Iteration 213: log pseudolikelihood =  -25741013  (not concave)
+Iteration 214: log pseudolikelihood =  -25741013  (not concave)
+Iteration 215: log pseudolikelihood =  -25741013  (not concave)
+Iteration 216: log pseudolikelihood =  -25741013  (not concave)
+Iteration 217: log pseudolikelihood =  -25741013  (not concave)
+Iteration 218: log pseudolikelihood =  -25741013  (not concave)
+Iteration 219: log pseudolikelihood =  -25741013  (not concave)
+Iteration 220: log pseudolikelihood =  -25741013  (not concave)
+Iteration 221: log pseudolikelihood =  -25741013  (not concave)
+Iteration 222: log pseudolikelihood =  -25741013  (not concave)
+Iteration 223: log pseudolikelihood =  -25741013  (not concave)
+Iteration 224: log pseudolikelihood =  -25741013  (not concave)
+Iteration 225: log pseudolikelihood =  -25741013  (not concave)
+Iteration 226: log pseudolikelihood =  -25741013  (not concave)
+Iteration 227: log pseudolikelihood =  -25741013  (not concave)
+Iteration 228: log pseudolikelihood =  -25741013  (not concave)
+Iteration 229: log pseudolikelihood =  -25741013  (not concave)
+Iteration 230: log pseudolikelihood =  -25741013  (not concave)
+Iteration 231: log pseudolikelihood =  -25741013  (not concave)
+Iteration 232: log pseudolikelihood =  -25741013  (not concave)
+Iteration 233: log pseudolikelihood =  -25741013  (not concave)
+Iteration 234: log pseudolikelihood =  -25741013  (not concave)
+Iteration 235: log pseudolikelihood =  -25741013  (not concave)
+Iteration 236: log pseudolikelihood =  -25741013  (not concave)
+Iteration 237: log pseudolikelihood =  -25741013  (not concave)
+Iteration 238: log pseudolikelihood =  -25741013  (not concave)
+Iteration 239: log pseudolikelihood =  -25741013  (not concave)
+Iteration 240: log pseudolikelihood =  -25741013  (not concave)
+Iteration 241: log pseudolikelihood =  -25741013  (not concave)
+Iteration 242: log pseudolikelihood =  -25741013  (not concave)
+Iteration 243: log pseudolikelihood =  -25741013  (not concave)
+Iteration 244: log pseudolikelihood =  -25741013  (not concave)
+Iteration 245: log pseudolikelihood =  -25741013  (not concave)
+Iteration 246: log pseudolikelihood =  -25741013  (not concave)
+Iteration 247: log pseudolikelihood =  -25741013  (not concave)
+Iteration 248: log pseudolikelihood =  -25741013  (not concave)
+Iteration 249: log pseudolikelihood =  -25741013  (not concave)
+Iteration 250: log pseudolikelihood =  -25741013  (not concave)
+Iteration 251: log pseudolikelihood =  -25741013  (not concave)
+Iteration 252: log pseudolikelihood =  -25741013  (not concave)
+Iteration 253: log pseudolikelihood =  -25741013  (not concave)
+Iteration 254: log pseudolikelihood =  -25741013  (not concave)
+Iteration 255: log pseudolikelihood =  -25741013  (not concave)
+Iteration 256: log pseudolikelihood =  -25741013  (not concave)
+Iteration 257: log pseudolikelihood =  -25741013  (not concave)
+Iteration 258: log pseudolikelihood =  -25741013  (not concave)
+Iteration 259: log pseudolikelihood =  -25741013  (not concave)
+Iteration 260: log pseudolikelihood =  -25741013  (not concave)
+Iteration 261: log pseudolikelihood =  -25741013  (not concave)
+Iteration 262: log pseudolikelihood =  -25741013  (not concave)
+Iteration 263: log pseudolikelihood =  -25741013  (not concave)
+Iteration 264: log pseudolikelihood =  -25741013  (not concave)
+Iteration 265: log pseudolikelihood =  -25741013  (not concave)
+Iteration 266: log pseudolikelihood =  -25741013  (not concave)
+Iteration 267: log pseudolikelihood =  -25741013  (not concave)
+Iteration 268: log pseudolikelihood =  -25741013  (not concave)
+Iteration 269: log pseudolikelihood =  -25741013  (not concave)
+Iteration 270: log pseudolikelihood =  -25741013  (not concave)
+Iteration 271: log pseudolikelihood =  -25741013  (not concave)
+Iteration 272: log pseudolikelihood =  -25741013  (not concave)
+Iteration 273: log pseudolikelihood =  -25741013  (not concave)
+Iteration 274: log pseudolikelihood =  -25741013  (not concave)
+Iteration 275: log pseudolikelihood =  -25741013  (not concave)
+Iteration 276: log pseudolikelihood =  -25741013  (not concave)
+Iteration 277: log pseudolikelihood =  -25741013  (not concave)
+Iteration 278: log pseudolikelihood =  -25741013  (not concave)
+Iteration 279: log pseudolikelihood =  -25741013  (not concave)
+Iteration 280: log pseudolikelihood =  -25741013  (not concave)
+Iteration 281: log pseudolikelihood =  -25741013  (not concave)
+Iteration 282: log pseudolikelihood =  -25741013  (not concave)
+Iteration 283: log pseudolikelihood =  -25741013  (not concave)
+Iteration 284: log pseudolikelihood =  -25741013  (not concave)
+Iteration 285: log pseudolikelihood =  -25741013  (not concave)
+Iteration 286: log pseudolikelihood =  -25741013  (not concave)
+Iteration 287: log pseudolikelihood =  -25741013  (not concave)
+Iteration 288: log pseudolikelihood =  -25741013  (not concave)
+Iteration 289: log pseudolikelihood =  -25741013  (not concave)
+Iteration 290: log pseudolikelihood =  -25741013  (not concave)
+Iteration 291: log pseudolikelihood =  -25741013  (not concave)
+Iteration 292: log pseudolikelihood =  -25741013  (not concave)
+Iteration 293: log pseudolikelihood =  -25741013  (not concave)
+Iteration 294: log pseudolikelihood =  -25741013  (not concave)
+Iteration 295: log pseudolikelihood =  -25741013  (not concave)
+Iteration 296: log pseudolikelihood =  -25741013  (not concave)
+Iteration 297: log pseudolikelihood =  -25741013  (not concave)
+Iteration 298: log pseudolikelihood =  -25741013  (not concave)
+Iteration 299: log pseudolikelihood =  -25741013  (not concave)
+Iteration 300: log pseudolikelihood =  -25741013  (not concave)
+convergence not achieved
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(7)  =      .
+Log pseudolikelihood = -25741013                        Prob > chi2   =      .
+
+--------------------------------------------------------------------------------------
+                     |               Robust
+                     | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+---------------------+----------------------------------------------------------------
+housing_burden       |
+         credit_type |
+     Vay Kinh doanh  |   .2895188   .5343492     0.54   0.588    -.7577865    1.336824
+Vay Tieu dung/Nha o  |  -.2020644   .5267369    -0.38   0.701     -1.23445     .830321
+            Vay Moi  |  -1.317219          .        .       .            .           .
+            Hon hop  |   .0630464   .5604196     0.11   0.910    -1.035356    1.161449
+                     |
+           ln_income |  -3.207354   .2345332   -13.68   0.000    -3.667031   -2.747678
+             tsnguoi |  -.8607352   .0495756   -17.36   0.000    -.9579016   -.7635688
+          collateral |   1.249958   .4858575     2.57   0.010     .2976952    2.202222
+     1.credit_access |  -.0006145   .6427125    -0.00   0.999    -1.260308    1.259079
+               _cons |   44.74024   2.524381    17.72   0.000     39.79254    49.68794
+---------------------+----------------------------------------------------------------
+credit_access        |
+           ln_income |   .3072201    .035248     8.72   0.000     .2381353    .3763049
+          collateral |  -.1474925   .1167508    -1.26   0.206    -.3763199    .0813349
+         peer_effect |   2.410391   .0527933    45.66   0.000     2.306919    2.513864
+      social_network |   .3394511   .0365596     9.28   0.000     .2677957    .4111066
+               _cons |  -4.735487   .3764643   -12.58   0.000    -5.473344   -3.997631
+---------------------+----------------------------------------------------------------
+             /athrho |  -.0232025   .0353658    -0.66   0.512    -.0925182    .0461132
+            /lnsigma |   1.876658   .0303628    61.81   0.000     1.817148    1.936168
+---------------------+----------------------------------------------------------------
+                 rho |  -.0231983   .0353468                     -.0922551    .0460806
+               sigma |   6.531641   .1983186                      6.154283    6.932137
+              lambda |  -.1515231   .2306105                     -.6035114    .3004653
+--------------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.43   Prob > chi2 = 0.5118
+convergence not achieved
+r(430);
+
+end of do-file
+
+r(430);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 3. QUANTILE REGRESSION (Full Distribution) ====================== */
+. qreg housing_burden credit_access ln_income tsnguoi collateral, quantile(0.10 0.25 0.50 0.75 0.
+> 90) vce(robust)
+options quantile(0.10, 0.25 0.50 0.75 0.90) are not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 4. ADDITIONAL ROBUSTNESS (Province FE + Winsorize) ==================
+> ==== */
+. * Province Fixed Effects
+. eststo Rob_FE: etregress housing_burden ln_income tsnguoi collateral i.tinh [pw=wt45], ///
+>     treat(credit_access = ln_income collateral i.tinh peer_effect social_network) vce(cluster t
+> inh)
+tinh:  string variables may not be used as factor variables
+r(109);
+
+end of do-file
+
+r(109);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 5. POLICY SIMULATION (Counterfactual) ====================== */
+. * Giả định: Nếu chuyển sang nhà ở xã hội cho thuê → giảm collateral effect
+. predict xb_hat, xb
+
+. gen sim_social_rent = xb_hat - _b[collateral]*collateral   // loại bỏ bẫy tài sản
+
+. 
+. sum housing_burden sim_social_rent if quintile <= 2
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+housing_bu~n |      7,120    6.953553    7.070726          0   99.09775
+sim_social~t |      7,155    7.613356    1.999889  -2.310417   20.83759
+
+. local reduction = r(mean1) - r(mean2)
+
+. display "=== POLICY IMPACT: Nếu áp dụng nhà ở xã hội cho thuê cho Missing Middle (Q1-Q2) ==="
+=== POLICY IMPACT: Nếu áp dụng nhà ở xã hội cho thuê cho Missing Middle (Q1-Q2) ===
+
+. display "Giảm trung bình gánh nặng nhà ở: " %4.2f `reduction' " percentage points"
+Giảm trung bình gánh nặng nhà ở:    . percentage points
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. * Bảng Policy Simulation
+. estpost ttest housing_burden == sim_social_rent if quintile <= 2
+== invalid name
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 6. OLS vs ETREGRESS SO SÁNH (để giải thích Wald test) ===============
+> ======= */
+. eststo OLS: regress housing_burden credit_access ln_income tsnguoi collateral [pw=wt45], vce(ro
+> bust)
+(sum of wgt is 6,770,260)
+
+Linear regression                               Number of obs     =     10,246
+                                                F(4, 10241)       =     118.23
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0806
+                                                Root MSE          =     6.5348
+
+-------------------------------------------------------------------------------
+              |               Robust
+housing_bur~n | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+credit_access |  -.2282496   .1526332    -1.50   0.135    -.5274405    .0709414
+    ln_income |  -3.164513   .2264511   -13.97   0.000    -3.608402   -2.720625
+      tsnguoi |  -.8517388   .0495319   -17.20   0.000     -.948831   -.7546466
+   collateral |   1.202878   .4825284     2.49   0.013     .2570278    2.148728
+        _cons |    44.3386   2.473771    17.92   0.000     39.48953    49.18768
+-------------------------------------------------------------------------------
+
+. 
+. esttab OLS Main using "$path\Table_OLS_vs_ETREGRESS.tex", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     mtitle("OLS" "ETREGRESS") booktabs ///
+>     title("Comparison: OLS vs Endogenous Treatment Effects")    
+estimation result Main not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* =====================================================
+>    ADVANCE Q1 - HOÀN THIỆN & TỐI ƯU (28/02/2026)
+>    Data: Ho_Heckman_Model_updated.dta
+>    ===================================================== */
+. 
+. use "Ho_Heckman_Model_updated.dta", clear
+
+. eststo clear
+
+. 
+. display "=== ADVANCE Q1 - ĐÃ FIX TOÀN BỘ LỖI & THÊM ĐỒ THỊ HN - HCM ==="
+=== ADVANCE Q1 - ĐÃ FIX TOÀN BỘ LỖI & THÊM ĐỒ THỊ HN - HCM ===
+
+. 
+. /* ====================== 1. HETEROGENEITY ANALYSIS ====================== */
+. eststo Het_Q: etregress housing_burden i.credit_access##i.quintile ln_income tsnguoi collateral
+>  edu_head age_head informal ///
+>     [pw=wt45], treat(credit_access = ln_income collateral informal edu_head age_head peer_effec
+> t social_network) ///
+>     vce(robust) iterate(500)
+
+Iteration 0:   log pseudolikelihood =  -25685184  
+Iteration 1:   log pseudolikelihood =  -25685184  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(11) = 567.67
+Log pseudolikelihood = -25685184                        Prob > chi2   = 0.0000
+
+----------------------------------------------------------------------------------------
+                       |               Robust
+                       | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-----------------------+----------------------------------------------------------------
+housing_burden         |
+       1.credit_access |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+                       |
+              quintile |
+                    2  |  -.4889736   .4295247    -1.14   0.255    -1.330826    .3528793
+                    3  |   .4831713   .5644641     0.86   0.392     -.623158    1.589501
+                       |
+credit_access#quintile |
+                  1 2  |   -.009031   .3770895    -0.02   0.981    -.7481129    .7300508
+                  1 3  |  -.8369956   .3941798    -2.12   0.034    -1.609574   -.0644174
+                       |
+             ln_income |  -3.568983   .5427577    -6.58   0.000    -4.632769   -2.505198
+               tsnguoi |  -.9012057   .0505943   -17.81   0.000    -1.000369   -.8020427
+            collateral |   1.063834    .482836     2.20   0.028     .1174929    2.010175
+              edu_head |   .0807578   .0191346     4.22   0.000     .0432546     .118261
+              age_head |  -.0297357   .0064309    -4.62   0.000    -.0423401   -.0171313
+              informal |    -1.9981   .2567756    -7.78   0.000    -2.501371   -1.494829
+                 _cons |   49.91537   5.571742     8.96   0.000     38.99496    60.83578
+-----------------------+----------------------------------------------------------------
+credit_access          |
+             ln_income |   .3062906   .0368935     8.30   0.000     .2339806    .3786006
+            collateral |  -.1367662   .1167361    -1.17   0.241    -.3655647    .0920323
+              informal |   .1584451   .0531563     2.98   0.003     .0542607    .2626294
+              edu_head |   .0017488   .0040587     0.43   0.667     -.006206    .0097037
+              age_head |   -.001494   .0012176    -1.23   0.220    -.0038805    .0008925
+           peer_effect |   2.416456   .0530596    45.54   0.000     2.312462    2.520451
+        social_network |   .3352065   .0374151     8.96   0.000     .2618741    .4085388
+                 _cons |  -4.672644   .3986913   -11.72   0.000    -5.454065   -3.891224
+-----------------------+----------------------------------------------------------------
+               /athrho |  -.0029804   .0298385    -0.10   0.920    -.0614627    .0555019
+              /lnsigma |   1.868884   .0307601    60.76   0.000     1.808596    1.929173
+-----------------------+----------------------------------------------------------------
+                   rho |  -.0029804   .0298382                     -.0613855     .055445
+                 sigma |   6.481061    .199358                      6.101871    6.883814
+                lambda |  -.0193161   .1933441                     -.3982635    .3596313
+----------------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.01   Prob > chi2 = 0.9204
+
+. 
+. margins, dydx(credit_access) at(quintile=(1 2 3))
+
+Average marginal effects                                Number of obs = 10,246
+Model VCE: Robust
+
+Expression: Linear prediction, predict()
+dy/dx wrt:  1.credit_access
+1._at: quintile = 1
+2._at: quintile = 2
+3._at: quintile = 3
+
+----------------------------------------------------------------------------------
+                 |            Delta-method
+                 |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+0.credit_access  |  (base outcome)
+-----------------+----------------------------------------------------------------
+1.credit_access  |
+             _at |
+              1  |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+              2  |   .0861144   .3114025     0.28   0.782    -.5242234    .6964522
+              3  |  -.7418501   .3323281    -2.23   0.026    -1.393201   -.0904991
+----------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. marginsplot, title("Fig 8: Marginal Effect of Credit Access by Income Quintile") ///
+>     ytitle("Average Marginal Effect on Housing Burden (%)") ///
+>     note("Source: Authors' calculation from VHLSS 2024") ///
+>     graph export "$path\figures\fig8_hetero_marginal.png", replace width(2200)
+invalid 'replace' 
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. margins, dydx(credit_access) at(quintile=(1 2 3))
+
+Average marginal effects                                Number of obs = 10,246
+Model VCE: Robust
+
+Expression: Linear prediction, predict()
+dy/dx wrt:  1.credit_access
+1._at: quintile = 1
+2._at: quintile = 2
+3._at: quintile = 3
+
+----------------------------------------------------------------------------------
+                 |            Delta-method
+                 |      dy/dx   std. err.      z    P>|z|     [95% conf. interval]
+-----------------+----------------------------------------------------------------
+0.credit_access  |  (base outcome)
+-----------------+----------------------------------------------------------------
+1.credit_access  |
+             _at |
+              1  |   .0951454    .385088     0.25   0.805    -.6596133    .8499041
+              2  |   .0861144   .3114025     0.28   0.782    -.5242234    .6964522
+              3  |  -.7418501   .3323281    -2.23   0.026    -1.393201   -.0904991
+----------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. marginsplot, title("Fig 8: Marginal Effect of Credit Access by Income Quintile") ///
+>     ytitle("Average Marginal Effect on Housing Burden (%)") ///
+>     note("Source: Authors' calculation from VHLSS 2024") ///
+>     graph export "$path\figures\fig8_hetero_marginal.png", replace width(2200)
+invalid 'replace' 
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. esttab Het_Q using "$path\Table_Heterogeneity.tex", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     keep(1.credit_access 1.credit_access#2.quintile 1.credit_access#3.quintile) ///
+>     mtitle("Heterogeneity by Quintile") booktabs title("Heterogeneous Treatment Effects")
+(file \Table_Heterogeneity.tex not found)
+(output written to \Table_Heterogeneity.tex)
+
+. 
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 2. MECHANISM ANALYSIS ====================== */
+. eststo Mech_B: etregress housing_burden i.credit_type ln_income tsnguoi collateral edu_head age
+> _head informal ///
+>     if credit_access == 1 [pw=wt45], ///
+>     treat(credit_access = ln_income collateral peer_effect social_network) vce(robust) iterate(
+> 1000)
+treatments do not vary
+r(2000);
+
+end of do-file
+
+r(2000);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 3. QUANTILE REGRESSION ====================== */
+. eststo clear
+
+. forvalues q = 10(15)90 {
+  2.     quietly qreg housing_burden credit_access ln_income tsnguoi collateral, quantile(`q') vc
+> e(robust)
+  3.     eststo Q`q'
+  4. }
+
+. esttab Q10 Q25 Q50 Q75 Q90 using "$path\Table_Quantile.tex", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) ///
+>     mtitle("Q10" "Q25" "Q50" "Q75" "Q90") booktabs title("Quantile Regression - Housing Burden"
+> )
+estimation result Q50 not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 4. ADDITIONAL ROBUSTNESS ====================== */
+. encode tinh, gen(tinh_num)   // Fix lỗi string variable
+
+. eststo Rob_FE: etregress housing_burden ln_income tsnguoi collateral i.tinh_num [pw=wt45], ///
+>     treat(credit_access = ln_income collateral i.tinh_num peer_effect social_network) vce(clust
+> er tinh_num)
+
+Iteration 0:   log pseudolikelihood =  -25386460  
+Iteration 1:   log pseudolikelihood =  -25386457  
+
+Linear regression with endogenous treatment             Number of obs = 10,246
+Estimator: Maximum likelihood                           Wald chi2(3)  =      .
+Log pseudolikelihood = -25386457                        Prob > chi2   =      .
+
+                                 (Std. err. adjusted for 63 clusters in tinh_num)
+---------------------------------------------------------------------------------
+                |               Robust
+                | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+housing_burden  |
+      ln_income |  -4.150215    .381125   -10.89   0.000    -4.897206   -3.403224
+        tsnguoi |  -.8200151   .0694154   -11.81   0.000    -.9560668   -.6839634
+     collateral |  -.9585729   .5792877    -1.65   0.098    -2.093956    .1768101
+                |
+       tinh_num |
+            02  |  -4.252736   .4127093   -10.30   0.000    -5.061631   -3.443841
+            04  |  -4.695437   .4791589    -9.80   0.000    -5.634571   -3.756303
+            06  |  -2.451133   .6022902    -4.07   0.000      -3.6316   -1.270666
+            08  |  -1.298122   .4908541    -2.64   0.008    -2.260179   -.3360658
+            10  |  -5.294682   .5203203   -10.18   0.000    -6.314491   -4.274873
+            11  |  -3.731137   .3033253   -12.30   0.000    -4.325644    -3.13663
+            12  |  -2.641905   .3957474    -6.68   0.000    -3.417556   -1.866255
+            14  |  -1.111729    .527879    -2.11   0.035    -2.146353   -.0771055
+            15  |  -1.879967   .1839375   -10.22   0.000    -2.240478   -1.519456
+            17  |  -2.362583   .3645257    -6.48   0.000     -3.07704   -1.648126
+            19  |  -2.125464   .0922073   -23.05   0.000    -2.306187   -1.944741
+            20  |  -2.991495   .4257373    -7.03   0.000    -3.825925   -2.157065
+            22  |  -.2808854   .3493348    -0.80   0.421     -.965569    .4037981
+            24  |  -1.858019   .2770807    -6.71   0.000    -2.401087    -1.31495
+            25  |  -.4530352   .2987395    -1.52   0.129    -1.038554    .1324835
+            26  |   .0713536   .0613604     1.16   0.245    -.0489106    .1916178
+            27  |  -.6471904    .036842   -17.57   0.000    -.7193993   -.5749815
+            30  |  -2.412833   .2063757   -11.69   0.000    -2.817322   -2.008344
+            31  |  -.1742136   .0387948    -4.49   0.000      -.25025   -.0981773
+            33  |  -.1619365   .3997991    -0.41   0.685    -.9455284    .6216554
+            34  |  -1.605525    .387261    -4.15   0.000    -2.364543   -.8465072
+            35  |  -3.057858   .4329454    -7.06   0.000    -3.906415     -2.2093
+            36  |  -3.502564   .4310258    -8.13   0.000    -4.347359   -2.657769
+            37  |  -.4492259   .0634869    -7.08   0.000     -.573658   -.3247938
+            38  |  -3.461889   .0635132   -54.51   0.000    -3.586372   -3.337405
+            40  |  -2.360368     .07006   -33.69   0.000    -2.497683   -2.223053
+            42  |  -1.928113   .1227409   -15.71   0.000    -2.168681   -1.687545
+            44  |  -2.770616   .1998961   -13.86   0.000    -3.162405   -2.378827
+            45  |  -2.876574   .2021705   -14.23   0.000    -3.272821   -2.480327
+            46  |  -2.758928   .1294307   -21.32   0.000    -3.012607   -2.505249
+            48  |  -1.035669   .2162246    -4.79   0.000    -1.459462    -.611877
+            49  |  -2.852195   .1424552   -20.02   0.000    -3.131402   -2.572988
+            51  |  -4.440483   .3018514   -14.71   0.000    -5.032101   -3.848865
+            52  |  -3.269637    .244043   -13.40   0.000    -3.747953   -2.791321
+            54  |  -2.897861     .43441    -6.67   0.000    -3.749289   -2.046433
+            56  |  -1.466388   .5076734    -2.89   0.004     -2.46141   -.4713667
+            58  |   -2.99501   .3747821    -7.99   0.000    -3.729569    -2.26045
+            60  |  -3.387786   .2582359   -13.12   0.000    -3.893919   -2.881653
+            62  |  -4.869931    .419107   -11.62   0.000    -5.691365   -4.048496
+            64  |  -4.211892   .4344173    -9.70   0.000    -5.063334    -3.36045
+            66  |  -2.935414   .1717089   -17.10   0.000    -3.271958   -2.598871
+            67  |  -1.413172   .2853232    -4.95   0.000    -1.972396   -.8539493
+            68  |  -3.631178    .197266   -18.41   0.000    -4.017812   -3.244543
+            70  |  -3.643266   .1336758   -27.25   0.000    -3.905266   -3.381267
+            72  |  -1.719162     .37822    -4.55   0.000    -2.460459   -.9778644
+            74  |   .1140171   .4301899     0.27   0.791    -.7291396    .9571739
+            75  |  -.5560779    .082429    -6.75   0.000    -.7176358   -.3945201
+            77  |   .2848845   .2143807     1.33   0.184     -.135294     .705063
+            79  |   2.376942   .1937146    12.27   0.000     1.997268    2.756615
+            80  |  -.7581587    .361991    -2.09   0.036    -1.467648   -.0486694
+            82  |  -1.548502   .1240129   -12.49   0.000    -1.791563   -1.305441
+            83  |  -3.119752   .4314455    -7.23   0.000     -3.96537   -2.274134
+            84  |  -.6041912   .5434955    -1.11   0.266    -1.669423    .4610404
+            86  |  -2.999633   .3180382    -9.43   0.000    -3.622977    -2.37629
+            87  |  -3.225965   .4095055    -7.88   0.000    -4.028581   -2.423349
+            89  |  -3.288318   .3801661    -8.65   0.000     -4.03343   -2.543206
+            91  |  -2.015382    .350153    -5.76   0.000    -2.701669   -1.329095
+            92  |  -2.139897   .4444438    -4.81   0.000     -3.01099   -1.268803
+            93  |  -3.886965   .4875375    -7.97   0.000    -4.842521   -2.931409
+            94  |  -2.053847   .4667365    -4.40   0.000    -2.968634    -1.13906
+            95  |  -2.269729   .4963319    -4.57   0.000    -3.242521   -1.296936
+            96  |  -1.720826   .4611918    -3.73   0.000    -2.624745   -.8169063
+                |
+1.credit_access |   -.360111   .9164816    -0.39   0.694    -2.156382     1.43616
+          _cons |   56.00986   4.471114    12.53   0.000     47.24663    64.77308
+----------------+----------------------------------------------------------------
+credit_access   |
+      ln_income |   .3269138   .0491533     6.65   0.000      .230575    .4232526
+     collateral |  -.1782402   .0760375    -2.34   0.019     -.327271   -.0292095
+                |
+       tinh_num |
+            02  |   -.276611   .0311638    -8.88   0.000     -.337691   -.2155311
+            04  |  -.2229847    .034003    -6.56   0.000    -.2896293   -.1563401
+            06  |  -.2502734   .0504563    -4.96   0.000     -.349166   -.1513808
+            08  |  -.3163913   .0447854    -7.06   0.000     -.404169   -.2286136
+            10  |  -.3266356   .0364767    -8.95   0.000    -.3981287   -.2551426
+            11  |  -.2126298   .0213701    -9.95   0.000    -.2545143   -.1707452
+            12  |  -.2211523   .0329846    -6.70   0.000     -.285801   -.1565036
+            14  |  -.3155709   .0474802    -6.65   0.000    -.4086305   -.2225114
+            15  |  -.1282999   .0106245   -12.08   0.000    -.1491236   -.1074762
+            17  |  -.2139044   .0234925    -9.11   0.000    -.2599488   -.1678599
+            19  |  -.0335575   .0086891    -3.86   0.000    -.0505878   -.0165272
+            20  |   -.241216   .0338964    -7.12   0.000    -.3076517   -.1747803
+            22  |  -.1888279   .0257779    -7.33   0.000    -.2393517   -.1383041
+            24  |  -.2036594   .0225961    -9.01   0.000     -.247947   -.1593718
+            25  |  -.1636574   .0228074    -7.18   0.000    -.2083591   -.1189558
+            26  |   .0647557   .0080414     8.05   0.000     .0489948    .0805166
+            27  |   .0809692   .0164085     4.93   0.000     .0488091    .1131294
+            30  |  -.1429615   .0132761   -10.77   0.000    -.1689821   -.1169409
+            31  |   .0482832    .006641     7.27   0.000     .0352671    .0612993
+            33  |  -.2340824   .0307201    -7.62   0.000    -.2942927    -.173872
+            34  |  -.2312035   .0330729    -6.99   0.000    -.2960252   -.1663818
+            35  |  -.1892484   .0421099    -4.49   0.000    -.2717822   -.1067145
+            36  |  -.3939459   .0309201   -12.74   0.000    -.4545482   -.3333437
+            37  |   .0431927   .0071693     6.02   0.000     .0291413    .0572442
+            38  |   .1165742   .0104752    11.13   0.000     .0960432    .1371052
+            40  |  -.0185516   .0070569    -2.63   0.009    -.0323828   -.0047204
+            42  |   .1997476   .0179733    11.11   0.000     .1645206    .2349746
+            44  |  -.0612906   .0170576    -3.59   0.000    -.0947229   -.0278583
+            45  |  -.0235568   .0139687    -1.69   0.092     -.050935    .0038214
+            46  |   .1275153    .024696     5.16   0.000     .0791119    .1759186
+            48  |   .4530547   .0307418    14.74   0.000     .3928018    .5133076
+            49  |   .0839788   .0137463     6.11   0.000     .0570366     .110921
+            51  |    .047442   .0199328     2.38   0.017     .0083744    .0865096
+            52  |   .0342883   .0184626     1.86   0.063    -.0018977    .0704743
+            54  |   .0072121   .0308999     0.23   0.815    -.0533505    .0677748
+            56  |  -.1591093   .0433244    -3.67   0.000    -.2440235    -.074195
+            58  |   .2179326    .047506     4.59   0.000     .1248226    .3110426
+            60  |  -.0608501   .0239595    -2.54   0.011    -.1078099   -.0138902
+            62  |  -.2392664   .0274353    -8.72   0.000    -.2930386   -.1854941
+            64  |  -.1444886   .0307988    -4.69   0.000    -.2048531   -.0841241
+            66  |   .0084561   .0146959     0.58   0.565    -.0203472    .0372595
+            67  |    .027203   .0211089     1.29   0.198    -.0141697    .0685757
+            68  |  -.0667076   .0166002    -4.02   0.000    -.0992434   -.0341719
+            70  |   .0592046   .0153126     3.87   0.000     .0291923    .0892168
+            72  |   .0717197    .049195     1.46   0.145    -.0247007    .1681402
+            74  |  -.0713085   .0514688    -1.39   0.166    -.1721856    .0295685
+            75  |   .0843532   .0284403     2.97   0.003     .0286113    .1400951
+            77  |  -.0120064    .016501    -0.73   0.467    -.0443478     .020335
+            79  |   -.074572   .0228522    -3.26   0.001    -.1193615   -.0297825
+            80  |   .0942963   .0490641     1.92   0.055    -.0018676    .1904603
+            82  |   .2584479   .0346977     7.45   0.000     .1904417    .3264541
+            83  |   .0147296    .052832     0.28   0.780    -.0888192    .1182785
+            84  |   .1043229   .0459743     2.27   0.023      .014215    .1944309
+            86  |   .1219831   .0323319     3.77   0.000     .0586137    .1853525
+            87  |   .0644277   .0523622     1.23   0.219    -.0382004    .1670558
+            89  |   .1091972   .0451454     2.42   0.016     .0207139    .1976805
+            91  |    .087349   .0470418     1.86   0.063    -.0048512    .1795492
+            92  |  -.0770595   .0499712    -1.54   0.123    -.1750012    .0208822
+            93  |     .05171   .0516852     1.00   0.317    -.0495912    .1530112
+            94  |   .1376203    .055753     2.47   0.014     .0283465     .246894
+            95  |  -.2327082   .0460746    -5.05   0.000    -.3230128   -.1424036
+            96  |   -.117947   .0368442    -3.20   0.001    -.1901603   -.0457337
+                |
+    peer_effect |   2.273705   .1122089    20.26   0.000     2.053779     2.49363
+ social_network |   .4167553    .058732     7.10   0.000     .3016428    .5318679
+          _cons |  -4.910772    .493227    -9.96   0.000    -5.877479   -3.944065
+----------------+----------------------------------------------------------------
+        /athrho |   .0153859   .0762586     0.20   0.840    -.1340782      .16485
+       /lnsigma |    1.82791   .0434461    42.07   0.000     1.742757    1.913063
+----------------+----------------------------------------------------------------
+            rho |   .0153847   .0762405                     -.1332805    .1633727
+          sigma |   6.220871   .2702729                      5.713073    6.773804
+         lambda |    .095706   .4769064                     -.8390134    1.030425
+---------------------------------------------------------------------------------
+Wald test of indep. eqns. (rho = 0): chi2(1) =     0.04   Prob > chi2 = 0.8401
+
+. 
+. winsor2 housing_burden, cuts(1 99) replace
+
+. eststo Rob_Win: etregress housing_burden ln_income tsnguoi collateral [pw=wt45], ///
+>     treat(credit_access = ln_income coile <= 2
+) required
+r(100);
+
+end of do-file
+
+r(100);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 5. POLICY SIMULATION ====================== */
+. predict xb_hat, xb
+
+. gen sim_social_rent = xb_hat - _b[collateral]*collateral if e(sample)
+(40 missing values generated)
+
+. 
+. sum housing_burden if quintile <= 2
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+housing_bu~n |      7,120    6.754511    5.672867   .9745361    34.0694
+
+. local mean1 = r(mean)
+
+. sum sim_social_rent if quintile <= 2
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+sim_social~t |      7,120      7.0793    2.693286  -2.236288   21.74318
+
+. local mean2 = r(mean)
+
+. local reduction = `mean1' - `mean2'
+
+. 
+. display "=== POLICY IMPACT: Nhà ở xã hội cho thuê giảm " %4.2f `reduction' " pp gánh nặng cho M
+> issing Middle ==="
+=== POLICY IMPACT: Nhà ở xã hội cho thuê giảm -0.32 pp gánh nặng cho Missing Middle ===
+
+. 
+. estpost ttest housing_burden == sim_social_rent if quintile <= 2
+== invalid name
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 6. OLS vs ETREGRESS ====================== */
+. eststo OLS: regress housing_burden credit_access ln_income tsnguoi collateral [pw=wt45], vce(ro
+> bust)
+(sum of wgt is 6,770,260)
+
+Linear regression                               Number of obs     =     10,246
+                                                F(4, 10241)       =     177.81
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0959
+                                                Root MSE          =     5.4877
+
+-------------------------------------------------------------------------------
+              |               Robust
+housing_bur~n | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+credit_access |  -.2221561   .1360902    -1.63   0.103    -.4889195    .0446073
+    ln_income |  -2.804261   .1677521   -16.72   0.000    -3.133088   -2.475435
+      tsnguoi |  -.8122692   .0413018   -19.67   0.000    -.8932289   -.7313095
+   collateral |   1.227224   .4361778     2.81   0.005     .3722306    2.082218
+        _cons |   40.15155   1.810181    22.18   0.000     36.60324    43.69986
+-------------------------------------------------------------------------------
+
+. esttab OLS Main using "$path\Table_OLS_vs_ETREGRESS.tex", replace ///
+>     b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) mtitle("OLS" "ETREGRESS") booktabs
+estimation result Main not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* ====================== 7. ĐỒ THỊ SO SÁNH TP. HÀ NỘI & TP. HỒ CHÍ MINH ======================
+>  */
+. gen major_city = ""
+(10,286 missing values generated)
+
+. replace major_city = "Hanoi" if tinh == "01" | matinh == "01"
+variable major_city was str1 now str5
+(451 real changes made)
+
+. replace major_city = "HCMC"  if tinh == "79" | matinh == "79"
+(748 real changes made)
+
+. label var major_city "TP. Hà Nội & TP. Hồ Chí Minh"
+
+. 
+. /* Fig 9: Boxplot Housing Burden by Credit Access - Hanoi vs HCMC */
+. graph box housing_burden, over(credit_access) over(major_city) ///
+>     title("Fig 9: Housing Burden by Credit Access in Hanoi & Ho Chi Minh City") ///
+>     ytitle("Housing Burden (% of Income)") ///
+>     note("Source: VHLSS 2024") ///
+>     graph export "$path\figures\fig9_hn_hcmc_boxplot.png", replace width(2200)
+invalid 'replace' 
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* Fig 9: Boxplot Housing Burden by Credit Access - Hanoi vs HCMC */
+. graph box housing_burden, over(credit_access) over(major_city) ///
+>     title("Fig 9: Housing Burden by Credit Access in Hanoi & Ho Chi Minh City") ///
+>     ytitle("Housing Burden (% of Income)") ///
+>     note("Source: VHLSS 2024") ///
+
+end of do-file
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* Fig 9: Boxplot Housing Burden by Credit Access - Hanoi vs HCMC */
+. graph box housing_burden, over(credit_access) over(major_city) ///
+>     title("Fig 9: Housing Burden by Credit Access in Hanoi & Ho Chi Minh City") ///
+>     ytitle("Housing Burden (% of Income)") ///
+>     note("Source: VHLSS 2024") ///
+>     graph export "$path\figures\fig9_hn_hcmc_boxplot.png", replace width(2200)
+invalid 'replace' 
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* Fig 10: Mean Housing Burden by Quintile & Credit - Two Cities */
+. graph bar (mean) housing_burden, over(quintile) over(credit_access) over(major_city) ///
+>     title("Fig 10: Housing Burden by Income Quintile & Credit Access") ///
+>     ytitle("Average Housing Burden (%)") ///
+>     note("Source: VHLSS 2024") ///
+>     graph export "$path\figures\fig10_hn_hcmc_bar.png", replace width(2200)
+invalid 'replace' 
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. /* =====================================================
+>    ADVANCE Q1 - HOÀN THIỆN & TỐI ƯU (28/02/2026)
+>    Data: Ho_Heckman_Model_updated.dta
+>    ===================================================== */
+. 
+. clear all
+
+. set more off
+
+. set scheme s2color
+
+. 
+. /* ================= PATH SETUP ================= */
+. 
+. global root "D:\01. HOC HANH\13. THAC SI UEH\08. ĐĂNG KÝ ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP THẠC SĨ\Kho
+> ảng trống chính sách tín dụng nhà ở cho người thu nhập thấp\01. de cuong & bai viet"
+
+. 
+. global fig  "$root\figures"
+
+. global tab  "$root\tables"
+
+. 
+. /* ================= LOAD DATA ================= */
+. 
+. use "Ho_Heckman_Model_updated.dta", clear
+
+. eststo clear
+
+. 
+. display "=== RUNNING ADVANCED MODEL ==="
+=== RUNNING ADVANCED MODEL ===
+
+. 
+. ----------------------------------------------------
+- is not a valid command name
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. ----------------------------------------------------
+- is not a valid command name
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. ----------------------------------------------------
+- is not a valid command name
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. //* =====================================================
+.    ADVANCE Q1 - HETEROGENEITY, MECHANISM, & SPATIAL
+command ADVANCE is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\Admin\AppData\Local\Temp\STD4f64_000000.tmp"
+
+. *******************************************************
+. * FILE NAME : KHOẢNG TRỐNG TÍN DỤNG NHÀ Ở (MISSING MIDDLE)
+. * PROJECT   : Housing Credit Constraint & Welfare
+. * DATA      : VHLSS 2024
+. * METHOD    : Heckman Selection Model (FIML) with Survey Weights
+. * OPTIMIZED : Clean data flow, fixed merges, unified IDs
+. *******************************************************
+. 
+. clear all
+
+. set more off
+
+. capture log close

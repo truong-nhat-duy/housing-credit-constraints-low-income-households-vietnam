@@ -1,0 +1,22 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Ma trận tương quan Pearson}
+\begin{tabular}{l*{9}{c}}
+\toprule
+          &\multicolumn{9}{c}{(1)}                                                                                                                                                   \\
+          &\multicolumn{9}{c}{}                                                                                                                                                      \\
+          &housing\_burden         &credit\_access         &ln\_income         &  tsnguoi         &collateral         & edu\_head         & age\_head         &peer\_effect         &social\_network         \\
+\midrule
+housing\_burden&    1.000         &                  &                  &                  &                  &                  &                  &                  &                  \\
+credit\_access&   -0.055\sym{***}&    1.000         &                  &                  &                  &                  &                  &                  &                  \\
+ln\_income &   -0.219\sym{***}&    0.167\sym{***}&    1.000         &                  &                  &                  &                  &                  &                  \\
+tsnguoi   &   -0.192\sym{***}&    0.152\sym{***}&   -0.029\sym{***}&    1.000         &                  &                  &                  &                  &                  \\
+collateral&    0.029\sym{***}&    0.001         &    0.027\sym{***}&   -0.034\sym{***}&    1.000         &                  &                  &                  &                  \\
+edu\_head  &    0.001         &    0.120\sym{***}&    0.296\sym{***}&    0.072\sym{***}&    0.043\sym{***}&    1.000         &                  &                  &                  \\
+age\_head  &    0.034\sym{***}&   -0.025\sym{**} &   -0.099\sym{***}&   -0.165\sym{***}&    0.014         &   -0.269\sym{***}&    1.000         &                  &                  \\
+peer\_effect&   -0.012         &    0.531\sym{***}&    0.141\sym{***}&    0.049\sym{***}&    0.012         &    0.140\sym{***}&    0.017\sym{*}  &    1.000         &                  \\
+social\_network&   -0.065\sym{***}&    0.199\sym{***}&    0.137\sym{***}&    0.082\sym{***}&    0.030\sym{***}&    0.235\sym{***}&   -0.010         &    0.213\sym{***}&    1.000         \\
+\bottomrule
+\multicolumn{10}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
